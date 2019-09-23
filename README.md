@@ -1,4 +1,4 @@
-# Full Stack Frameworks with Django
+# Full Stack Frameworks with Django [![Build Status](https://travis-ci.org/STEPLADD3R/full-stack-frameworks-with-django.svg?branch=master)](https://travis-ci.org/STEPLADD3R/full-stack-frameworks-with-django)
 ## By Stuart Green 
 
 ### Project Overview
