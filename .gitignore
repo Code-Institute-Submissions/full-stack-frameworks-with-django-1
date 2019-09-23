@@ -1,0 +1,21 @@
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media
+
+# Backup files
+*.bak
+
+# Python Files
+*.py[cod] 
+*$py.class
+
+# Sublime Text
+*.tmlanguage.cache 
+*.tmPreferences.cache 
+*.stTheme.cache 
+*.sublime-workspace 
+*.sublime-project
