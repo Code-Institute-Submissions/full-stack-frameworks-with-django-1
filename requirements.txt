@@ -1,4 +1,7 @@
 Django==2.2.4
+django-sass==0.2.0
+libsass==0.19.2
 mysqlclient==1.4.4
 pytz==2019.2
+six==1.12.0
 sqlparse==0.3.0
