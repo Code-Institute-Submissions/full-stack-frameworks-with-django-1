@@ -9503,6 +9503,10 @@ body {
   color: #fff;
 }
 
+#sidebar-wrapper .sidebar-logo a {
+  color: #fff;
+}
+
 #sidebar-wrapper .sidebar-nav {
   position: sticky;
   top: 0;
@@ -9697,17 +9701,17 @@ a:hover {
 }
 
 #accordion.accordion__critical .card {
-  background-color: #e0b83f;
+  background-color: #e33c1e;
 }
 
 #accordion.accordion__high .card {
-  background-color: #e0b83f;
+  background-color: #f68428;
 }
 
 #accordion.accordion__medium .card {
-  background-color: #e0b83f;
+  background-color: #354056;
 }
 
 #accordion.accordion__low .card {
-  background-color: #e0b83f;
+  background-color: #6e6e71;
 }

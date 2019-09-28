@@ -19,6 +19,10 @@ body {
         max-height: 90px;
         background-color: $primary;
         color: $white;
+
+        a {
+            color: $white;
+        }
     }
 
     .sidebar-nav {

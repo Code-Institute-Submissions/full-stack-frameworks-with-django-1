@@ -5,7 +5,7 @@ from django.shortcuts import render
 """
 def home_view(request):
     meta = {
-        'title': 'This is the homepage',
+        'title': 'Issue Tracker',
     }
     context = {
         'meta': meta,
