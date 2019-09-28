@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django_sass',
     # Custom Apps
     'pages.apps.PagesConfig',
+    'bugs.apps.BugsConfig',
+    'features.apps.FeaturesConfig',
 ]
 
 MIDDLEWARE = [
