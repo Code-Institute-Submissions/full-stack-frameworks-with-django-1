@@ -1,0 +1,70 @@
+#accordion {
+    .card {
+        border: 0;
+        border-radius: 0;
+        background-color: #e0b83f;
+        cursor: pointer;
+
+        &-header {
+            border: 0;
+            padding: 1.5rem;
+
+            &:first-child {
+                border-radius: 0;
+            }
+
+            h5 {
+                color: $white;
+                letter-spacing: 0.5px;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+        }
+    }
+
+    .list-group {
+        &-item {
+            padding: 1.5rem;
+            border: 0;
+            background-color: $secondary;
+
+            &:hover,
+            &:focus {
+                background-color: $secondary;
+            }
+
+            &:nth-child(even) {
+                background-color: $white;
+
+                &:hover,
+                &:focus {
+                    background-color: $white;
+                }
+            }
+        }
+    }
+
+    &.accordion__critical {
+        .card {
+            background-color: #e0b83f;
+        }
+    }
+
+    &.accordion__high {
+        .card {
+            background-color: #e0b83f;
+        }
+    }
+
+    &.accordion__medium {
+        .card {
+            background-color: #e0b83f;
+        }
+    }
+
+    &.accordion__low {
+        .card {
+            background-color: #e0b83f;
+        }
+    }
+}

@@ -1,0 +1,72 @@
+.site-footer {
+    background-color: $secondary;
+
+    .container-fluid  {
+        .row {
+            .col-lg-3 {
+                padding: 3rem;
+
+                &:nth-of-type(2),
+                &:nth-of-type(3) {
+                    padding-bottom: 0;
+                }
+
+                h5 {
+                    &.footer__title {
+                        text-transform: uppercase;
+                        font-weight: 500;
+                    }
+                }
+
+                p {
+                    &:last-of-type {
+                        margin-bottom: 0;
+                        padding-bottom: 0;
+                    }
+                }
+                
+                &:first-of-type {
+                    background-color: $primary;
+                    color: #fff;
+                    
+                    .footer__ul {
+                        li {
+                            display: inline-block;
+                            
+                            a {
+                                color: #fff;
+                                
+                                &:hover {
+                                    border-bottom: 1px dashed rgba(255,255,255,0.45);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .footer__ul  {
+                    padding: 0;
+                    margin: 0;
+                    list-style-type: none;
+                    
+                    li {
+                        padding: 0 0 8px 8px;
+                        text-transform: capitalize;
+                        font-weight: 400;
+                        
+                        a {
+                            color: #303030;
+                            text-decoration: none;
+                            padding-bottom: 4px;
+                            transition: $transition-base;
+                            
+                            &:hover {
+                                border-bottom: 1px dashed rgba(48,48,48,0.45);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

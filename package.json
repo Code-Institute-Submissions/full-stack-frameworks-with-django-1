@@ -1,0 +1,22 @@
+{
+  "name": "full-stack-frameworks",
+  "version": "1.0.0",
+  "description": "Project for the 'Full Stack Frameworks' module of the Code Institute course, by Stuart Green.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/STEPLADD3R/full-stack-frameworks-with-django.git"
+  },
+  "author": "Stuart Green",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/STEPLADD3R/full-stack-frameworks-with-django/issues"
+  },
+  "homepage": "https://github.com/STEPLADD3R/full-stack-frameworks-with-django#readme",
+  "dependencies": {
+    "bootstrap": "^4.3.1"
+  }
+}

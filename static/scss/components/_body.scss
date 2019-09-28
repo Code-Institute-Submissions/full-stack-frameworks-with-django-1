@@ -1,0 +1,9 @@
+#page-content-wrapper {
+    background-color: $secondary;
+}
+
+a {
+    &:hover {
+        text-decoration: none;
+    }
+}

@@ -19,3 +19,7 @@ media
 *.stTheme.cache 
 *.sublime-workspace 
 *.sublime-project
+
+# Node
+node_modules
+package-lock.json
