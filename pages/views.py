@@ -1,9 +1,9 @@
 from django.shortcuts import render
 
-"""
-    View for the homepage of the web app
-"""
 def home_view(request):
+    """
+        View for the homepage of the web app
+    """
     meta = {
         'title': 'Issue Tracker',
     }
