@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 from .models import Bug, Comment
 from .forms import BugForm, CommentForm
 
@@ -11,6 +12,7 @@ def get_bugs_view(request):
     """
     bugs = {
         'all': Bug.objects.filter(status='IP'),
+        # 'users': Bug.objects.filter(author_id=request.user, status='IP'),
         'critical': Bug.objects.filter(priority='CRITICAL', status='IP'),
         'high': Bug.objects.filter(priority='HIGH', status='IP'),
         'medium': Bug.objects.filter(priority='MEDIUM', status='IP'),
@@ -20,6 +22,21 @@ def get_bugs_view(request):
         'bugs': bugs,
     }
     return render(request, 'bugs/get-bugs.html', context)
+
+
+@login_required
+def get_user_bugs_view(request):
+    """
+        View that returns a list of
+        Bugs that a user has published
+    """
+    bugs = {
+        'users': Bug.objects.filter(author_id=request.user, status='IP'),
+    }
+    context = {
+        'bugs': bugs,
+    }
+    return render(request, 'bugs/get-user-bugs.html', context)
 
 
 def bug_detail_view(request, pk):
@@ -36,6 +53,7 @@ def bug_detail_view(request, pk):
     return render(request, 'bugs/bug-detail.html', context)
 
 
+@login_required
 def create_or_edit_bug_view(request, pk=None):
     """
         View that allows either create or
@@ -54,6 +72,7 @@ def create_or_edit_bug_view(request, pk=None):
     return render(request, 'bugs/bug-form.html', {'form': form})
 
 
+@login_required
 def create_or_edit_comment_view(request, bug_pk, pk=None):
     """
         View that allows either create or

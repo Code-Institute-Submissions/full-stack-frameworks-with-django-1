@@ -51,8 +51,9 @@
                                     <span class="badge badge-primary badge-pill">{{ bug_count }}</span>
                                 </a>
                             </li>
+                            {% if user.is_authenticated %}
                             <li>
-                                <a href="#!" class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="{% url 'get-user-bugs' %}" class="list-group-item d-flex justify-content-between align-items-center">
                                     Submitted Bugs
                                     <span class="badge badge-primary badge-pill">{{ user_bug_count }}</span>
                                 </a>
@@ -60,7 +61,6 @@
                             <li>
                                 <a href="#!" class="list-group-item d-flex justify-content-between align-items-center">
                                     Saved Bugs
-                                    <span class="badge badge-primary badge-pill">2</span>
                                 </a>
                             </li>
                             <li>
@@ -68,6 +68,7 @@
                                     Add New Bug
                                 </a>
                             </li>
+                            {% endif %}
                         </ul>
                     </li>
                     <!-- Features Menu -->
@@ -80,13 +81,11 @@
                             <li>
                                 <a href="#!" class="list-group-item d-flex justify-content-between align-items-center">
                                     Submitted Features
-                                    <span class="badge badge-primary badge-pill">5</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#!" class="list-group-item d-flex justify-content-between align-items-center">
                                     Saved Features
-                                    <span class="badge badge-primary badge-pill">2</span>
                                 </a>
                             </li>
                             <li>
