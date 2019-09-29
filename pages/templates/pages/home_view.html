@@ -15,7 +15,7 @@
                     </div>
                     <div id="critical-collapse" class="collapse show" aria-labelledby="critical-heading" data-parent="#accordion">
                         <div class="list-group">
-                            {% for bug in critical_bugs %}
+                            {% for bug in bugs.critical %}
                                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="accordion__title">{{ bug.title }}</h5>
@@ -38,7 +38,7 @@
                     </div>
                     <div id="high-collapse" class="collapse show" aria-labelledby="high-heading" data-parent="#accordion">
                         <div class="list-group">
-                            {% for bug in high_bugs %}
+                            {% for bug in bugs.high %}
                                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="accordion__title">{{ bug.title }}</h5>
@@ -61,7 +61,7 @@
                     </div>
                     <div id="medium-collapse" class="collapse show" aria-labelledby="medium-heading" data-parent="#accordion">
                         <div class="list-group">
-                            {% for bug in medium_bugs %}
+                            {% for bug in bugs.medium %}
                                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="accordion__title">{{ bug.title }}</h5>
@@ -84,7 +84,7 @@
                     </div>
                     <div id="low-collapse" class="collapse show" aria-labelledby="low-heading" data-parent="#accordion">
                         <div class="list-group">
-                            {% for bug in low_bugs %}
+                            {% for bug in bugs.low %}
                                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="accordion__title">{{ bug.title }}</h5>

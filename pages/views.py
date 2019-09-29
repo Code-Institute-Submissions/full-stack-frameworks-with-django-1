@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from bugs.models import Bug
 
+
 def home_view(request):
     """
         View for the homepage of the web app
@@ -8,11 +9,14 @@ def home_view(request):
     meta = {
         'title': 'Issue Tracker',
     }
+    bugs = {
+        'critical': Bug.objects.filter(priority='CRITICAL', status='IP')[:2],
+        'high': Bug.objects.filter(priority='HIGH', status='IP')[:2],
+        'medium': Bug.objects.filter(priority='MEDIUM', status='IP')[:2],
+        'low': Bug.objects.filter(priority='LOW', status='IP')[:2],
+    }
     context = {
         'meta': meta,
-        'critical_bugs': Bug.objects.filter(priority='CRITICAL')[:2],
-        'high_bugs': Bug.objects.filter(priority='HIGH')[:2],
-        'medium_bugs': Bug.objects.filter(priority='MEDIUM')[:2],
-        'low_bugs': Bug.objects.filter(priority='LOW')[:2],
+        'bugs': bugs,
     }
     return render(request, 'pages/home_view.html', context)
