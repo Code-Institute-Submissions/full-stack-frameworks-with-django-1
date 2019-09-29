@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="profile-view">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col p-0">
+                <div id="title" class="card">
+                    <div id="title-heading" class="card-header d-flex justify-content-between">
+                        <h5 class="mb-0">Greetings, {{ user.username }}!</h5>
+                    </div>
+                </div>
+                <div class="p-4 pl-5 pr-5">
+                    <p>Further content to go here.....</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

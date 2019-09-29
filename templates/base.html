@@ -98,13 +98,13 @@
                         <ul class="list-group list-group-flush children active">
                             {% if user.is_authenticated %}
                             <li>
-                                <a href="#!" class="list-group-item d-flex justify-content-between align-items-center">
-                                    Edit Profile
+                                <a href="{% url 'user-profile' %}" class="list-group-item d-flex justify-content-between align-items-center">
+                                    View Profile
                                 </a>
                             </li>
                             <li>
                                 <a href="#!" class="list-group-item d-flex justify-content-between align-items-center">
-                                    Delete Profile
+                                    Edit Profile
                                 </a>
                             </li>
                             <li>
