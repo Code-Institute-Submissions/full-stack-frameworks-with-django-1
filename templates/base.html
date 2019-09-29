@@ -14,6 +14,7 @@
 
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" integrity="sha256-R91pD48xW+oHbpJYGn5xR0Q7tMhH4xOrWn1QqMRINtA=" crossorigin="anonymous"> <!-- Toastr | 7 KB -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous"> <!-- Font Awesome | 21 KB -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}"> <!-- Main CSS -->
 </head>
@@ -108,18 +109,18 @@
                             </li>
                             <li>
                                 <a href="#!" class="list-group-item d-flex justify-content-between align-items-center">
-                                    Logout
+                                    Log out
                                 </a>
                             </li>
                             {% else %}
                             <li>
-                                <a href="#!" class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="{% url 'user-registration' %}" class="list-group-item d-flex justify-content-between align-items-center">
                                     Register
                                 </a>
                             </li>
                             <li>
                                 <a href="#!" class="list-group-item d-flex justify-content-between align-items-center">
-                                    Login
+                                    Log in
                                 </a>
                             </li>
                             {% endif %}
@@ -198,7 +199,14 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> <!-- jQuery | 86.1 KB -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="toastr" data-tag="{{ message.tags }}" data-message="{{ message }}"></div>
+        {% endfor %}
+    {% endif %}
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> <!-- jQuery-->
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js" integrity="sha256-Hgwq1OBpJ276HUP9H3VJkSv9ZCGRGQN+JldPJ8pNcUM=" crossorigin="anonymous"></script> <!-- Toastr | 7 KB -->
     <script src="https://cdn.jsdelivr.net/npm/tether@1.4.7/dist/js/tether.min.js" integrity="sha256-4lietOiwRDBKx1goZZbRiwB06L+/bPYEGDIKZt82bgg=" crossorigin="anonymous"></script><!-- Tether | 24.5 KB -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script> <!-- Bootstrap JS | 56.7 KB -->
     <script src="{% static 'js/main.js' %}"></script> <!-- Main JS | x KB -->

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<section id="register-view">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col p-0">
+                <div id="title" class="card">
+                    <div id="title-heading" class="card-header d-flex justify-content-between">
+                        <h5 class="mb-0">Register to Issue Tracker</h5>
+                        <a href="#!" class="title__meta">Already have an account? Log In</a>
+                    </div>
+                </div>
+                <div class="pt-1 pb-1">
+                    <form method="POST" class="registration__form p-4 pl-5 pr-5">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

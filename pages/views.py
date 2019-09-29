@@ -5,6 +5,7 @@ from bugs.models import Bug
 def home_view(request):
     """
         View for the homepage of the web app
+        that pulls in recent bugs
     """
     meta = {
         'title': 'Issue Tracker',

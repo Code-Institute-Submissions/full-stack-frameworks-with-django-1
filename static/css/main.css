@@ -9719,3 +9719,25 @@ a:hover {
 #accordion.accordion__low .card {
   background-color: #6e6e71;
 }
+
+#title.card {
+  border: 0;
+  border-radius: 0;
+  background-color: #e0b83f;
+}
+
+#title.card .card-header {
+  border: 0;
+  padding: 1.5rem;
+}
+
+#title.card .card-header h5 {
+  color: #fff;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+#title.card .card-header .title__meta {
+  color: #fff;
+}
