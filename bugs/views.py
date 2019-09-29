@@ -17,7 +17,7 @@ def get_bugs_view(request):
         'low': Bug.objects.filter(priority='LOW', status='IP'),
     }
     context = {
-        'bugs': bugs
+        'bugs': bugs,
     }
     return render(request, 'bugs/get-bugs.html', context)
 

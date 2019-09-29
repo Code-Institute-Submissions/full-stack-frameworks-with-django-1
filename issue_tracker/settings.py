@@ -71,6 +71,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'bugs.context_processors.total_bug_counter',
+                'bugs.context_processors.user_submitted_bug_counter',
             ],
         },
     },
