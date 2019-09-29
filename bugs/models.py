@@ -20,8 +20,14 @@ class Bug(models.Model):
     tag = models.CharField(max_length=3, default='bug')
     title = models.CharField(max_length=250)
     description = models.TextField()
-    priority = models.CharField(max_length=8, choices=PRIORITIES, default='LOW')
-    screenshot = models.ImageField(upload_to='bug_screenshots', blank=True, null=True)
+    priority = models.CharField(
+                                max_length=8,
+                                choices=PRIORITIES,
+                                default='LOW')
+    screenshot = models.ImageField(
+                                    upload_to='bug_screenshots',
+                                    blank=True,
+                                    null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=2, choices=STATUSES, default='IP')
     upvotes = models.IntegerField(default=0)
