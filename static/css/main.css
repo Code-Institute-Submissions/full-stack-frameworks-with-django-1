@@ -9586,7 +9586,9 @@ body {
 }
 
 .site-footer {
-  background-color: #f5f5f5;
+  background-color: #fff;
+  position: relative;
+  z-index: 2;
 }
 
 .site-footer .container-fluid .row .col-lg-3 {
@@ -9653,6 +9655,11 @@ body {
 
 #page-content-wrapper {
   background-color: #f5f5f5;
+  min-height: calc( 100vh - (90px + 224px));
+}
+
+#page-content-wrapper-container {
+  min-height: calc( 100vh - (90px + 224px));
 }
 
 a:hover {
@@ -9718,6 +9725,73 @@ a:hover {
 
 #accordion.accordion__low .card {
   background-color: #6e6e71;
+}
+
+#toast-container > div {
+  opacity: 1 !important;
+}
+
+#toast-container > .toast {
+  background-color: #303030;
+}
+
+#toast-container > .toast .toast-message {
+  color: #fff;
+}
+
+#toast-container > .toast-success {
+  background-color: #dff2bf;
+  background-image: url("../img/success-227700.png") !important;
+}
+
+#toast-container > .toast-success .toast-message {
+  color: #227700;
+}
+
+#toast-container > .toast-warning {
+  background-color: #feefb3;
+}
+
+#toast-container > .toast-warning .toast-message {
+  color: #9f6000;
+}
+
+#toast-container > .toast-error {
+  background-color: #ffbaba;
+}
+
+#toast-container > .toast-error .toast-message {
+  color: #d8000c;
+}
+
+#toast-container > .toast-info {
+  background-color: #bbeeff;
+}
+
+#toast-container > .toast-info .toast-message {
+  color: #005599;
+}
+
+.table.table-striped {
+  background-color: #fff;
+}
+
+.table.table-striped th,
+.table.table-striped td {
+  padding: 1rem;
+}
+
+.table.table-striped thead {
+  background-color: #3e68e1;
+  color: #fff;
+}
+
+.table.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #fff;
+}
+
+.table.table-striped tbody tr:nth-of-type(even) {
+  background-color: #f5f5f5;
 }
 
 #title.card {

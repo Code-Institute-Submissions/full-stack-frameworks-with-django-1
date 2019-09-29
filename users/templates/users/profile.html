@@ -11,7 +11,32 @@
                     </div>
                 </div>
                 <div class="p-4 pl-5 pr-5">
-                    <p>Further content to go here.....</p>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Attribute</th>
+                                <th scope="col">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Username:</td>
+                                <td>{{ user.username }}</td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                            <tr>
+                                <td>Cake Day:</td>
+                                <td>{{ user.date_joined }}</td>
+                            </tr>
+                            <tr>
+                                <td>Last Login:</td>
+                                <td>{{ user.last_login }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -1,0 +1,27 @@
+.table {
+    &.table-striped {
+        background-color: $white;
+
+        th,
+        td {
+            padding: 1rem;
+        }
+
+        thead {
+            background-color: $primary;
+            color: $white;
+        }
+
+        tbody {
+            tr {
+                &:nth-of-type(odd) {
+                    background-color: $white;
+                }
+
+                &:nth-of-type(even) {
+                    background-color: $secondary;
+                }
+            }
+        }
+    }
+}

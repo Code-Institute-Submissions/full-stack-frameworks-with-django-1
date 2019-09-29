@@ -1,5 +1,7 @@
 .site-footer {
-    background-color: $secondary;
+    background-color: $white;
+    position: relative;
+    z-index: 2;
 
     .container-fluid  {
         .row {
