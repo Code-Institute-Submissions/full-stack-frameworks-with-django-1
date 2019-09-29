@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="logout-view">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col p-0">
+                <div id="title" class="card">
+                    <div id="title-heading" class="card-header d-flex justify-content-between">
+                        <h5 class="mb-0">You are now logged out</h5>
+                        <a href="{% url 'user-login' %}" class="title__meta">Log In Again?</a>
+                    </div>
+                </div>
+                <div class="p-4 pl-5 pr-5">
+                    <h1>You have been logged out.</h1>
+                    <a href="{% url 'user-login' %}">Log In Again?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

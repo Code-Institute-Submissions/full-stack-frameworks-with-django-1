@@ -1,0 +1,46 @@
+#toast-container {
+    > div {
+        opacity: 1 !important;
+    }
+
+    > .toast {
+        background-color: #303030;
+
+        .toast-message {
+            color: #fff;
+        }
+
+        &-success {
+            background-color: #dff2bf;
+            background-image: url('../img/success-227700.png') !important;
+
+            .toast-message {
+                color: #227700;
+            }
+        }
+
+        &-warning {
+            background-color: #feefb3;
+
+            .toast-message {
+                color: #9f6000;
+            }
+        }
+
+        &-error {
+            background-color: #ffbaba;
+
+            .toast-message {
+                color: #d8000c;
+            }
+        }
+
+        &-info {
+            background-color: #bbeeff;
+
+            .toast-message {
+                color: #005599;
+            }
+        }
+    }
+}

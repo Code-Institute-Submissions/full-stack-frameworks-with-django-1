@@ -2,14 +2,14 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<section id="register-view">
+<section id="login-view">
     <div class="container-fluid">
         <div class="row">
             <div class="col p-0">
                 <div id="title" class="card">
                     <div id="title-heading" class="card-header d-flex justify-content-between">
-                        <h5 class="mb-0">Register to Issue Tracker</h5>
-                        <a href="{% url 'user-login' %}" class="title__meta">Already have an account? Log In</a>
+                        <h5 class="mb-0">Log In To Issue Tracker</h5>
+                        <a href="{% url 'user-registration' %}" class="title__meta">Need an account? Register</a>
                     </div>
                 </div>
                 <div class="pt-1 pb-1">
@@ -18,7 +18,7 @@
                         {{ form|crispy }}
 
                         <div class="form-group">
-                            <button class="btn btn-primary" type="submit">Register</button>
+                            <button class="btn btn-primary" type="submit">Log In</button>
                         </div>
                     </form>
                 </div>
