@@ -37,3 +37,19 @@ class Bug(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    """
+        Creating the Comment Model
+        that creates the comment table
+        in the MySQL Database.
+    """
+    comment = models.CharField(max_length=250)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    bug = models.ForeignKey(Bug, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.comment

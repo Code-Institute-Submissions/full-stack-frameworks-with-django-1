@@ -16,4 +16,6 @@ urlpatterns = [
     path('priority/medium/', views.get_bugs_view, name='get-medium-bugs'),
     path('priority/low/', views.get_bugs_view, name='get-low-bugs'),
     path('<int:pk>/', views.bug_detail_view, name='bug-detail'),
+    path('new/', views.create_or_edit_bug_view, name='new-bug'),
+    path('<int:pk>/edit/', views.create_or_edit_bug_view, name='edit-bug'),
 ]

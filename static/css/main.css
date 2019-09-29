@@ -9794,6 +9794,14 @@ a:hover {
   background-color: #f5f5f5;
 }
 
+.white-popup-block {
+  background: #fff;
+  padding: 1.5rem;
+  max-width: 650px;
+  margin: auto;
+  position: relative;
+}
+
 #title.card {
   border: 0;
   border-radius: 0;

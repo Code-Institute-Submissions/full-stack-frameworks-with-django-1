@@ -18,6 +18,7 @@
         $(this).parent().find('.children').toggleClass('active');
     });
 
+    // Toastr
     $('.toastr').each(function() {
         var toastr_tag = $(this).attr('data-tag');
         var toastr_message = $(this).attr('data-message');
@@ -38,6 +39,31 @@
             'progressBar' : true,
             'preventDuplicates' : true,
         };
+    });
+
+    // Magnific Popup
+    $('.image-popup-fit-width').magnificPopup({
+       type: 'image',
+       closeOnContentClick: true,
+       image: {
+           verticalFit: false,
+       }
+    });
+    
+    $('.popup-with-form').magnificPopup({
+        type: 'inline',
+        preloader: false,
+        focus: '#author',
+        
+        callbacks: {
+            beforeOpen: function() {
+                if($(window).width() < 700) {
+                    this.st.focus = false;
+                } else {
+                    this.st.focus = '#author';
+                }
+            }
+        }
     });
 
 })( jQuery );

@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .models import Bug
+from .forms import BugForm, CommentForm
 
 
 def get_bugs_view(request):
@@ -9,7 +10,7 @@ def get_bugs_view(request):
         Bugs that are published.
     """
     bugs = {
-        'all': Bug.objects.all(),
+        'all': Bug.objects.filter(status='IP'),
         'critical': Bug.objects.filter(priority='CRITICAL', status='IP'),
         'high': Bug.objects.filter(priority='HIGH', status='IP'),
         'medium': Bug.objects.filter(priority='MEDIUM', status='IP'),
@@ -40,3 +41,13 @@ def create_or_edit_bug_view(request, pk=None):
         update functionality depending on
         if the Bug ID is null or not 
     """
+    bug = get_object_or_404(Bug, pk=pk) if pk else None
+    if request.method == 'POST':
+        form = BugForm(request.POST, request.FILES, instance=bug)
+        if form.is_valid():
+            form.instance.author = request.user
+            bug = form.save()
+            return redirect('bug-detail', bug.pk)
+    else:
+        form = BugForm(instance=bug)
+    return render(request, 'bugs/bug-form.html', {'form': form})
