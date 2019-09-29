@@ -14,7 +14,7 @@ def register_view(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Your account has been created {username}!')
+            messages.success(request, f'{username} has been created!')
             return redirect('user-login')
     else:
         form = UserRegistrationForm()
@@ -43,7 +43,14 @@ def edit_profile_view(request):
         Edit a specific user profile
         on the front-end
     """
-    update_form = UserUpdateForm()
+    if request.method == 'POST':
+        update_form = UserUpdateForm(request.POST, instance=request.user)
+        if update_form.is_valid():
+            update_form.save()
+            messages.success(request, f'Your account has been updated.')
+            return redirect('user-profile')
+    else:
+        update_form = UserUpdateForm(instance=request.user)
     context = {
         'update_form': update_form,
     }
