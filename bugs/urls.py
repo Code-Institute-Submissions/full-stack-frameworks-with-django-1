@@ -18,4 +18,5 @@ urlpatterns = [
     path('<int:pk>/', views.bug_detail_view, name='bug-detail'),
     path('new/', views.create_or_edit_bug_view, name='new-bug'),
     path('<int:pk>/edit/', views.create_or_edit_bug_view, name='edit-bug'),
+    path('comment/<bug_pk>/new/', views.create_or_edit_comment_view, name='new-comment'),
 ]
