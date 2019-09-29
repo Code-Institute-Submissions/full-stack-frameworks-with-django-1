@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section id="home-view">
+<section id="get-bugs-view">
     <div class="container-fluid">
         <div class="row">
             <div class="col p-0">
+                {% if request.path == '/bugs/priority/critical/' %}
                 <!-- Critical -->
                 <div id="accordion" class="accordion__critical">
                     <div class="card">
                         <div id="critical-heading" class="card-header d-flex justify-content-between">
                             <h5 class="mb-0" data-toggle="collapse" data-target="#critical-collapse" aria-expanded="true" aria-controls="critical-collapse"><i class="fa fa-exclamation-triangle"></i> Critical</h5>
-                            <a href="{% url 'get-critical-bugs' %}" class="card__meta">View All</a>
+                            <a href="{% url 'get-bugs' %}" class="card__meta">View All Bugs</a>
                         </div>
                     </div>
                     <div id="critical-collapse" class="collapse show" aria-labelledby="critical-heading" data-parent="#accordion">
@@ -28,12 +29,13 @@
                         </div>
                     </div>
                 </div>
+                {% elif request.path == '/bugs/priority/high/' %}
                 <!-- High -->
                 <div id="accordion" class="accordion__high">
                     <div class="card">
                         <div id="high-heading" class="card-header d-flex justify-content-between">
                             <h5 class="mb-0" data-toggle="collapse" data-target="#high-collapse" aria-expanded="true" aria-controls="high-collapse"><i class="fa fa-exclamation-triangle"></i> High</h5>
-                            <a href="{% url 'get-high-bugs' %}" class="card__meta">View All</a>
+                            <a href="{% url 'get-bugs' %}" class="card__meta">View All Bugs</a>
                         </div>
                     </div>
                     <div id="high-collapse" class="collapse show" aria-labelledby="high-heading" data-parent="#accordion">
@@ -51,12 +53,13 @@
                         </div>
                     </div>
                 </div>
+                {% elif request.path == '/bugs/priority/medium/' %}
                 <!-- Medium -->
                 <div id="accordion" class="accordion__medium">
                     <div class="card">
                         <div id="medium-heading" class="card-header d-flex justify-content-between">
                             <h5 class="mb-0" data-toggle="collapse" data-target="#medium-collapse" aria-expanded="true" aria-controls="medium-collapse"><i class="fa fa-exclamation-triangle"></i> Medium</h5>
-                            <a href="{% url 'get-medium-bugs' %}" class="card__meta">View All</a>
+                            <a href="{% url 'get-bugs' %}" class="card__meta">View All Bugs</a>
                         </div>
                     </div>
                     <div id="medium-collapse" class="collapse show" aria-labelledby="medium-heading" data-parent="#accordion">
@@ -74,12 +77,13 @@
                         </div>
                     </div>
                 </div>
+                {% elif request.path == '/bugs/priority/low/' %}
                 <!-- Low -->
                 <div id="accordion" class="accordion__low">
                     <div class="card">
                         <div id="low-heading" class="card-header d-flex justify-content-between">
                             <h5 class="mb-0" data-toggle="collapse" data-target="#low-collapse" aria-expanded="true" aria-controls="low-collapse"><i class="fa fa-exclamation-triangle"></i> Low</h5>
-                            <a href="{% url 'get-low-bugs' %}" class="card__meta">View All</a>
+                            <a href="{% url 'get-bugs' %}" class="card__meta">View All Bugs</a>
                         </div>
                     </div>
                     <div id="low-collapse" class="collapse show" aria-labelledby="low-heading" data-parent="#accordion">
@@ -97,6 +101,30 @@
                         </div>
                     </div>
                 </div>
+                {% else %}
+                <!-- All -->
+                <div id="accordion" class="accordion__all">
+                    <div class="card">
+                        <div id="all-heading" class="card-header d-flex justify-content-between">
+                            <h5 class="mb-0" data-toggle="collapse" data-target="#all-collapse" aria-expanded="true" aria-controls="all-collapse"><i class="fa fa-exclamation-triangle"></i> All Bugs</h5>
+                        </div>
+                    </div>
+                    <div id="all-collapse" class="collapse show" aria-labelledby="all-heading" data-parent="#accordion">
+                        <div class="list-group">
+                            {% for bug in bugs.all %}
+                                <a href="{% url 'bug-detail' bug.id %}" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="accordion__title">{{ bug.title }}</h5>
+                                        <small class="accordion__posted">{{ bug.date_created|date:"F d, Y" }}</small>
+                                    </div>
+                                    <p class="accordion__content">{{ bug.description|truncatechars:275 }}</p>
+                                    <small class="accordion__meta"><i class="fa fa-{{ bug.tag }}"></i> {{ bug.tag|title }}</small>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
