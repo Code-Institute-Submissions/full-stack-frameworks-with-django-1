@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, UserUpdateForm
 
 
 def register_view(request):
@@ -35,3 +35,16 @@ def profile_view(request):
         on the front-end
     """
     return render(request, 'users/profile.html')
+
+
+@login_required
+def edit_profile_view(request):
+    """
+        Edit a specific user profile
+        on the front-end
+    """
+    update_form = UserUpdateForm()
+    context = {
+        'update_form': update_form,
+    }
+    return render(request, 'users/edit-profile.html', context)
