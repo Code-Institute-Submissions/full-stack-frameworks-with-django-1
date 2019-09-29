@@ -9682,6 +9682,10 @@ a:hover {
   text-transform: uppercase;
 }
 
+#accordion .card-header .card__meta {
+  color: #fff;
+}
+
 #accordion .list-group-item {
   padding: 1.5rem;
   border: 0;

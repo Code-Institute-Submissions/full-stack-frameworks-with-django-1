@@ -8,112 +8,92 @@
                 <!-- Critical -->
                 <div id="accordion" class="accordion__critical">
                     <div class="card">
-                        <div id="critical-heading" class="card-header">
+                        <div id="critical-heading" class="card-header d-flex justify-content-between">
                             <h5 class="mb-0" data-toggle="collapse" data-target="#critical-collapse" aria-expanded="true" aria-controls="critical-collapse"><i class="fa fa-exclamation-triangle"></i> Critical</h5>
+                            <a href="#!" class="card__meta">View All</a>
                         </div>
                     </div>
                     <div id="critical-collapse" class="collapse show" aria-labelledby="critical-heading" data-parent="#accordion">
                         <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="accordion__title">List group item heading</h5>
-                                    <small class="accordion__posted">3 days ago</small>
-                                </div>
-                                <p class="accordion__content">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small class="accordion__meta"><i class="fa fa-star"></i> Feature</small>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="accordion__title">List group item heading</h5>
-                                    <small class="accordion__posted">3 days ago</small>
-                                </div>
-                                <p class="accordion__content">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small class="accordion__meta"><i class="fa fa-star"></i> Feature</small>
-                            </a>
+                            {% for bug in critical_bugs %}
+                                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="accordion__title">{{ bug.title }}</h5>
+                                        <small class="accordion__posted">{{ bug.date_created|date:"F d, Y" }}</small>
+                                    </div>
+                                    <p class="accordion__content">{{ bug.description|truncatechars:275 }}</p>
+                                    <small class="accordion__meta"><i class="fa fa-{{ bug.tag }}"></i> {{ bug.tag|title }}</small>
+                                </a>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
                 <!-- High -->
                 <div id="accordion" class="accordion__high">
                     <div class="card">
-                        <div id="high-heading" class="card-header">
+                        <div id="high-heading" class="card-header d-flex justify-content-between">
                             <h5 class="mb-0" data-toggle="collapse" data-target="#high-collapse" aria-expanded="true" aria-controls="high-collapse"><i class="fa fa-exclamation-triangle"></i> High</h5>
+                            <a href="#!" class="card__meta">View All</a>
                         </div>
                     </div>
                     <div id="high-collapse" class="collapse show" aria-labelledby="high-heading" data-parent="#accordion">
                         <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="accordion__title">List group item heading</h5>
-                                    <small class="accordion__posted">3 days ago</small>
-                                </div>
-                                <p class="accordion__content">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small class="accordion__meta"><i class="fa fa-bug"></i> Bug</small>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="accordion__title">List group item heading</h5>
-                                    <small class="accordion__posted">3 days ago</small>
-                                </div>
-                                <p class="accordion__content">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small class="accordion__meta"><i class="fa fa-bug"></i> Bug</small>
-                            </a>
+                            {% for bug in high_bugs %}
+                                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="accordion__title">{{ bug.title }}</h5>
+                                        <small class="accordion__posted">{{ bug.date_created|date:"F d, Y" }}</small>
+                                    </div>
+                                    <p class="accordion__content">{{ bug.description|truncatechars:275 }}</p>
+                                    <small class="accordion__meta"><i class="fa fa-{{ bug.tag }}"></i> {{ bug.tag|title }}</small>
+                                </a>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
                 <!-- Medium -->
                 <div id="accordion" class="accordion__medium">
                     <div class="card">
-                        <div id="medium-heading" class="card-header">
+                        <div id="medium-heading" class="card-header d-flex justify-content-between">
                             <h5 class="mb-0" data-toggle="collapse" data-target="#medium-collapse" aria-expanded="true" aria-controls="medium-collapse"><i class="fa fa-exclamation-triangle"></i> Medium</h5>
+                            <a href="#!" class="card__meta">View All</a>
                         </div>
                     </div>
                     <div id="medium-collapse" class="collapse show" aria-labelledby="medium-heading" data-parent="#accordion">
                         <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="accordion__title">List group item heading</h5>
-                                    <small class="accordion__posted">3 days ago</small>
-                                </div>
-                                <p class="accordion__content">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small class="accordion__meta"><i class="fa fa-star"></i> Feature</small>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="accordion__title">List group item heading</h5>
-                                    <small class="accordion__posted">3 days ago</small>
-                                </div>
-                                <p class="accordion__content">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small class="accordion__meta"><i class="fa fa-star"></i> Feature</small>
-                            </a>
+                            {% for bug in medium_bugs %}
+                                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="accordion__title">{{ bug.title }}</h5>
+                                        <small class="accordion__posted">{{ bug.date_created|date:"F d, Y" }}</small>
+                                    </div>
+                                    <p class="accordion__content">{{ bug.description|truncatechars:275 }}</p>
+                                    <small class="accordion__meta"><i class="fa fa-{{ bug.tag }}"></i> {{ bug.tag|title }}</small>
+                                </a>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
                 <!-- Low -->
                 <div id="accordion" class="accordion__low">
                     <div class="card">
-                        <div id="low-heading" class="card-header">
+                        <div id="low-heading" class="card-header d-flex justify-content-between">
                             <h5 class="mb-0" data-toggle="collapse" data-target="#low-collapse" aria-expanded="true" aria-controls="low-collapse"><i class="fa fa-exclamation-triangle"></i> Low</h5>
+                            <a href="#!" class="card__meta">View All</a>
                         </div>
                     </div>
                     <div id="low-collapse" class="collapse show" aria-labelledby="low-heading" data-parent="#accordion">
                         <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="accordion__title">List group item heading</h5>
-                                    <small class="accordion__posted">3 days ago</small>
-                                </div>
-                                <p class="accordion__content">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small class="accordion__meta"><i class="fa fa-bug"></i> Bug</small>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="accordion__title">List group item heading</h5>
-                                    <small class="accordion__posted">3 days ago</small>
-                                </div>
-                                <p class="accordion__content">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                                <small class="accordion__meta"><i class="fa fa-bug"></i> Bug</small>
-                            </a>
+                            {% for bug in low_bugs %}
+                                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="accordion__title">{{ bug.title }}</h5>
+                                        <small class="accordion__posted">{{ bug.date_created|date:"F d, Y" }}</small>
+                                    </div>
+                                    <p class="accordion__content">{{ bug.description|truncatechars:275 }}</p>
+                                    <small class="accordion__meta"><i class="fa fa-{{ bug.tag }}"></i> {{ bug.tag|title }}</small>
+                                </a>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
