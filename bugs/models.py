@@ -53,3 +53,25 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
+
+
+class Upvote(models.Model):
+    """
+        Create the Upvote Model
+        that creates the upvote table
+        in the MySQL Database.
+    """
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    bug = models.ForeignKey(Bug, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+
+class SavedBug(models.Model):
+    """
+        Creating the SavedBug Model
+        that creates the savedbug table
+        in the MySQL Database.
+    """
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    bug = models.ForeignKey(Bug, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)

@@ -20,4 +20,6 @@ urlpatterns = [
     path('new/', views.create_or_edit_bug_view, name='new-bug'),
     path('<int:pk>/edit/', views.create_or_edit_bug_view, name='edit-bug'),
     path('comment/<bug_pk>/new/', views.create_or_edit_comment_view, name='new-comment'),
+    path('<int:pk>/upvote/', views.upvote_bug_view, name='upvote-bug'),
+    path('<int:pk>/saved/', views.user_save_bug, name='save-bug'),
 ]

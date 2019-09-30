@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Bug, Comment
-from .forms import BugForm, CommentForm
+from .models import Bug, Comment, Upvote, SavedBug
+from .forms import BugForm, CommentForm, UpvoteForm, SavedBugForm
 
 
 def get_bugs_view(request):
@@ -37,6 +38,45 @@ def get_user_bugs_view(request):
         'bugs': bugs,
     }
     return render(request, 'bugs/get-user-bugs.html', context)
+
+
+@login_required
+def user_save_bug(request, pk):
+    """
+        Allow the user to save a
+        bug, if they wish to keep
+        an eye on it
+    """
+    bug = get_object_or_404(Bug, pk=pk) if pk else None
+    sb_form = SavedBugForm(request.POST or None)
+    if request.method == 'POST':
+        if sb_form.is_valid():
+            user = request.user
+            try:
+                saved_bug = SavedBug.objects.get(user=user, bug=bug)
+            except SavedBug.DoesNotExist:
+                saved_bug = None
+            if saved_bug is None:
+                saved_bug = SavedBug(user=user, bug=bug)
+                saved_bug.save()
+            else:
+                messages.error(request, 'error')
+    return redirect('bug-detail', bug.pk)
+
+
+@login_required
+def get_user_saved_bugs_view(request):
+    """
+        View that returns a list of
+        Bugs that a user has saved
+    """
+    bugs = {
+        'saved': SavedBug.objects.filter(author_id=request.user, status='IP'),
+    }
+    context = {
+        'bugs': bugs,
+    }
+    return render(request, 'bugs/get-user-saved-bugs.html', context)
 
 
 def bug_detail_view(request, pk):
@@ -91,3 +131,28 @@ def create_or_edit_comment_view(request, bug_pk, pk=None):
     else:
         form = CommentForm(instance=comment)
     return render(request, 'bugs/comment-form.html', {'form': form})
+
+
+@login_required
+def upvote_bug_view(request, pk):
+    """
+        Allow users to upvote a bug
+    """
+    bug = Bug.objects.get(pk=pk)
+    uv_form = UpvoteForm(request.POST or None)
+    if request.method == 'POST':
+        if uv_form.is_valid():
+            user = request.user
+            try:
+                has_voted = Upvote.objects.get(user=user, bug=bug)
+            except Upvote.DoesNotExist:
+                has_voted = None
+            if has_voted is None:
+                has_voted = Upvote(user=user, bug=bug)
+                has_voted.save()
+                bug.upvotes += 1
+                bug.save()
+                messages.success(request, 'success')
+            else:
+                messages.error(request, 'error')
+    return redirect('bug-detail', bug.pk)

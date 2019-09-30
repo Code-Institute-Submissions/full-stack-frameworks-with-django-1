@@ -1,5 +1,5 @@
 from django import forms
-from .models import Bug, Comment
+from .models import Bug, Comment, Upvote, SavedBug
 
 
 class BugForm(forms.ModelForm):
@@ -26,3 +26,22 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('comment',)
+
+
+class UpvoteForm(forms.ModelForm):
+    """
+        Form used to upvote bugs
+    """
+    class Meta:
+        model = Upvote
+        fields = ()
+
+
+class SavedBugForm(forms.ModelForm):
+    """
+        Form used to save bugs
+        on the front-end
+    """
+    class Meta:
+        model = SavedBug
+        fields = ()
