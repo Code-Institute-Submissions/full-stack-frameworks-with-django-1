@@ -47,7 +47,7 @@ def user_save_bug(request, pk):
         bug, if they wish to keep
         an eye on it
     """
-    bug = get_object_or_404(Bug, pk=pk) if pk else None
+    bug = Bug.objects.get(pk=pk)
     sb_form = SavedBugForm(request.POST or None)
     if request.method == 'POST':
         if sb_form.is_valid():
@@ -59,6 +59,7 @@ def user_save_bug(request, pk):
             if saved_bug is None:
                 saved_bug = SavedBug(user=user, bug=bug)
                 saved_bug.save()
+                messages.success(request, 'success')
             else:
                 messages.error(request, 'error')
     return redirect('bug-detail', bug.pk)
@@ -71,7 +72,7 @@ def get_user_saved_bugs_view(request):
         Bugs that a user has saved
     """
     bugs = {
-        'saved': SavedBug.objects.filter(author_id=request.user, status='IP'),
+        'saved': SavedBug.objects.filter(user_id=request.user),
     }
     context = {
         'bugs': bugs,

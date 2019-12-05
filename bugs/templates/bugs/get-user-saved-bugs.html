@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="get-bugs-view">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col p-0">
+                <!-- All -->
+                <div id="accordion" class="accordion__all">
+                    <div class="card">
+                        <div id="users-heading" class="card-header d-flex justify-content-between">
+                            <h5 class="mb-0" data-toggle="collapse" data-target="#users-collapse" aria-expanded="true" aria-controls="users-collapse">My Saved Bugs</h5>
+                        </div>
+                    </div>
+                    <div id="users-collapse" class="collapse show" aria-labelledby="users-heading" data-parent="#accordion">
+                        <div class="list-group">
+                            {% for bug in bugs.saved %}
+                                <a href="{% url 'bug-detail' bug.bug.id %}" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="accordion__title">{{ bug.bug.title }}</h5>
+                                        <small class="accordion__posted">{{ bug.bug.date_created|date:"F d, Y" }}</small>
+                                    </div>
+                                    <p class="accordion__content">{{ bug.bug.description|truncatechars:275 }}</p>
+                                    <small class="accordion__meta"><i class="fa fa-{{ bug.bug.tag }}"></i> {{ bug.bug.tag|title }}</small>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
