@@ -1,0 +1,18 @@
+.bug__info-table tr:first-of-type th,
+.bug__info-table tr:first-of-type td {
+  border-top: 0;
+}
+
+.bug__info-table tr th,
+.bug__info-table tr td {
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+#bug-detail-view .container-fluid.has-sidebar .bug__sidebar {
+  border-left: 1px solid rgba(0, 0, 0, 0.125);
+  background-color: #e8e8e8;
+}
+
+.bug__comment .card-header {
+  background-color: #e8e8e8;
+}

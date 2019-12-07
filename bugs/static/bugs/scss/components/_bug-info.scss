@@ -1,0 +1,17 @@
+.bug__info {
+    &-table {
+        tr:first-of-type {
+            th,
+            td {
+                border-top: 0;
+            }
+        }
+
+        tr {
+            th,
+            td {
+                border-top: 1px solid rgba(0, 0, 0, 0.125);
+            }
+        }
+    }
+}
