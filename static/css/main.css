@@ -9655,11 +9655,11 @@ body {
 
 #page-content-wrapper {
   background-color: #f5f5f5;
-  min-height: calc( 100vh - (90px + 224px));
+  min-height: calc( 100vh - (90px + 176px));
 }
 
 #page-content-wrapper-container {
-  min-height: calc( 100vh - (90px + 224px));
+  min-height: calc( 100vh - (90px + 176px));
 }
 
 a:hover {
