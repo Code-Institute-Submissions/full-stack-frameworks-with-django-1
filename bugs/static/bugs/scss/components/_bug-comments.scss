@@ -1,0 +1,11 @@
+.bug__comments {
+    &-comment {
+        &:last-of-type {
+            margin-bottom: 0 !important;
+        }
+        
+        .card-header {
+            background-color: #e8e8e8;
+        }
+    }
+}

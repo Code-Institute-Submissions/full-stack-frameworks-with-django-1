@@ -6,13 +6,22 @@
 .bug__info-table tr th,
 .bug__info-table tr td {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
+  vertical-align: middle;
+}
+
+.bug__comments-comment:last-of-type {
+  margin-bottom: 0 !important;
+}
+
+.bug__comments-comment .card-header {
+  background-color: #e8e8e8;
+}
+
+.bug__sidebar .btn-link {
+  text-decoration: none;
 }
 
 #bug-detail-view .container-fluid.has-sidebar .bug__sidebar {
   border-left: 1px solid rgba(0, 0, 0, 0.125);
-  background-color: #e8e8e8;
-}
-
-.bug__comment .card-header {
   background-color: #e8e8e8;
 }

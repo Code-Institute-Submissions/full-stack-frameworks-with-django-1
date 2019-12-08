@@ -9592,7 +9592,7 @@ body {
 }
 
 .site-footer .container-fluid .row .col-lg-3 {
-  padding: 3rem;
+  padding: 1.5rem;
 }
 
 .site-footer .container-fluid .row .col-lg-3:nth-of-type(2), .site-footer .container-fluid .row .col-lg-3:nth-of-type(3) {

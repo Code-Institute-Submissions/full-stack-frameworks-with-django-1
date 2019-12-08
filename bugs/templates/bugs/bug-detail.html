@@ -15,22 +15,24 @@
                     <div class="row">
                         <div class="col-md-9 p-4 bug__details">
                             <h2 class="bug__title mb-3">{{ bug.title }}</h2>
-                            <p class="bug__description mb-4">{{ bug.description }}</p>
+                            <p class="bug__description mb-3">{{ bug.description }}</p>
                             {% if bug.screenshot %}
                                 <img src="/media/{{ bug.screenshot }}" alt="Screenshot of {{ bug.title }}">
                             {% endif %}
-                            <a href="{% url 'new-comment' bug.id %}" class="btn btn-primary bug__leave-comment mb-4">Leave a Comment <i class="fa fa-long-arrow-right"></i></a>
-                            {% for comment in comments %}
-                            <div class="card mb-3 bug__comment">
-                                <div class="card-header d-flex justify-content-between comment-heading">
-                                    <h5 class="mb-0"><i class="fa fa-comment mr-3"></i>{{ comment.author }} says...</h5>
+                            <a href="{% url 'new-comment' bug.id %}" class="btn btn-primary bug__leave-comment mb-4"><i class="fa fa-comment mr-2"></i>Leave a Comment</a>
+                            <div class="bug__comments">
+                                {% for comment in comments %}
+                                <div class="card mb-3 bug__comments-comment">
+                                    <div class="card-header d-flex justify-content-between comment-heading">
+                                        <h5 class="mb-0"><i class="fa fa-comment mr-3"></i>{{ comment.author|title }} says...</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>{{ comment.comment }}</p>
+                                        <p class="mb-0"><small>Posted on <strong>{{ comment.date_created|date:"F d, Y" }}</strong> at <strong>{{ comment.date_created|date:"H:i" }}</strong></small></p>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <p>{{ comment.comment }}</p>
-                                    <p class="mb-0"><small>Posted on <strong>{{ comment.date_created|date:"F d, Y" }}</strong> at <strong>{{ comment.date_created|date:"H:i" }}</strong></small></p>
-                                </div>
+                                {% endfor %}
                             </div>
-                            {% endfor %}
                         </div>
                         <div class="col-md-3 p-4 bug__sidebar">
                             <table class="table bug__info-table">
@@ -59,10 +61,12 @@
                                         <th scope="col"><strong>Created:</strong></th>
                                         <td>{{ bug.date_created }}</td>
                                     </tr>
+                                    {% if bug.date_completed != None %}
                                     <tr>
                                         <th scope="col"><strong>Completed:</strong></th>
                                         <td>{{ bug.date_completed }}</td>
                                     </tr>
+                                    {% endif %}
                                     <tr>
                                         <th scope="col"><strong>Last Modified:</strong></th>
                                         <td>{{ bug.last_modified }}</td>
