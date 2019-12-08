@@ -13,7 +13,6 @@ def get_bugs_view(request):
     """
     bugs = {
         'all': Bug.objects.filter(status='IP'),
-        # 'users': Bug.objects.filter(author_id=request.user, status='IP'),
         'critical': Bug.objects.filter(priority='CRITICAL', status='IP'),
         'high': Bug.objects.filter(priority='HIGH', status='IP'),
         'medium': Bug.objects.filter(priority='MEDIUM', status='IP'),
@@ -95,12 +94,23 @@ def bug_detail_view(request, pk):
 
 
 @login_required
-def create_or_edit_bug_view(request, pk=None):
+def create_bug_view(request, pk=None):
     """
         View that allows either create or
         update functionality depending on
         if the Bug ID is null or not 
     """
+    # bug = get_object_or_404(Bug, pk=pk) if pk else None
+    # if request.method == 'POST':
+    #     form = BugForm(request.POST, request.FILES, instance=bug)
+    #     if form.is_valid():
+    #         form.instance.author = request.user
+    #         bug = form.save()
+    #         return redirect('bug-detail', bug.pk)
+    # else:
+    #     form = BugForm(instance=bug)
+    # return render(request, 'bugs/bug-form.html', {'form': form})
+
     bug = get_object_or_404(Bug, pk=pk) if pk else None
     if request.method == 'POST':
         form = BugForm(request.POST, request.FILES, instance=bug)
@@ -111,6 +121,28 @@ def create_or_edit_bug_view(request, pk=None):
     else:
         form = BugForm(instance=bug)
     return render(request, 'bugs/bug-form.html', {'form': form})
+
+
+@login_required
+def edit_bug_view(request, pk=None):
+    """
+        View that allows either create or
+        update functionality depending on
+        if the Bug ID is null or not 
+    """
+    bug = get_object_or_404(Bug, pk=pk) if pk else None
+    if request.user == bug.author:
+        if request.method == 'POST':
+            form = BugForm(request.POST, request.FILES, instance=bug)
+            if form.is_valid():
+                bug = form.save()
+                messages.success(request, 'success')
+        else:
+            form = BugForm(instance=bug)
+        return render(request, 'bugs/bug-form.html', {'form': form})
+    else:
+        messages.error(request, 'error')
+        return redirect('bug-detail', bug.pk)
 
 
 @login_required
