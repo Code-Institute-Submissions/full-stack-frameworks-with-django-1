@@ -41,31 +41,6 @@ def get_user_bugs_view(request):
 
 
 @login_required
-def user_save_bug(request, pk):
-    """
-        Allow the user to save a
-        bug, if they wish to keep
-        an eye on it
-    """
-    bug = Bug.objects.get(pk=pk)
-    sb_form = SavedBugForm(request.POST or None)
-    if request.method == 'POST':
-        if sb_form.is_valid():
-            user = request.user
-            try:
-                saved_bug = SavedBug.objects.get(user=user, bug=bug)
-            except SavedBug.DoesNotExist:
-                saved_bug = None
-            if saved_bug is None:
-                saved_bug = SavedBug(user=user, bug=bug)
-                saved_bug.save()
-                messages.success(request, 'success')
-            else:
-                messages.error(request, 'error')
-    return redirect('bug-detail', bug.pk)
-
-
-@login_required
 def get_user_saved_bugs_view(request):
     """
         View that returns a list of
@@ -87,9 +62,16 @@ def bug_detail_view(request, pk):
 
         404 if not found.
     """
+    bug = get_object_or_404(Bug, pk=pk)
+    comments = Comment.objects.filter(bug=pk)
+    try:
+        is_saved = SavedBug.objects.get(user=request.user, bug=bug)
+    except SavedBug.DoesNotExist:
+        is_saved = None
     context = {
-        'bug': get_object_or_404(Bug, pk=pk),
-        'comments': Comment.objects.filter(bug=pk),
+        'bug': bug,
+        'comments': comments,
+        'is_saved': is_saved,
     }
     return render(request, 'bugs/bug-detail.html', context)
 
@@ -198,6 +180,56 @@ def upvote_bug_view(request, pk):
                 bug.upvotes += 1
                 bug.save()
                 messages.success(request, 'success')
+            else:
+                messages.error(request, 'error')
+    return redirect('bug-detail', bug.pk)
+
+
+@login_required
+def user_save_bug_view(request, pk):
+    """
+        Allow the user to save a
+        bug, if they wish to keep
+        an eye on it
+    """
+    bug = Bug.objects.get(pk=pk)
+    sb_form = SavedBugForm(request.POST or None)
+    if request.method == 'POST':
+        if sb_form.is_valid():
+            user = request.user
+            try:
+                saved_bug = SavedBug.objects.get(user=user, bug=bug)
+            except SavedBug.DoesNotExist:
+                saved_bug = None
+            if saved_bug is None:
+                saved_bug = SavedBug(user=user, bug=bug)
+                saved_bug.save()
+                messages.success(request, 'success')
+            else:
+                messages.error(request, 'error')
+    return redirect('bug-detail', bug.pk)
+
+
+@login_required
+def delete_saved_bug_view(request, pk):
+    """
+        View that allows the user
+        to delete an existing saved bug
+        if it belongs to them
+    """
+    bug = Bug.objects.get(pk=pk)
+    sb_form = SavedBugForm(request.POST or None)
+    if request.method == 'POST':
+        if sb_form.is_valid():
+            user = request.user
+            try:
+                saved_bug = SavedBug.objects.get(user=user, bug=bug)
+            except SavedBug.DoesNotExist:
+                saved_bug = None
+            if saved_bug is not None:
+                saved_bug.delete()
+                messages.success(request, 'success')
+                return redirect('bug-detail', bug.pk)
             else:
                 messages.error(request, 'error')
     return redirect('bug-detail', bug.pk)

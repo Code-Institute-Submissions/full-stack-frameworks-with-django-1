@@ -22,6 +22,7 @@ urlpatterns = [
     path('<int:pk>/delete/', views.delete_bug_view, name='delete-bug'),
     path('comment/<bug_pk>/new/', views.create_or_edit_comment_view, name='new-comment'),
     path('<int:pk>/upvote/', views.upvote_bug_view, name='upvote-bug'),
-    path('<int:pk>/saved/', views.user_save_bug, name='save-bug'),
+    path('<int:pk>/saved/', views.user_save_bug_view, name='save-bug'),
+    path('<int:pk>/saved/delete', views.delete_saved_bug_view, name='delete-saved-bug'),
     path('saved-bugs/', views.get_user_saved_bugs_view, name='get-saved-bugs'),
 ]

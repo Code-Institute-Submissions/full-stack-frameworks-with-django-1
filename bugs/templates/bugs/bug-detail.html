@@ -30,7 +30,7 @@
 
                             <p class="bug__description mb-3">{{ bug.description }}</p>
                             {% if bug.screenshot %}
-                                <img src="/media/{{ bug.screenshot }}" alt="Screenshot of {{ bug.title }}">
+                                <img src="/media/{{ bug.screenshot }}" alt="Screenshot of {{ bug.title }}" class="img-fluid d-block mb-3">
                             {% endif %}
                             <a href="{% url 'new-comment' bug.id %}" class="btn btn-primary bug__leave-comment mb-4"><i class="fa fa-comment mr-2"></i>Leave a Comment</a>
                             <div class="bug__comments">
@@ -94,6 +94,7 @@
                                     <button class="btn btn-link" type="submit"><i class="fa fa-thumbs-up mr-1"></i> Upvote</button>
                                 </div>
                             </form>
+                            {% if is_saved is None %}
                             <form action="{% url 'save-bug' bug.id %}" method="POST" class="d-inline-block">
                                 {% csrf_token %}
                                 {{ sb_form|crispy }}
@@ -102,6 +103,16 @@
                                     <button class="btn btn-link" type="submit"><i class="fa fa-star mr-1"></i> Save</button>
                                 </div>
                             </form>
+                            {% else %}
+                            <form action="{% url 'delete-saved-bug' bug.id %}" method="POST" class="d-inline-block">
+                                {% csrf_token %}
+                                {{ sb_form|crispy }}
+
+                                <div class="form-group mb-0">
+                                    <button class="btn btn-link" type="submit"><i class="fa fa-star mr-1"></i> Unsave</button>
+                                </div>
+                            </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
