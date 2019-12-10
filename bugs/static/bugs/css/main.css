@@ -17,6 +17,12 @@
   background-color: #e8e8e8;
 }
 
+.user-control__edit,
+.delete-bug__form {
+  position: relative;
+  top: -5px;
+}
+
 .bug__sidebar .btn-link {
   text-decoration: none;
 }

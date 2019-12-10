@@ -18,6 +18,9 @@
 
                         <div class="form-group mb-0">
                             <button class="btn btn-primary" type="submit">Submit</button>
+                            {% if 'edit' in request.path %}
+                            <a href="../" class="btn btn-link">Cancel</a>
+                            {% endif %}
                         </div>
                     </form>
                 </div>

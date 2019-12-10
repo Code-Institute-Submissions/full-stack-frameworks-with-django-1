@@ -14,7 +14,20 @@
                 <div class="container-fluid has-sidebar">
                     <div class="row">
                         <div class="col-md-9 p-4 bug__details">
-                            <h2 class="bug__title mb-3">{{ bug.title }}</h2>
+                            <h2 class="bug__title mb-3 d-inline-block">{{ bug.title }}</h2>
+
+                            {% if request.user == bug.author %}
+                            <p class="user-control__edit d-inline-block mb-0 ml-2 mr-1"><a href="{% url 'edit-bug' bug.id %}" class="btn btn-link p-0"><i class="fa fa-pencil"></i></a></p>
+
+                            <form action="{% url 'delete-bug' bug.id %}" method="POST" class="delete-bug__form d-inline-block">
+                                {% csrf_token %}
+
+                                <div class="form-group mb-0">
+                                    <button class="btn btn-link p-0" type="submit"><i class="fa fa-trash-o"></i></button>
+                                </div>
+                            </form>
+                            {% endif %}
+
                             <p class="bug__description mb-3">{{ bug.description }}</p>
                             {% if bug.screenshot %}
                                 <img src="/media/{{ bug.screenshot }}" alt="Screenshot of {{ bug.title }}">
@@ -77,7 +90,7 @@
                                 {% csrf_token %}
                                 {{ uv_form|crispy }}
 
-                                <div class="form-group">
+                                <div class="form-group mb-0">
                                     <button class="btn btn-link" type="submit"><i class="fa fa-thumbs-up mr-1"></i> Upvote</button>
                                 </div>
                             </form>
@@ -85,7 +98,7 @@
                                 {% csrf_token %}
                                 {{ sb_form|crispy }}
 
-                                <div class="form-group">
+                                <div class="form-group mb-0">
                                     <button class="btn btn-link" type="submit"><i class="fa fa-star mr-1"></i> Save</button>
                                 </div>
                             </form>

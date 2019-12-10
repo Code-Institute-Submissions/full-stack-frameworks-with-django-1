@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.contrib import messages
@@ -96,21 +97,9 @@ def bug_detail_view(request, pk):
 @login_required
 def create_bug_view(request, pk=None):
     """
-        View that allows either create or
-        update functionality depending on
-        if the Bug ID is null or not 
+        View that allows the user
+        to create a new bug
     """
-    # bug = get_object_or_404(Bug, pk=pk) if pk else None
-    # if request.method == 'POST':
-    #     form = BugForm(request.POST, request.FILES, instance=bug)
-    #     if form.is_valid():
-    #         form.instance.author = request.user
-    #         bug = form.save()
-    #         return redirect('bug-detail', bug.pk)
-    # else:
-    #     form = BugForm(instance=bug)
-    # return render(request, 'bugs/bug-form.html', {'form': form})
-
     bug = get_object_or_404(Bug, pk=pk) if pk else None
     if request.method == 'POST':
         form = BugForm(request.POST, request.FILES, instance=bug)
@@ -126,20 +115,43 @@ def create_bug_view(request, pk=None):
 @login_required
 def edit_bug_view(request, pk=None):
     """
-        View that allows either create or
-        update functionality depending on
-        if the Bug ID is null or not 
+        View that allows the user
+        to edit an existing bug
+        if it belongs to them
     """
     bug = get_object_or_404(Bug, pk=pk) if pk else None
     if request.user == bug.author:
         if request.method == 'POST':
             form = BugForm(request.POST, request.FILES, instance=bug)
             if form.is_valid():
+                bug_status = form.instance.status
+                if bug_status == 'IP':
+                    bug.date_completed = None
+                elif bug_status == 'C' and bug.date_completed is None:
+                    bug.date_completed = datetime.now()
                 bug = form.save()
                 messages.success(request, 'success')
+                return redirect('bug-detail', bug.pk)
         else:
             form = BugForm(instance=bug)
         return render(request, 'bugs/bug-form.html', {'form': form})
+    else:
+        messages.error(request, 'error')
+        return redirect('bug-detail', bug.pk)
+
+
+@login_required
+def delete_bug_view(request, pk=None):
+    """
+        View that allows the user
+        to delete an existing bug
+        if it belongs to them
+    """
+    bug = get_object_or_404(Bug, pk=pk) if pk else None
+    if request.user == bug.author and request.method == 'POST':
+        bug.delete()
+        messages.success(request, 'success')
+        return redirect('get-bugs')
     else:
         messages.error(request, 'error')
         return redirect('bug-detail', bug.pk)
