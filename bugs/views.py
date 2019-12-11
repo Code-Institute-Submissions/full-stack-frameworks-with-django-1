@@ -112,13 +112,13 @@ def edit_bug_view(request, pk=None):
                 elif bug_status == 'C' and bug.date_completed is None:
                     bug.date_completed = datetime.now()
                 bug = form.save()
-                messages.success(request, 'success')
+                messages.success(request, 'Success! Edit has been successfully saved.')
                 return redirect('bug-detail', bug.pk)
         else:
             form = BugForm(instance=bug)
         return render(request, 'bugs/bug-form.html', {'form': form})
     else:
-        messages.error(request, 'error')
+        messages.error(request, 'Error! You are not permitted to edit this bug.')
         return redirect('bug-detail', bug.pk)
 
 
@@ -132,10 +132,10 @@ def delete_bug_view(request, pk=None):
     bug = get_object_or_404(Bug, pk=pk) if pk else None
     if request.user == bug.author and request.method == 'POST':
         bug.delete()
-        messages.success(request, 'success')
+        messages.success(request, 'Success! Bug has been successfully deleted.')
         return redirect('get-bugs')
     else:
-        messages.error(request, 'error')
+        messages.error(request, 'Error! You are not permitted to delete this bug.')
         return redirect('bug-detail', bug.pk)
 
 
@@ -179,9 +179,9 @@ def upvote_bug_view(request, pk):
                 has_voted.save()
                 bug.upvotes += 1
                 bug.save()
-                messages.success(request, 'success')
+                messages.success(request, 'Success! You have upvoted this bug.')
             else:
-                messages.error(request, 'error')
+                messages.error(request, 'Error! You have already voted once.')
     return redirect('bug-detail', bug.pk)
 
 
@@ -204,9 +204,9 @@ def user_save_bug_view(request, pk):
             if saved_bug is None:
                 saved_bug = SavedBug(user=user, bug=bug)
                 saved_bug.save()
-                messages.success(request, 'success')
+                messages.success(request, 'Success! You have added this bug to your saved bugs.')
             else:
-                messages.error(request, 'error')
+                messages.error(request, 'Error! You have already saved this bug.')
     return redirect('bug-detail', bug.pk)
 
 
@@ -228,8 +228,8 @@ def delete_saved_bug_view(request, pk):
                 saved_bug = None
             if saved_bug is not None:
                 saved_bug.delete()
-                messages.success(request, 'success')
+                messages.success(request, 'Success! You have removed this bug from your saved bugs.')
                 return redirect('bug-detail', bug.pk)
             else:
-                messages.error(request, 'error')
+                messages.error(request, 'Error! You have already removed this bug.')
     return redirect('bug-detail', bug.pk)
