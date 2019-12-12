@@ -3,7 +3,7 @@
         &.has-sidebar {
             .bug__sidebar {
                 border-left: 1px solid rgba(0, 0, 0, 0.125);
-                background-color: #e8e8e8;
+                background-color: $card-header;
             }
         }
     }

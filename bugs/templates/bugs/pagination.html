@@ -1,0 +1,111 @@
+{% if request.path == '/bugs/priority/critical/' %}
+    {% if bugs.critical.paginator.count >= 5 %}
+        <ul class="pagination mb-0 justify-content-between">
+            {% if bugs.critical.has_previous %}
+            <li class="page-item">
+                <a href="?page={{ bugs.critical.previous_page_number }}" class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span>Previous</span>
+                </a>
+            </li>
+            {% endif %}
+
+            {% if bugs.critical.has_next %}
+            <li class="page-item">
+                <a href="?page={{ bugs.critical.next_page_number }}" class="page-link" aria-label="Next">
+                    <span>Next</span>
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% elif request.path == '/bugs/priority/high/' %}
+    {% if bugs.high.paginator.count >= 5 %}
+        <ul class="pagination mb-0 justify-content-between">
+            {% if bugs.high.has_previous %}
+            <li class="page-item">
+                <a href="?page={{ bugs.high.previous_page_number }}" class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span>Previous</span>
+                </a>
+            </li>
+            {% endif %}
+
+            {% if bugs.high.has_next %}
+            <li class="page-item">
+                <a href="?page={{ bugs.high.next_page_number }}" class="page-link" aria-label="Next">
+                    <span>Next</span>
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% elif request.path == '/bugs/priority/medium/' %}
+    {% if bugs.medium.paginator.count >= 5 %}
+        <ul class="pagination mb-0 justify-content-between">
+            {% if bugs.medium.has_previous %}
+            <li class="page-item">
+                <a href="?page={{ bugs.medium.previous_page_number }}" class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span>Previous</span>
+                </a>
+            </li>
+            {% endif %}
+
+            {% if bugs.medium.has_next %}
+            <li class="page-item">
+                <a href="?page={{ bugs.medium.next_page_number }}" class="page-link" aria-label="Next">
+                    <span>Next</span>
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% elif request.path == '/bugs/priority/low/' %}
+    {% if bugs.low.paginator.count >= 5 %}
+        <ul class="pagination mb-0 justify-content-between">
+            {% if bugs.low.has_previous %}
+            <li class="page-item">
+                <a href="?page={{ bugs.low.previous_page_number }}" class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span>Previous</span>
+                </a>
+            </li>
+            {% endif %}
+
+            {% if bugs.low.has_next %}
+            <li class="page-item">
+                <a href="?page={{ bugs.low.next_page_number }}" class="page-link" aria-label="Next">
+                    <span>Next</span>
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% else %}
+    {% if bugs.all.paginator.count >= 5 %}
+        <ul class="pagination mb-0 justify-content-between">
+            {% if bugs.all.has_previous %}
+            <li class="page-item">
+                <a href="?page={{ bugs.all.previous_page_number }}" class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span>Previous</span>
+                </a>
+            </li>
+            {% endif %}
+
+            {% if bugs.all.has_next %}
+            <li class="page-item">
+                <a href="?page={{ bugs.all.next_page_number }}" class="page-link" aria-label="Next">
+                    <span>Next</span>
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endif %}

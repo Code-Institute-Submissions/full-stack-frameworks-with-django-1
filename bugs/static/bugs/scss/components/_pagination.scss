@@ -1,0 +1,22 @@
+.pagination {
+    background-color: $pagination;
+    padding: 1.5rem;
+    border-radius: 0;
+
+    .page-item {
+        .page-link {
+            padding: 0;
+            border: 0;
+            border-radius: 0;
+            background-color: transparent;
+            color: #fff;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            line-height: 1.2;
+            font: {
+                weight: 700;
+                size: 1.25rem;
+            }
+        }
+    }
+}

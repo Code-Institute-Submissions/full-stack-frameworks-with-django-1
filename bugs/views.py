@@ -13,7 +13,7 @@ def get_bugs_view(request):
         View that returns a list of
         Bugs that are published.
     """
-    per_page = 5
+    per_page = 4
     a_bugs = (Paginator(Bug.objects
               .filter(status='IP')
               .order_by('-upvotes'), per_page))
