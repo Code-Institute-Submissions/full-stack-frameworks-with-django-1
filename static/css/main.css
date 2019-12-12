@@ -9741,6 +9741,7 @@ a:hover {
 
 #toast-container > .toast-success {
   background-color: #dff2bf;
+  background-image: url("../img/success-227700.png") !important;
 }
 
 #toast-container > .toast-success .toast-message {
@@ -9757,6 +9758,7 @@ a:hover {
 
 #toast-container > .toast-error {
   background-color: #ffbaba;
+  background-image: url("../img/error-d8000c.png") !important;
 }
 
 #toast-container > .toast-error .toast-message {

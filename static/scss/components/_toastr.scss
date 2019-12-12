@@ -12,7 +12,7 @@
 
         &-success {
             background-color: #dff2bf;
-            // background-image: url('../img/success-227700.png') !important;
+            background-image: url('../img/success-227700.png') !important;
 
             .toast-message {
                 color: #227700;
@@ -29,6 +29,7 @@
 
         &-error {
             background-color: #ffbaba;
+            background-image: url('../img/error-d8000c.png') !important;
 
             .toast-message {
                 color: #d8000c;

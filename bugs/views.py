@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from .models import Bug, Comment, Upvote, SavedBug
 from .forms import BugForm, CommentForm, UpvoteForm, SavedBugForm
 
@@ -12,12 +13,34 @@ def get_bugs_view(request):
         View that returns a list of
         Bugs that are published.
     """
+    per_page = 5
+    a_bugs = (Paginator(Bug.objects
+              .filter(status='IP')
+              .order_by('-upvotes'), per_page))
+    c_bugs = (Paginator(Bug.objects
+              .filter(priority='CRITICAL', status='IP')
+              .order_by('-upvotes'), per_page))
+    h_bugs = (Paginator(Bug.objects
+              .filter(priority='HIGH', status='IP')
+              .order_by('-upvotes'), per_page))
+    m_bugs = (Paginator(Bug.objects
+              .filter(priority='MEDIUM', status='IP')
+              .order_by('-upvotes'), per_page))
+    l_bugs = (Paginator(Bug.objects
+              .filter(priority='LOW', status='IP')
+              .order_by('-upvotes'), per_page))
+    page = request.GET.get('page')
+    all_bugs_paged = a_bugs.get_page(page)
+    critical_bugs_paged = c_bugs.get_page(page)
+    high_bugs_paged = h_bugs.get_page(page)
+    medium_bugs_paged = m_bugs.get_page(page)
+    low_bugs_paged = l_bugs.get_page(page)
     bugs = {
-        'all': Bug.objects.filter(status='IP'),
-        'critical': Bug.objects.filter(priority='CRITICAL', status='IP'),
-        'high': Bug.objects.filter(priority='HIGH', status='IP'),
-        'medium': Bug.objects.filter(priority='MEDIUM', status='IP'),
-        'low': Bug.objects.filter(priority='LOW', status='IP'),
+        'all': all_bugs_paged,
+        'critical': critical_bugs_paged,
+        'high': high_bugs_paged,
+        'medium': medium_bugs_paged,
+        'low': low_bugs_paged,
     }
     context = {
         'bugs': bugs,
@@ -112,13 +135,15 @@ def edit_bug_view(request, pk=None):
                 elif bug_status == 'C' and bug.date_completed is None:
                     bug.date_completed = datetime.now()
                 bug = form.save()
-                messages.success(request, 'Success! Edit has been successfully saved.')
+                messages.success(request,
+                                 'Success! Edit has been successfully saved.')
                 return redirect('bug-detail', bug.pk)
         else:
             form = BugForm(instance=bug)
         return render(request, 'bugs/bug-form.html', {'form': form})
     else:
-        messages.error(request, 'Error! You are not permitted to edit this bug.')
+        messages.error(request,
+                       'Error! You are not permitted to edit this bug.')
         return redirect('bug-detail', bug.pk)
 
 
@@ -132,10 +157,12 @@ def delete_bug_view(request, pk=None):
     bug = get_object_or_404(Bug, pk=pk) if pk else None
     if request.user == bug.author and request.method == 'POST':
         bug.delete()
-        messages.success(request, 'Success! Bug has been successfully deleted.')
+        messages.success(request,
+                         'Success! Bug has been successfully deleted.')
         return redirect('get-bugs')
     else:
-        messages.error(request, 'Error! You are not permitted to delete this bug.')
+        messages.error(request,
+                       'Error! You are not permitted to delete this bug.')
         return redirect('bug-detail', bug.pk)
 
 
@@ -179,9 +206,11 @@ def upvote_bug_view(request, pk):
                 has_voted.save()
                 bug.upvotes += 1
                 bug.save()
-                messages.success(request, 'Success! You have upvoted this bug.')
+                messages.success(request,
+                                 'Success! You have upvoted this bug.')
             else:
-                messages.error(request, 'Error! You have already voted once.')
+                messages.error(request,
+                               'Error! You have already voted once.')
     return redirect('bug-detail', bug.pk)
 
 
@@ -204,9 +233,12 @@ def user_save_bug_view(request, pk):
             if saved_bug is None:
                 saved_bug = SavedBug(user=user, bug=bug)
                 saved_bug.save()
-                messages.success(request, 'Success! You have added this bug to your saved bugs.')
+                messages.success(request,
+                                 'Success! You have added this '
+                                 'bug to your saved bugs.')
             else:
-                messages.error(request, 'Error! You have already saved this bug.')
+                messages.error(request,
+                               'Error! You have already saved this bug.')
     return redirect('bug-detail', bug.pk)
 
 
@@ -228,8 +260,11 @@ def delete_saved_bug_view(request, pk):
                 saved_bug = None
             if saved_bug is not None:
                 saved_bug.delete()
-                messages.success(request, 'Success! You have removed this bug from your saved bugs.')
+                messages.success(request,
+                                 'Success! You have removed this '
+                                 'bug from your saved bugs.')
                 return redirect('bug-detail', bug.pk)
             else:
-                messages.error(request, 'Error! You have already removed this bug.')
+                messages.error(request,
+                               'Error! You have already removed this bug.')
     return redirect('bug-detail', bug.pk)
