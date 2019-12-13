@@ -54,8 +54,14 @@ def get_user_bugs_view(request):
         View that returns a list of
         Bugs that a user has published
     """
+    per_page = 4
+    u_bugs = (Paginator(Bug.objects
+              .filter(author=request.user, status='IP')
+              .order_by('-upvotes'), per_page))
+    page = request.GET.get('page')
+    user_bugs_paged = u_bugs.get_page(page)
     bugs = {
-        'users': Bug.objects.filter(author_id=request.user, status='IP'),
+        'users': user_bugs_paged,
     }
     context = {
         'bugs': bugs,
@@ -69,8 +75,13 @@ def get_user_saved_bugs_view(request):
         View that returns a list of
         Bugs that a user has saved
     """
+    per_page = 4
+    s_bugs = (Paginator(SavedBug.objects
+              .filter(user=request.user), per_page))
+    page = request.GET.get('page')
+    saved_bugs_paged = s_bugs.get_page(page)
     bugs = {
-        'saved': SavedBug.objects.filter(user_id=request.user),
+        'saved': saved_bugs_paged,
     }
     context = {
         'bugs': bugs,

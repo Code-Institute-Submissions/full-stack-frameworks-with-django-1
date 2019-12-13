@@ -1,3 +1,4 @@
+ <!-- Critical -->
 {% if request.path == '/bugs/priority/critical/' %}
     {% if bugs.critical.paginator.count >= 5 %}
         <ul class="pagination mb-0 justify-content-between">
@@ -20,7 +21,10 @@
             {% endif %}
         </ul>
     {% endif %}
-{% elif request.path == '/bugs/priority/high/' %}
+{% endif %}
+
+<!-- High -->
+{% if request.path == '/bugs/priority/high/' %}
     {% if bugs.high.paginator.count >= 5 %}
         <ul class="pagination mb-0 justify-content-between">
             {% if bugs.high.has_previous %}
@@ -42,7 +46,10 @@
             {% endif %}
         </ul>
     {% endif %}
-{% elif request.path == '/bugs/priority/medium/' %}
+{% endif %}
+
+<!-- Medium -->
+{% if request.path == '/bugs/priority/medium/' %}
     {% if bugs.medium.paginator.count >= 5 %}
         <ul class="pagination mb-0 justify-content-between">
             {% if bugs.medium.has_previous %}
@@ -64,7 +71,10 @@
             {% endif %}
         </ul>
     {% endif %}
-{% elif request.path == '/bugs/priority/low/' %}
+{% endif %}
+
+<!-- Low -->
+{% if request.path == '/bugs/priority/low/' %}
     {% if bugs.low.paginator.count >= 5 %}
         <ul class="pagination mb-0 justify-content-between">
             {% if bugs.low.has_previous %}
@@ -86,7 +96,10 @@
             {% endif %}
         </ul>
     {% endif %}
-{% else %}
+{% endif %}
+
+<!-- All -->
+{% if request.path == '/bugs/' %}
     {% if bugs.all.paginator.count >= 5 %}
         <ul class="pagination mb-0 justify-content-between">
             {% if bugs.all.has_previous %}
@@ -101,6 +114,56 @@
             {% if bugs.all.has_next %}
             <li class="page-item">
                 <a href="?page={{ bugs.all.next_page_number }}" class="page-link" aria-label="Next">
+                    <span>Next</span>
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endif %}
+
+<!-- Submitted -->
+{% if request.path == '/bugs/submitted-bugs/' %}
+    {% if bugs.users.paginator.count >= 5 %}
+        <ul class="pagination mb-0 justify-content-between">
+            {% if bugs.users.has_previous %}
+            <li class="page-item">
+                <a href="?page={{ bugs.users.previous_page_number }}" class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span>Previous</span>
+                </a>
+            </li>
+            {% endif %}
+
+            {% if bugs.users.has_next %}
+            <li class="page-item">
+                <a href="?page={{ bugs.users.next_page_number }}" class="page-link" aria-label="Next">
+                    <span>Next</span>
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endif %}
+
+<!-- Saved -->
+{% if request.path == '/bugs/saved-bugs/' %}
+    {% if bugs.saved.paginator.count >= 5 %}
+        <ul class="pagination mb-0 justify-content-between">
+            {% if bugs.saved.has_previous %}
+            <li class="page-item">
+                <a href="?page={{ bugs.saved.previous_page_number }}" class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span>Previous</span>
+                </a>
+            </li>
+            {% endif %}
+
+            {% if bugs.saved.has_next %}
+            <li class="page-item">
+                <a href="?page={{ bugs.saved.next_page_number }}" class="page-link" aria-label="Next">
                     <span>Next</span>
                     <span aria-hidden="true">&raquo;</span>
                 </a>
