@@ -13,7 +13,7 @@
                 </div>
                 <div class="container-fluid has-sidebar">
                     <div class="row">
-                        <div class="col-md-9 p-4 bug__details">
+                        <div class="col-md-12 col-lg-8 col-xl-9 p-4 bug__details">
                             <h2 class="bug__title mb-3 d-inline-block">{{ bug.title }}</h2>
 
                             {% if request.user == bug.author %}
@@ -47,7 +47,7 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class="col-md-3 p-4 bug__sidebar">
+                        <div class="col-md-12 col-lg-4 col-xl-3 p-4 bug__sidebar">
                             <table class="table bug__info-table">
                                 <tbody>
                                     <tr>

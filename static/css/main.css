@@ -9482,6 +9482,7 @@ body {
 }
 
 #sidebar-wrapper {
+  background-color: #fff;
   min-height: 100vh;
   margin-left: -15rem;
   position: relative;
@@ -9655,11 +9656,18 @@ body {
 
 #page-content-wrapper {
   background-color: #f5f5f5;
-  min-height: calc( 100vh - (90px + 176px));
 }
 
-#page-content-wrapper-container {
-  min-height: calc( 100vh - (90px + 176px));
+@media (min-width: 1200px) {
+  #page-content-wrapper {
+    min-height: calc( 100vh - (90px + 176px));
+  }
+}
+
+@media (min-width: 1200px) {
+  #page-content-wrapper-container {
+    min-height: calc( 100vh - (90px + 176px));
+  }
 }
 
 a:hover {
