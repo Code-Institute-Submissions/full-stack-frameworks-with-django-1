@@ -35,10 +35,32 @@ I was tasked with creating one of three things, I decided to go with the issue t
 * Features to come soon.
 
 ### UX
-Details of the UX design process is available inside the 'project-supplements/user-experience' directory. This directory contains an array of documents that illustrate the UX design process in the form of wireframes.
+I started by thinking about the user flow and how I want the user to use the application. I figured that it would be good to use the homepage of the app to contain useful information so I went with the most recent bugs/features that have been added to the site.
+
+I also planned what would require the user to be logged in, and subsequently made sure to make note of anything that would so that I could make sure that only things an anonymous user can do is displayed to them.
+
+I then planned out the menus for my application choosing to separate bugs/feature for ease of use and single responsibility principle.
+
+Once I had finished planning out the user flow and such, I moved on to creating the mockups of my application using Balsamiq which can be found in 'project-supplements/user-experience'.
+
+Looking at the homepage mockup you can see that I have tried to make the most important/urgent things sit up at the top (i.e. Critical/High priority issues). I have also provided an easy to use navigation to the app that allows the user to quickly and easily navigate around the app. I also did a mobile version of the mockup, whereby the menu is not always visible and must be toggled via a menu button, this allows the user to fully utilise the amount of screen real estate they have on their mobile devices.
+
+I then mocked up how a couple of pages would look, these would be the same layouts used for both bugs and features (so I only designed them once) and would include Add Bug/Feature, All Submitted Bugs/Features (Shows all the bugs or features that user has created), and All Saved Bugs/Features (Shows all the bugs or features a user has saved).
+
+For these pages, I wanted them to be small and concise, I didn't want the user to do a lot of scrolling so I limited them to show only 4 per page, and then added pagination so the user can easily go back and forth. I designed a mobile version though for this specific layout it remains nearly identical, with the exception of the menu mentioned above, and the footer spanning full width.
+
+I then moved on to the Add/Edit pages which again would look very much the same for both bugs and features with perhaps a few fields changing here and there, so I combined these into one mockup. This is quite simply just a form page, and I tried to just simplify it, making sure everything was clearly labelled and quite big/blocky as well as making sure to add the universally recognised * symbol for required fields.
+
+Finally, I designed the bug detail pages which would be what the user sees when they click through for more information regarding a bug/feature. For this page, I wanted again to keep things simple, but make sure the useful information was always in eye sight. I decided the best way to do this would to be split it up into 3 columns, sidebar, content and another kind of sidebar with bug/feature info such as priority, upvotes, etc. This way, all the useful and main information would always be visible to the user.
+
+I also did a mobile mockup of this layout where I debated whether or not to move the sidebar up to the top on mobile, in the end I decided against it as I think the user would prefer to know exactly what the issue/feature is first, but this could be good to A/B test in the future.
+
+Images of the UX design process is available inside the 'project-supplements/user-experience' directory. This directory contains an array of documents that illustrate the UX design process in the form of wireframes.
 
 ### Database
-Details of the Database design process is available inside the 'project-supplements/database-design' directory. This directory contains an array of documnents that illustrate how I came to decide on the database collections and fields.
+After I finished creating the UI/UX design of the application, I moved on to the database design as I think it's just as important, if not more so to make sure hat the database architecture is on point, to ensure a scalable app in the future as well as ensuring the queries return results quickly.
+
+I thought about the database tables and fields I would need and set about jotting them down using WordPad. This can be found in 'project-supplements/database-design'. When doing this process, I just thought about it in terms of models I would need to create as Django has an ORM that converts the models into SQL and creates the database tables and fields.
 
 ### Features
 #### Existing Features
