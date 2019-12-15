@@ -27,11 +27,6 @@ I was tasked with creating one of three things, I decided to go with the issue t
 * A user would like to leave a comment on a bug/feature. To do so, they must be logged in, on the bug/feature detail page the user should click on the 'Leave a Comment' button and fill out the form.
     * The form will be prepopulated with the current values, and again validation is carried out on the front and back-end.
 
-* A user would like to edit a comment. To do so, they must be logged in and as long as the bug/feature belongs to them they will have the option to edit the comment by clicking the edit icon (pencil) next to the title on the individual bug/feature page.
-    * The form will be prepopulated with the current values, and again validation is carried out on the front and back-end.
-
-* A user would like to delete a comment. To do so, they must be logged in and as long as the bug/feature belongs to them they will have the option to delete the comment by clicking the delete icon (trashcan) next to the title on the individual bug/feature page.
-
 * Features to come soon.
 
 ### UX

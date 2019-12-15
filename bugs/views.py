@@ -199,7 +199,7 @@ def delete_bug_view(request, pk=None):
 
 
 @login_required
-def create_or_edit_comment_view(request, bug_pk, pk=None):
+def create_comment_view(request, bug_pk, pk=None):
     """
         View that allows either create or
         update functionality depending on
