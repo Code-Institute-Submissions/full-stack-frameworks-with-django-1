@@ -8,13 +8,13 @@
                 <!-- All -->
                 <div id="accordion" class="accordion__all">
                     <div class="card">
-                        <div id="users-heading" class="card-header d-flex justify-content-between">
-                            <h5 class="mb-0" data-toggle="collapse" data-target="#users-collapse" aria-expanded="true" aria-controls="users-collapse">My Saved Bugs</h5>
+                        <div id="saved-heading" class="card-header d-flex justify-content-between">
+                            <h5 class="mb-0" data-toggle="collapse" data-target="#saved-collapse" aria-expanded="true" aria-controls="saved-collapse">My Saved Bugs</h5>
                         </div>
                     </div>
-                    <div id="users-collapse" class="collapse show" aria-labelledby="users-heading" data-parent="#accordion">
+                    <div id="saved-collapse" class="collapse show" aria-labelledby="saved-heading" data-parent="#accordion">
                         <div class="list-group">
-                            {% for bug in bugs.saved %}
+                            {% for bug in bugs %}
                                 <a href="{% url 'bug-detail' bug.bug.id %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="accordion__title">{{ bug.bug.title }}</h5>

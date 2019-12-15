@@ -5,14 +5,14 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col p-0">
-                <!-- All -->
-                <div id="accordion" class="accordion__all">
+                <div id="accordion" class="accordion__{{ priority }}">
                     <div class="card">
-                        <div id="users-heading" class="card-header d-flex justify-content-between">
-                            <h5 class="mb-0" data-toggle="collapse" data-target="#users-collapse" aria-expanded="true" aria-controls="users-collapse">My Submitted Bugs</h5>
+                        <div id="{{ priority }}-heading" class="card-header d-flex justify-content-between">
+                            <h5 class="mb-0" data-toggle="collapse" data-target="#{{ priority }}-collapse" aria-expanded="true" aria-controls="{{ priority }}-collapse">{{ priority|title }} Bugs</h5>
+                            <a href="{% url 'get-bugs' %}" class="card__meta">View All Bugs</a>
                         </div>
                     </div>
-                    <div id="users-collapse" class="collapse show" aria-labelledby="users-heading" data-parent="#accordion">
+                    <div id="{{ priority }}-collapse" class="collapse show" aria-labelledby="{{ priority }}-heading" data-parent="#accordion">
                         <div class="list-group">
                             {% for bug in bugs %}
                                 <a href="{% url 'bug-detail' bug.id %}" class="list-group-item list-group-item-action flex-column align-items-start">

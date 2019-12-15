@@ -17,6 +17,22 @@ def get_bugs_view(request):
     a_bugs = (Paginator(Bug.objects
               .filter(status='IP')
               .order_by('-upvotes'), per_page))
+    page = request.GET.get('page')
+    all_bugs_paged = a_bugs.get_page(page)
+    bugs = all_bugs_paged
+    context = {
+        'bugs': bugs,
+    }
+    return render(request, 'bugs/get-bugs.html', context)
+
+
+def get_bugs_priority_view(request, priority):
+    """
+        View that returns a list of
+        Bugs that are published
+        based on their priority.
+    """
+    per_page = 4
     c_bugs = (Paginator(Bug.objects
               .filter(priority='CRITICAL', status='IP')
               .order_by('-upvotes'), per_page))
@@ -30,22 +46,27 @@ def get_bugs_view(request):
               .filter(priority='LOW', status='IP')
               .order_by('-upvotes'), per_page))
     page = request.GET.get('page')
-    all_bugs_paged = a_bugs.get_page(page)
     critical_bugs_paged = c_bugs.get_page(page)
     high_bugs_paged = h_bugs.get_page(page)
     medium_bugs_paged = m_bugs.get_page(page)
     low_bugs_paged = l_bugs.get_page(page)
-    bugs = {
-        'all': all_bugs_paged,
-        'critical': critical_bugs_paged,
-        'high': high_bugs_paged,
-        'medium': medium_bugs_paged,
-        'low': low_bugs_paged,
-    }
+    priority = priority
+    if priority == 'critical':
+        bugs = critical_bugs_paged
+    elif priority == 'high':
+        bugs = high_bugs_paged
+    elif priority == 'medium':
+        bugs = medium_bugs_paged
+    elif priority == 'low':
+        bugs = low_bugs_paged
+    else:
+        messages.error(request, 'Error! That is not a recognised priority.')
+        return redirect('get-bugs')
     context = {
         'bugs': bugs,
+        'priority': priority,
     }
-    return render(request, 'bugs/get-bugs.html', context)
+    return render(request, 'bugs/get-bugs-priority.html', context)
 
 
 @login_required
@@ -60,9 +81,7 @@ def get_user_bugs_view(request):
               .order_by('-upvotes'), per_page))
     page = request.GET.get('page')
     user_bugs_paged = u_bugs.get_page(page)
-    bugs = {
-        'users': user_bugs_paged,
-    }
+    bugs = user_bugs_paged
     context = {
         'bugs': bugs,
     }
@@ -77,12 +96,11 @@ def get_user_saved_bugs_view(request):
     """
     per_page = 4
     s_bugs = (Paginator(SavedBug.objects
-              .filter(user=request.user), per_page))
+              .filter(user=request.user)
+              .order_by('-date_created'), per_page))
     page = request.GET.get('page')
     saved_bugs_paged = s_bugs.get_page(page)
-    bugs = {
-        'saved': saved_bugs_paged,
-    }
+    bugs = saved_bugs_paged
     context = {
         'bugs': bugs,
     }
@@ -184,7 +202,7 @@ def delete_bug_view(request, pk=None):
 def create_or_edit_comment_view(request, bug_pk, pk=None):
     """
         View that allows either create or
-        update f unctionality depending on
+        update functionality depending on
         if the Comment ID is null or not
     """
     bug = get_object_or_404(Bug, pk=bug_pk)

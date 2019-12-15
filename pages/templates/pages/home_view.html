@@ -10,7 +10,7 @@
                     <div class="card">
                         <div id="critical-heading" class="card-header d-flex justify-content-between">
                             <h5 class="mb-0" data-toggle="collapse" data-target="#critical-collapse" aria-expanded="true" aria-controls="critical-collapse"><i class="fa fa-exclamation-triangle"></i> Critical</h5>
-                            <a href="{% url 'get-critical-bugs' %}" class="card__meta">View All</a>
+                            <a href="{% url 'get-bugs-priority' priority='critical' %}" class="card__meta">View All</a>
                         </div>
                     </div>
                     <div id="critical-collapse" class="collapse show" aria-labelledby="critical-heading" data-parent="#accordion">
@@ -33,7 +33,7 @@
                     <div class="card">
                         <div id="high-heading" class="card-header d-flex justify-content-between">
                             <h5 class="mb-0" data-toggle="collapse" data-target="#high-collapse" aria-expanded="true" aria-controls="high-collapse"><i class="fa fa-exclamation-triangle"></i> High</h5>
-                            <a href="{% url 'get-high-bugs' %}" class="card__meta">View All</a>
+                            <a href="{% url 'get-bugs-priority' priority='high' %}" class="card__meta">View All</a>
                         </div>
                     </div>
                     <div id="high-collapse" class="collapse show" aria-labelledby="high-heading" data-parent="#accordion">
@@ -56,7 +56,7 @@
                     <div class="card">
                         <div id="medium-heading" class="card-header d-flex justify-content-between">
                             <h5 class="mb-0" data-toggle="collapse" data-target="#medium-collapse" aria-expanded="true" aria-controls="medium-collapse"><i class="fa fa-exclamation-triangle"></i> Medium</h5>
-                            <a href="{% url 'get-medium-bugs' %}" class="card__meta">View All</a>
+                            <a href="{% url 'get-bugs-priority' priority='medium' %}" class="card__meta">View All</a>
                         </div>
                     </div>
                     <div id="medium-collapse" class="collapse show" aria-labelledby="medium-heading" data-parent="#accordion">
@@ -79,7 +79,7 @@
                     <div class="card">
                         <div id="low-heading" class="card-header d-flex justify-content-between">
                             <h5 class="mb-0" data-toggle="collapse" data-target="#low-collapse" aria-expanded="true" aria-controls="low-collapse"><i class="fa fa-exclamation-triangle"></i> Low</h5>
-                            <a href="{% url 'get-low-bugs' %}" class="card__meta">View All</a>
+                            <a href="{% url 'get-bugs-priority' priority='low' %}" class="card__meta">View All</a>
                         </div>
                     </div>
                     <div id="low-collapse" class="collapse show" aria-labelledby="low-heading" data-parent="#accordion">

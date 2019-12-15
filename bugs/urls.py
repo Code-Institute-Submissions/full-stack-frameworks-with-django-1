@@ -11,11 +11,8 @@ from . import views
 
 urlpatterns = [
     path('', views.get_bugs_view, name='get-bugs'),
+    path('priority/<priority>/', views.get_bugs_priority_view, name='get-bugs-priority'),
     path('submitted-bugs/', views.get_user_bugs_view, name='get-user-bugs'),
-    path('priority/critical/', views.get_bugs_view, name='get-critical-bugs'),
-    path('priority/high/', views.get_bugs_view, name='get-high-bugs'),
-    path('priority/medium/', views.get_bugs_view, name='get-medium-bugs'),
-    path('priority/low/', views.get_bugs_view, name='get-low-bugs'),
     path('<int:pk>/', views.bug_detail_view, name='bug-detail'),
     path('new/', views.create_bug_view, name='new-bug'),
     path('<int:pk>/edit/', views.edit_bug_view, name='edit-bug'),

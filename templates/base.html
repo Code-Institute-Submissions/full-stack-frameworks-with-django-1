@@ -156,10 +156,10 @@
                             <h5 class="footer__title font-weight-bold">Browse by Priority</h5>
                             <ul class="footer__ul">
                                 <li><a href="#!">Feature Requests</a></li>
-                                <li><a href="{% url 'get-critical-bugs' %}">Critical</a></li>
-                                <li><a href="{% url 'get-high-bugs' %}">High</a></li>
-                                <li><a href="{% url 'get-medium-bugs' %}">Medium</a></li>
-                                <li><a href="{% url 'get-low-bugs' %}">Low</a></li>
+                                <li><a href="{% url 'get-bugs-priority' priority='critical' %}">Critical</a></li>
+                                <li><a href="{% url 'get-bugs-priority' priority='high' %}">High</a></li>
+                                <li><a href="{% url 'get-bugs-priority' priority='medium' %}">Medium</a></li>
+                                <li><a href="{% url 'get-bugs-priority' priority='low' %}">Low</a></li>
                             </ul>
                         </div>
 
