@@ -41,7 +41,7 @@ I also planned what would require the user to be logged in, and subsequently mad
 
 I then planned out the menus for my application choosing to separate bugs/feature for ease of use and single responsibility principle.
 
-Once I had finished planning out the user flow and such, I moved on to creating the mockups of my application using Balsamiq which can be found in 'project-supplements/user-experience'.
+Once I had finished planning out the user flow and such, I moved on to creating the mockups of my application using Balsamiq which can be found in '[project-supplements/user-experience](https://github.com/STEPLADD3R/full-stack-frameworks-with-django/tree/master/project-supplements/user-experience)'.
 
 Looking at the homepage mockup you can see that I have tried to make the most important/urgent things sit up at the top (i.e. Critical/High priority issues). I have also provided an easy to use navigation to the app that allows the user to quickly and easily navigate around the app. I also did a mobile version of the mockup, whereby the menu is not always visible and must be toggled via a menu button, this allows the user to fully utilise the amount of screen real estate they have on their mobile devices.
 
@@ -55,12 +55,54 @@ Finally, I designed the bug detail pages which would be what the user sees when 
 
 I also did a mobile mockup of this layout where I debated whether or not to move the sidebar up to the top on mobile, in the end I decided against it as I think the user would prefer to know exactly what the issue/feature is first, but this could be good to A/B test in the future.
 
-Images of the UX design process is available inside the 'project-supplements/user-experience' directory. This directory contains an array of documents that illustrate the UX design process in the form of wireframes.
+Images of the UX design process is available inside the '[project-supplements/user-experience](https://github.com/STEPLADD3R/full-stack-frameworks-with-django/tree/master/project-supplements/user-experience)' directory. This directory contains an array of documents that illustrate the UX design process in the form of wireframes.
 
 ### Database
 After I finished creating the UI/UX design of the application, I moved on to the database design as I think it's just as important, if not more so to make sure hat the database architecture is on point, to ensure a scalable app in the future as well as ensuring the queries return results quickly.
 
-I thought about the database tables and fields I would need and set about jotting them down using WordPad. This can be found in 'project-supplements/database-design'. When doing this process, I just thought about it in terms of models I would need to create as Django has an ORM that converts the models into SQL and creates the database tables and fields.
+I thought about the database tables and fields I would need and set about jotting them down using WordPad. This can be found in '[project-supplements/database-design](https://github.com/STEPLADD3R/full-stack-frameworks-with-django/tree/master/project-supplements/database-design)'. When doing this process, I just thought about it in terms of models I would need to create as Django has an ORM that converts the models into SQL and creates the database tables and fields.
+
+** Database Schema in Balsamiq **
+![alt text](https://github.com/STEPLADD3R/full-stack-frameworks-with-django/blob/master/project-supplements/database-design/database-schema.png "Database Schema")
+
+** Example Django Model **
+```
+class Bug(models.Model):
+    """
+        Creating the Bug Model that creates
+        the bug table in the MySQL Database.
+    """
+    PRIORITIES = (
+        ('CRITICAL', 'Critical'),
+        ('HIGH', 'High'),
+        ('MEDIUM', 'Medium'),
+        ('LOW', 'Low'),
+    )
+    STATUSES = (
+        ('IP', 'In Progress'),
+        ('C', 'Completed'),
+    )
+    tag = models.CharField(max_length=3, default='bug')
+    title = models.CharField(max_length=250)
+    description = models.TextField()
+    priority = models.CharField(
+                                max_length=8,
+                                choices=PRIORITIES,
+                                default='LOW')
+    screenshot = models.ImageField(
+                                    upload_to='bug_screenshots',
+                                    blank=True,
+                                    null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.CharField(max_length=2, choices=STATUSES, default='IP')
+    upvotes = models.IntegerField(default=0)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_completed = models.DateTimeField(blank=True, null=True)
+    last_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+```
 
 ### Features
 #### Existing Features
