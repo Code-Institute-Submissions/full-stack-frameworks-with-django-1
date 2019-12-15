@@ -98,9 +98,12 @@ def bug_detail_view(request, pk):
     """
     bug = get_object_or_404(Bug, pk=pk)
     comments = Comment.objects.filter(bug=pk)
-    try:
-        is_saved = SavedBug.objects.get(user=request.user, bug=bug)
-    except SavedBug.DoesNotExist:
+    if request.user.is_authenticated:
+        try:
+            is_saved = SavedBug.objects.get(user=request.user, bug=bug)
+        except SavedBug.DoesNotExist:
+            is_saved = None
+    else:
         is_saved = None
     context = {
         'bug': bug,
