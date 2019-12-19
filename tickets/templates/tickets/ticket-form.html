@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<section id="ticket-form-view">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col p-0">
+                <div id="title" class="card">
+                    <div id="title-heading" class="card-header d-flex justify-content-between">
+                        {% if 'edit' in request.path %}
+                        <h5 class="mb-0">Edit this ticket</h5>
+                        {% else %}
+                        <h5 class="mb-0">Submit a {{ tag|title }}</h5>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="p-4">
+                    <form method="POST" enctype="multipart/form-data" class="{{ tag|lower }}-submit__form">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+
+                        <div class="form-group mb-0">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                            {% if 'edit' in request.path %}
+                            <a href="../" class="btn btn-link">Cancel</a>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

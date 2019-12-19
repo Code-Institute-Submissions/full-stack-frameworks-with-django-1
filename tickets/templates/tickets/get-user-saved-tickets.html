@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="get-user-tickets-view">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col p-0">
+                <div id="accordion" class="accordion__all">
+                    <div class="card">
+                        <div id="user-heading" class="card-header d-flex justify-content-between">
+                            <h5 class="mb-0" data-toggle="collapse" data-target="#user-collapse" aria-expanded="true" aria-controls="user-collapse">My Saved {{ tag|title }}s</h5>
+                        </div>
+                    </div>
+                    <div id="user-collapse" class="collapse show" aria-labelledby="user-heading" data-parent="#accordion">
+                        <div class="list-group">
+                            {% for ticket in tickets %}
+                                {% include 'tickets/template-parts/saved-ticket.html' %}
+                            {% empty %}
+                                <p class="p-4 mb-0">You have not saved any {{ tag }}s yet. <a href="{% url 'get-tickets-tag' tag=tag %}" class="btn btn-link p-0">View All {{ tag|title }}s</a></p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% include 'tickets/template-parts/pagination.html' %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

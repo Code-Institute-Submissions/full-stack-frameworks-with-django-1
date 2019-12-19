@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous"> <!-- Font Awesome | 21 KB -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1.1.0/dist/magnific-popup.css" integrity="sha256-RdH19s+RN0bEXdaXsajztxnALYs/Z43H/Cdm1U4ar24=" crossorigin="anonymous"> <!-- Magnific Popup | -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}"> <!-- Main CSS -->
-    <link rel="stylesheet" href="{% static 'bugs/css/main.css' %}"> <!-- Bugs CSS -->
+    <link rel="stylesheet" href="{% static 'tickets/css/main.css' %}"> <!-- Bugs CSS -->
 </head>
 <body>
 
@@ -47,26 +47,26 @@
                         </a>
                         <ul class="list-group list-group-flush children active">
                             <li>
-                                <a href="{% url 'get-bugs' %}" class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="{% url 'get-tickets-tag' tag='bug' %}" class="list-group-item d-flex justify-content-between align-items-center">
                                     All Bugs
-                                    <span class="badge badge-primary badge-pill">{{ bug_count }}</span>
+                                    <span class="badge badge-primary badge-pill">{{ total_bug_count }}</span>
                                 </a>
                             </li>
                             {% if user.is_authenticated %}
                             <li>
-                                <a href="{% url 'get-user-bugs' %}" class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="{% url 'get-user-tickets' tag='bug' %}" class="list-group-item d-flex justify-content-between align-items-center">
                                     Submitted Bugs
-                                    <span class="badge badge-primary badge-pill">{{ user_bug_count }}</span>
+                                    <span class="badge badge-primary badge-pill">{{ user_submitted_bug_count }}</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{% url 'get-saved-bugs' %}" class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="{% url 'get-user-saved-tickets' tag='bug' %}" class="list-group-item d-flex justify-content-between align-items-center">
                                     Saved Bugs
                                     <span class="badge badge-primary badge-pill">{{ user_saved_bug_count }}</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{% url 'new-bug' %}" class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="{% url 'add-new-ticket' tag='bug' %}" class="list-group-item d-flex justify-content-between align-items-center">
                                     Add New Bug
                                 </a>
                             </li>
@@ -81,24 +81,32 @@
                         </a>
                         <ul class="list-group list-group-flush children active">
                             <li>
-                                <a href="#!" class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="{% url 'get-tickets-tag' tag='feature' %}" class="list-group-item d-flex justify-content-between align-items-center">
+                                    All Features
+                                    <span class="badge badge-primary badge-pill">{{ total_feature_count }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'get-user-tickets' tag='feature' %}" class="list-group-item d-flex justify-content-between align-items-center">
                                     Submitted Features
+                                    <span class="badge badge-primary badge-pill">{{ user_submitted_feature_count }}</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#!" class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="{% url 'get-user-saved-tickets' tag='feature' %}" class="list-group-item d-flex justify-content-between align-items-center">
                                     Saved Features
+                                    <span class="badge badge-primary badge-pill">{{ user_saved_feature_count }}</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#!" class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="{% url 'add-new-ticket' tag='feature' %}" class="list-group-item d-flex justify-content-between align-items-center">
                                     Add New Feature
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <!-- Profile Menu -->
-                    <li class="flex-wrap parent">
+                    <!-- <li class="flex-wrap parent">
                         <a class="list-group-item d-flex justify-content-between align-items-center rotate">
                             User Profile
                             <i class="fa fa-chevron-right"></i>
@@ -133,7 +141,7 @@
                             </li>
                             {% endif %}
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </nav>
         </aside>
@@ -155,7 +163,6 @@
                         <div class="col-lg-3">
                             <h5 class="footer__title font-weight-bold">Browse by Priority</h5>
                             <ul class="footer__ul">
-                                <li><a href="#!">Feature Requests</a></li>
                                 <li><a href="{% url 'get-bugs-priority' priority='critical' %}">Critical</a></li>
                                 <li><a href="{% url 'get-bugs-priority' priority='high' %}">High</a></li>
                                 <li><a href="{% url 'get-bugs-priority' priority='medium' %}">Medium</a></li>
@@ -164,7 +171,7 @@
                         </div>
 
                         <div class="col-lg-3">
-                            <h5 class="footer__title font-weight-bold">Footer Widget</h5>
+                            <h5 class="footer__title font-weight-bold">Bugs</h5>
                             <ul class="footer__ul">
                                 <li><a href="#!">Link</a></li>
                                 <li><a href="#!">Link</a></li>
@@ -173,7 +180,7 @@
                         </div>
 
                         <div class="col-lg-3">
-                            <h5 class="footer__title font-weight-bold">Footer Widget</h5>
+                            <h5 class="footer__title font-weight-bold">Features</h5>
                             <ul class="footer__ul">
                                 <li><a href="#!">Link</a></li>
                                 <li><a href="#!">Link</a></li>

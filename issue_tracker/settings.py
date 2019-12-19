@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'h4&7@o8us--gzasiaj72zquee%h7(ss-%nkf#p3rj(^!j1ts51'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'someRandomTestString')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -43,8 +43,7 @@ INSTALLED_APPS = [
     # Custom Apps
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
-    'bugs.apps.BugsConfig',
-    'features.apps.FeaturesConfig',
+    'tickets.apps.TicketsConfig',
 ]
 
 MIDDLEWARE = [
@@ -71,9 +70,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
-                'bugs.context_processors.total_bug_counter',
-                'bugs.context_processors.user_submitted_bug_counter',
-                'bugs.context_processors.user_saved_bug_counter',
+                'tickets.context_processors.total_ticket_counter',
+                'tickets.context_processors.user_submitted_ticket_counter',
+                'tickets.context_processors.user_saved_ticket_counter',
             ],
         },
     },

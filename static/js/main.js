@@ -66,4 +66,13 @@
         }
     });
 
+    // Ticket Form
+    $('.bug-submit__form #id_status option[value="FR"]').remove();
+
+    // Back Button
+    $('#back').on('click', function(e) {
+        e.preventDefault();
+        window.history.back();
+    });
+
 })( jQuery );

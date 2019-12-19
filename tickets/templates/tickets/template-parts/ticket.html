@@ -1,0 +1,14 @@
+<a href="{% url 'get-ticket-detail' ticket.id %}" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+        <h5 class="accordion__title">{{ ticket.title }}</h5>
+        <small class="accordion__posted">{{ ticket.date_created|date:"F d, Y" }}</small>
+    </div>
+    <p class="accordion__content">{{ ticket.description|truncatechars:275 }}</p>
+    <small class="accordion__meta">
+        {% if ticket.tag == 'BUG' %}
+        <i class="fa fa-bug"></i> {{ ticket.tag|title }}
+        {% else %}
+        <i class="fa fa-star"></i> {{ ticket.tag|title }}
+        {% endif %}
+    </small>
+</a>
