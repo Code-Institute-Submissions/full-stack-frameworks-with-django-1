@@ -21,7 +21,11 @@
                             {% for ticket in tickets %}
                                 {% include 'tickets/template-parts/ticket.html' %}
                             {% empty %}
-                                <p class="p-4 mb-0">No {{ tag }}s have been submitted yet. <a href="#!" class="btn btn-link p-0">Submit {{ tag|title }}</a></p>
+                                {% if tag %}
+                                    <p class="p-4 mb-0">No {{ tag }}s have been submitted yet. <a href="{% url 'add-new-ticket' tag=tag %}" class="btn btn-link p-0">Submit {{ tag|title }}</a>.</p>
+                                {% else %}
+                                    <p class="p-4 mb-0">No tickets have been submitted yet. <a href="{% url 'add-new-ticket' tag='bug' %}" class="btn btn-link p-0">Submit a Bug</a> or <a href="{% url 'add-new-ticket' tag='feature' %}" class="btn btn-link p-0">Submit a Feature</a>.</p>
+                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>

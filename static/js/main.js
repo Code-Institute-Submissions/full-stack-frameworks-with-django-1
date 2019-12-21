@@ -75,4 +75,11 @@
         window.history.back();
     });
 
+    // Overlay Scrollbar
+    $('.sidebar-nav').overlayScrollbars({
+        scrollbars: {
+            'autoHide': 'leave',
+        }
+    });
+
 })( jQuery );

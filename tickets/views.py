@@ -104,7 +104,7 @@ def get_user_tickets_view(request, tag):
     tag in mandatory_tags:
         per_page = 4
         filtered_tickets = (Paginator(Ticket.objects
-                            .filter(tag=tag)
+                            .filter(author=request.user, tag=tag)
                             .order_by('-date_created'), per_page))
         page = request.GET.get('page')
         tickets = filtered_tickets.get_page(page)
@@ -135,7 +135,7 @@ def get_user_saved_tickets_view(request, tag):
     tag in mandatory_tags:
         per_page = 4
         filtered_tickets = (Paginator(SavedTicket.objects
-                            .filter(ticket__tag=tag)
+                            .filter(user=request.user, ticket__tag=tag)
                             .order_by('-date_created'), per_page))
         page = request.GET.get('page')
         tickets = filtered_tickets.get_page(page)
@@ -152,7 +152,6 @@ def get_user_saved_tickets_view(request, tag):
         raise Http404('This type of ticket does not exist.')
 
 
-@login_required
 def get_ticket_detail_view(request, pk):
     """
         View that returns a single ticket
@@ -308,7 +307,7 @@ def add_new_comment_view(request, ticket_pk, pk=None):
             form.instance.author = request.user
             form.instance.ticket = ticket
             form.save()
-            messages.success('Success! You have posted a comment.')
+            messages.success(request, 'Success! You have posted a comment.')
             return redirect('get-ticket-detail', ticket.pk)
     else:
         form = CommentForm(instance=comment)

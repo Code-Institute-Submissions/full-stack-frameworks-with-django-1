@@ -17,7 +17,7 @@
                             {% for ticket in tickets %}
                                 {% include 'tickets/template-parts/ticket.html' %}
                             {% empty %}
-                                <p class="p-4 mb-0">There are no {{ priority|title }} bugs available at this time, good job!</p>
+                                <p class="p-4 mb-0">There are no {{ priority|lower }} priority bugs available at this time. Good job!</p>
                             {% endfor %}
                         </div>
                     </div>

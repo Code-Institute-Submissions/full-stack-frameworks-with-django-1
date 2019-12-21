@@ -16,7 +16,7 @@
                             {% for ticket in tickets %}
                                 {% include 'tickets/template-parts/ticket.html' %}
                             {% empty %}
-                                <p class="p-4 mb-0">You have not submitted any {{ tag }}s yet. <a href="#!" class="btn btn-link p-0">Submit {{ tag|title }}</a></p>
+                                <p class="p-4 mb-0">You have not submitted any {{ tag }}s yet. <a href="{% url 'add-new-ticket' tag=tag %}" class="btn btn-link p-0">Submit {{ tag|title }}</a>.</p>
                             {% endfor %}
                         </div>
                     </div>

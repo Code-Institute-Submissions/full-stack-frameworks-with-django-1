@@ -17,6 +17,8 @@
                         <div class="list-group">
                             {% for ticket in tickets.critical %}
                                 {% include 'tickets/template-parts/ticket.html' %}
+                            {% empty %}
+                                <p class="p-4 mb-0">There are no critical priority bugs available at this time. Good job!</p>
                             {% endfor %}
                         </div>
                     </div>
@@ -33,6 +35,8 @@
                         <div class="list-group">
                             {% for ticket in tickets.high %}
                                 {% include 'tickets/template-parts/ticket.html' %}
+                            {% empty %}
+                                <p class="p-4 mb-0">There are no high priority bugs available at this time. Good job!</p>
                             {% endfor %}
                         </div>
                     </div>
@@ -49,6 +53,8 @@
                         <div class="list-group">
                             {% for ticket in tickets.medium %}
                                 {% include 'tickets/template-parts/ticket.html' %}
+                            {% empty %}
+                                <p class="p-4 mb-0">There are no medium priority bugs available at this time. Good job!</p>
                             {% endfor %}
                         </div>
                     </div>
@@ -65,6 +71,8 @@
                         <div class="list-group">
                             {% for ticket in tickets.low %}
                                 {% include 'tickets/template-parts/ticket.html' %}
+                            {% empty %}
+                                <p class="p-4 mb-0">There are no low priority bugs available at this time. Good job!</p>
                             {% endfor %}
                         </div>
                     </div>

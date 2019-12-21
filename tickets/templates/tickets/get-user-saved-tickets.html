@@ -16,7 +16,7 @@
                             {% for ticket in tickets %}
                                 {% include 'tickets/template-parts/saved-ticket.html' %}
                             {% empty %}
-                                <p class="p-4 mb-0">You have not saved any {{ tag }}s yet. <a href="{% url 'get-tickets-tag' tag=tag %}" class="btn btn-link p-0">View All {{ tag|title }}s</a></p>
+                                <p class="p-4 mb-0">You have not saved any {{ tag }}s yet. <a href="{% url 'get-tickets-tag' tag=tag %}" class="btn btn-link p-0">View All {{ tag|title }}s</a>.</p>
                             {% endfor %}
                         </div>
                     </div>
