@@ -2,6 +2,7 @@ Django==2.2.4
 django-crispy-forms==1.7.2
 django-mathfilters==0.4.0
 django-sass==0.2.0
+gunicorn==20.0.4
 libsass==0.19.2
 mysqlclient==1.4.4
 Pillow==6.1.0
