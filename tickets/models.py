@@ -38,13 +38,14 @@ class Ticket(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=2, choices=STATUSES, default='IP')
     upvotes = models.IntegerField(default=0)
+    upvote_price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, default=19.99)
     earned = models.IntegerField(default=0, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_completed = models.DateTimeField(blank=True, null=True)
     last_modified = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.title + ' by ' + self.author
+    # def __str__(self):
+        # return self.title + ' by ' + self.author
 
 
 class Comment(models.Model):
@@ -59,8 +60,8 @@ class Comment(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.comment + ' by ' + self.author
+    # def __str__(self):
+        # return self.comment + ' by ' + self.author
 
 
 class Upvote(models.Model):
@@ -71,13 +72,12 @@ class Upvote(models.Model):
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        user = self.user.username
-        ticket = self.ticket.title
-        return user.capitalize() + ' : ' + ticket
+    # def __str__(self):
+        # user = self.user.username
+        # ticket = self.ticket.title
+        # return user.capitalize() + ' : ' + ticket
 
 
 class SavedTicket(models.Model):
@@ -90,7 +90,7 @@ class SavedTicket(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        user = self.user.username
-        ticket = self.ticket.title
-        return user.capitalize() + ' : ' + ticket
+    # def __str__(self):
+        # user = self.user.username
+        # ticket = self.ticket.title
+        # return user.capitalize() + ' : ' + ticket

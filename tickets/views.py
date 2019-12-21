@@ -17,7 +17,7 @@ def get_tickets_view(request):
     """
     per_page = 4
     a_tickets = (Paginator(Ticket.objects
-                 .exclude(status='C')
+                 # .exclude(status='C')
                  .order_by('-upvotes'), per_page))
     page = request.GET.get('page')
     all_tickets_paged = a_tickets.get_page(page)
@@ -44,7 +44,7 @@ def get_tickets_tag_view(request, tag):
         per_page = 4
         filtered_tickets = (Paginator(Ticket.objects
                             .filter(tag=tag)
-                            .exclude(status='C')
+                            # .exclude(status='C')
                             .order_by('-upvotes'), per_page))
         page = request.GET.get('page')
         tickets = filtered_tickets.get_page(page)
@@ -193,6 +193,7 @@ def add_new_ticket_view(request, tag, pk=None):
             form = BugForm(request.POST, request.FILES, instance=ticket)
             if form.is_valid():
                 form.instance.author = request.user
+                form.instance.upvote_price = None
                 ticket = form.save()
                 messages.success(request, 'Success! Bug created.')
                 return redirect('get-ticket-detail', ticket.pk)
@@ -237,7 +238,7 @@ def edit_ticket_view(request, pk=None):
         for bugs and features.
     """
     ticket = get_object_or_404(Ticket, pk=pk) if pk else None
-    if request.user == ticket.author:
+    if request.user == ticket.author or request.user.is_staff:
         if request.method == 'POST':
             if ticket.tag == 'BUG':
                 form = BugForm(request.POST, request.FILES, instance=ticket)

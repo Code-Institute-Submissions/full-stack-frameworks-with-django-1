@@ -40,10 +40,12 @@ INSTALLED_APPS = [
     # 3rd Party Apps
     'django_sass',
     'crispy_forms',
+    'mathfilters',
     # Custom Apps
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
     'tickets.apps.TicketsConfig',
+    'basket.apps.BasketConfig',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +75,7 @@ TEMPLATES = [
                 'tickets.context_processors.total_ticket_counter',
                 'tickets.context_processors.user_submitted_ticket_counter',
                 'tickets.context_processors.user_saved_ticket_counter',
+                'basket.context_processors.basket_contents',
             ],
         },
     },

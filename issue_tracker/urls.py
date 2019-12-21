@@ -23,4 +23,5 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('', include('pages.urls')),
     path('tickets/', include('tickets.urls')),
+    path('basket/', include('basket.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # dev use

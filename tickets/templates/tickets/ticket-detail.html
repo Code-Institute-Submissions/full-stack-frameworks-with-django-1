@@ -16,7 +16,7 @@
                         <div class="col-md-12 col-lg-8 col-xl-9 p-4 bug__details">
                             <h2 class="bug__title mb-3 d-inline-block">{{ ticket.title }}</h2>
 
-                            {% if request.user == ticket.author %}
+                            {% if request.user == ticket.author or request.user.is_staff %}
                             <p class="user-control__edit d-inline-block mb-0 ml-2 mr-1"><a href="{% url 'edit-ticket' ticket.id %}" class="btn btn-link p-0"><i class="fa fa-pencil"></i></a></p>
 
                             <form action="{% url 'delete-ticket' ticket.id %}" method="POST" class="delete-bug__form d-inline-block">
@@ -98,9 +98,12 @@
                                 </div>
                             </form>
                             {% elif ticket.tag == 'FEATURE' %}
-                            <form action="{% url 'upvote-feature' ticket.id %}" method="POST" class="d-inline-block">
+                            <form action="{% url 'add-to-basket' ticket.id %}" method="POST" class="d-inline-block">
                                 {% csrf_token %}
-                                {{ form|crispy }}
+
+                                <div class="form-group mb-0 d-none">
+                                    <input name="quantity" type="number" value="1" />
+                                </div>
 
                                 <div class="form-group mb-0">
                                     <button class="btn btn-link" type="submit"><i class="fa fa-thumbs-up mr-1"></i> Upvote</button>
