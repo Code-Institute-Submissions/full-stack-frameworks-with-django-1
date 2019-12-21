@@ -136,40 +136,53 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-AWS_S3_OBJECT_PARAMETERS = {
-    'Expires': 'Thu, 31 Dec 2020 20:00:00 GMT',
-    'CacheControl': 'max-age=31536000',
-}
+if DEBUG:
+    STATIC_URL = '/static/'
 
-AWS_STORAGE_BUCKET_NAME = 'ua-issue-tracker'
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'),
+    ]
 
-AWS_S3_REGION_NAME = 'eu-west-2'
+    # Media files
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    MEDIA_URL = '/media/'
 
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+else:
+    AWS_S3_OBJECT_PARAMETERS = {
+        'Expires': 'Thu, 31 Dec 2020 20:00:00 GMT',
+        'CacheControl': 'max-age=31536000',
+    }
 
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    AWS_STORAGE_BUCKET_NAME = 'ua-issue-tracker'
 
-STATICFILES_LOCATION = 'static'
+    AWS_S3_REGION_NAME = 'eu-west-2'
 
-STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 
-STATIC_URL = '/static/'
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-# Media files
+    STATICFILES_LOCATION = 'static'
 
-MEDIAFILES_LOCATION = 'media'
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
 
-DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+    STATIC_URL = '/static/'
 
-MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'),
+    ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    # Media files
+
+    MEDIAFILES_LOCATION = 'media'
+
+    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+
+    MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Crispy Forms
 
