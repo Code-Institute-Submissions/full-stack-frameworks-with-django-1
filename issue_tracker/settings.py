@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'someRandomTestString')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ua-issue-tracker-fsf-ci.herokuapp.com']
 
 
 # Application definition
