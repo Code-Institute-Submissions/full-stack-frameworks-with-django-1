@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'tickets.apps.TicketsConfig',
     'basket.apps.BasketConfig',
+    'checkout.apps.CheckoutConfig',
 ]
 
 MIDDLEWARE = [
@@ -193,3 +194,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'main-homepage'
 
 LOGIN_URL = 'user-login'
+
+# Stripe
+
+STRIPE_PUBLISHABLE = os.environ.get('STRIPE_PUBLISHABLE')
+
+STRIPE_SECRET = os.environ.get('STRIPE_SECRET')

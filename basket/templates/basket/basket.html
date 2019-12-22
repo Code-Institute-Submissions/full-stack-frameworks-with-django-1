@@ -12,9 +12,10 @@
                     </div>
                 </div>
                 <div class="p-4">
-                    <table class="table table-striped mb-0">
+                    <table class="table table-striped mb-0 basket-table">
                         <thead>
                             <tr>
+                                <th scope="col">Remove</th>
                                 <th scope="col">ID</th>
                                 <th scope="col">Feature</th>
                                 <th scope="col">Upvotes</th>
@@ -24,17 +25,37 @@
                         <tbody>
                             {% for item in basket_items %}
                                 <tr>
-                                    <td>{{ item.id }}</td>
+                                    <td><a href="{% url 'delete-basket-item' item.id %}"><i class="fa fa-trash-o"></i></a></td>
+                                    <td>#{{ item.id }}</td>
                                     <td>{{ item.ticket.title }}</td>
-                                    <td>{{ item.quantity }}</td>
+                                    <td>
+                                        <form action="{% url 'amend-basket' item.id %}" method="POST">
+                                            {% csrf_token %}
+
+                                            <input type="number" min="1" name="quantity" value="{{ item.quantity }}" class="form-control">
+                                            <button class="btn btn-link d-none" type="submit">Amend</button>
+                                        </form>
+                                    </td>
                                     <td>£{{ item.ticket.upvote_price|mul:item.quantity }}</td>
                                 </tr>
                             {% empty %}
                                 <tr>
-                                    <td>Empty</td>
+                                    <td colspan="5">Your basket is empty.</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
+                        <tfoot>
+                            <tr class="text-center">
+                                <td colspan="2">Total Items: <strong>{{ basket_items|length }}</strong></td>
+                                <td colspan="1">Total Upvotes: <strong>{{ upvote_count }}</strong></td>
+                                <td colspan="2">Total Cost: <strong>£{{ total }}</strong></td>
+                            </tr>
+                            <tr class="text-center">
+                                <td colspan="5" class="dark-blue-border">
+                                    <a href="{% url 'get-checkout' %}" class="btn btn-secondary">Checkout</a>
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

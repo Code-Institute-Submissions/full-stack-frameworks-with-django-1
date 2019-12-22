@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="bug-form-view">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col p-0">
+                <div id="title" class="card">
+                    <div id="title-heading" class="card-header d-flex justify-content-between">
+                        <h5 class="mb-0">Basket</h5>
+                    </div>
+                </div>
+                <div class="p-4">
+                    {% for item in basket_items %}
+                        <tr>
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.ticket.title }}</td>
+                            <td>{{ item.quantity }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td>Empty</td>
+                        </tr>
+                    {% endfor %}
+
+                    <p>{{ total }}</p>
+
+                    <form action="{% url 'get-checkout' %}" method="post" id="payment-form">
+                        {% csrf_token %}
+
+                        o {{ order_form }}
+
+                        p {{ payment_form }}
+
+                        <input id="submit_payment_btn" name="commit" type="submit" value="Submit" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+{% block additional_js %}
+<script src="https://js.stripe.com/v2/"></script>
+<script>
+    //<![CDATA[
+    Stripe.publishableKey = '{{ publishable }}';
+    //]]>
+</script>
+<script src="{% static 'js/stripe.js' %}"></script>
+{% endblock additional_js %}

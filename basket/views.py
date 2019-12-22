@@ -10,38 +10,41 @@ def get_basket_view(request):
         with all of the contents
         within the basket.
     """
-    return render(request, 'basket/basket.html')
+    meta = {
+        'title': 'Basket',
+    }
+    context = {
+        'meta': meta,
+    }
+    return render(request, 'basket/basket.html', context)
 
 
 @login_required
 def add_to_basket_view(request, id):
     """
-        View that returns a page
-        with all of the contents
-        within the basket.
+        View that allows the user
+        to add a feature to basket.
     """
-    # quantity = int(request.POST.get('quantity'))
-    # basket = request.session.get('basket', {})
-    # basket[id] = basket.get(id, quantity)
-    # request.session['basket'] = basket
-    # return redirect('get-basket')
-    quantity = int(request.POST.get('quantity'))
-    basket = request.session.get('basket', {})
-    if str(id) in basket.keys():
-        basket[id] = basket.get(id, int(basket.get(str(id))) + quantity)
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity'))
+        basket = request.session.get('basket', {})
+        if str(id) in basket.keys():
+            basket[id] = basket.get(id, int(basket.get(str(id))) + quantity)
+        else:
+            basket[id] = basket.get(id, quantity)
+        request.session['basket'] = basket
+        messages.success(request, 'Success! Feature has been added to your basket.')
+        return redirect('get-basket')
     else:
-        basket[id] = basket.get(id, quantity)
-    request.session['basket'] = basket
-    messages.success(request, 'Added item to basket')
-    return redirect('get-ticket-detail', id)
+        messages.error(request, 'Error!')
+        return redirect('get-ticket-detail', id)
 
 
 @login_required
 def amend_basket_view(request, id):
     """
-        View that returns a page
-        with all of the contents
-        within the basket.
+        View that allows the user
+        to amend their basket.
     """
     quantity = int(request.POST.get('quantity'))
     basket = request.session.get('basket', {})
@@ -49,7 +52,20 @@ def amend_basket_view(request, id):
     if quantity > 0:
         basket[id] = quantity
     else:
-        basket.pop(id)
+        basket.pop(str(id))
 
+    request.session['basket'] = basket
+    return redirect('get-basket')
+
+
+@login_required
+def delete_basket_item_view(request, id):
+    """
+        View that allows the user
+        to remove an item from their
+        basket.
+    """
+    basket = request.session.get('basket', {})
+    basket.pop(str(id))
     request.session['basket'] = basket
     return redirect('get-basket')

@@ -82,4 +82,9 @@
         }
     });
 
+    // Amend Form
+    $('input[type="number"][name="quantity"]').change(function() {
+        $(this).closest('form').submit();
+    });
+
 })( jQuery );

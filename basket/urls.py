@@ -10,6 +10,7 @@ from . import views
 
 urlpatterns = [
     path('', views.get_basket_view, name='get-basket'),
-    path('add/<int:id>/', views.add_to_basket_view, name='add-to-basket'),
-    path('amend/<int:id>/', views.amend_basket_view, name='amend-basket'),
+    path('<int:id>/add/', views.add_to_basket_view, name='add-to-basket'),
+    path('<int:id>/amend/', views.amend_basket_view, name='amend-basket'),
+    path('<int:id>/delete/', views.delete_basket_item_view, name='delete-basket-item'),
 ]
