@@ -2,7 +2,7 @@ boto3==1.10.44
 botocore==1.13.44
 certifi==2019.11.28
 chardet==3.0.4
-Django==2.2.4
+Django==2.2.8
 django-crispy-forms==1.7.2
 django-mathfilters==0.4.0
 django-sass==0.2.0
