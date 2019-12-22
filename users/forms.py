@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 
 class UserRegistrationForm(UserCreationForm):
     """
-        Form used to register a new user
+        Form used to register a new user.
     """
     class Meta:
         model = User
@@ -20,13 +20,14 @@ class UserRegistrationForm(UserCreationForm):
         return email
 
 
-class UserUpdateForm(forms.ModelForm):
+class UserEmailUpdateForm(forms.ModelForm):
     """
-        Form used to update a specific user
+        Form used to update a specific
+        users email address.
     """
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['email']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')

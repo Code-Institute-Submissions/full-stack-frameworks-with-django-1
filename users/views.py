@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegistrationForm, UserUpdateForm
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from .forms import UserRegistrationForm, UserEmailUpdateForm
 
 
 def register_view(request):
@@ -38,20 +40,44 @@ def profile_view(request):
 
 
 @login_required
-def edit_profile_view(request):
+def change_email_view(request):
     """
         Edit a specific user profile
         on the front-end
     """
     if request.method == 'POST':
-        update_form = UserUpdateForm(request.POST, instance=request.user)
+        update_form = UserEmailUpdateForm(request.POST, instance=request.user)
         if update_form.is_valid():
             update_form.save()
             messages.success(request, f'Your account has been updated.')
             return redirect('user-profile')
     else:
-        update_form = UserUpdateForm(instance=request.user)
+        update_form = UserEmailUpdateForm(instance=request.user)
     context = {
         'update_form': update_form,
     }
-    return render(request, 'users/edit-profile.html', context)
+    return render(request, 'users/change-email.html', context)
+
+
+@login_required
+def change_password_view(request):
+    """
+        Edit a specific user profile
+        on the front-end
+    """
+    if request.method == 'POST':
+        update_form = PasswordChangeForm(data=request.POST, user=request.user)
+        if update_form.is_valid():
+            update_form.save()
+            update_session_auth_hash(request, update_form.user)
+            messages.success(request, f'Your account has been updated.')
+            return redirect('user-profile')
+        else:
+            messages.error(request, 'There has been an error')
+            return redirect('user-change-password')
+    else:
+        update_form = PasswordChangeForm(user=request.user)
+    context = {
+        'update_form': update_form,
+    }
+    return render(request, 'users/change-password.html', context)
