@@ -44,8 +44,8 @@ class Ticket(models.Model):
     date_completed = models.DateTimeField(blank=True, null=True)
     last_modified = models.DateTimeField(auto_now=True)
 
-    # def __str__(self):
-        # return self.title + ' by ' + self.author
+    def __str__(self):
+        return '{0} by {1}'.format(self.title, self.author)
 
 
 class Comment(models.Model):
@@ -60,8 +60,8 @@ class Comment(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
 
-    # def __str__(self):
-        # return self.comment + ' by ' + self.author
+    def __str__(self):
+        return '{0} by {1}'.format(self.comment, self.author)
 
 
 class Upvote(models.Model):
@@ -74,10 +74,10 @@ class Upvote(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
 
-    # def __str__(self):
-        # user = self.user.username
-        # ticket = self.ticket.title
-        # return user.capitalize() + ' : ' + ticket
+    def __str__(self):
+        user = self.user.username
+        ticket = self.ticket.title
+        return '{0} - {1}'.format(user.capitalize(), ticket)
 
 
 class SavedTicket(models.Model):
@@ -90,7 +90,7 @@ class SavedTicket(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
 
-    # def __str__(self):
-        # user = self.user.username
-        # ticket = self.ticket.title
-        # return user.capitalize() + ' : ' + ticket
+    def __str__(self):
+        user = self.user.username
+        ticket = self.ticket.title
+        return '{0} - {1}'.format(user.capitalize(), ticket)

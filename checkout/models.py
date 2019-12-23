@@ -13,7 +13,7 @@ class Order(models.Model):
     order_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return '{0}-{1}-{2}'.format(self.id, self.order_date, self.user.username)
+        return '#{0} - {1} - {2}'.format(self.id, self.order_date, self.user.username)
 
 
 class OrderItem(models.Model):
@@ -22,4 +22,4 @@ class OrderItem(models.Model):
     quantity = models.IntegerField(blank=False)
 
     def __str__(self):
-        return '{0}-{1}-{2}'.format(self.quantity, self.ticket.title, self.ticket.price)
+        return '{0} - {1} - £{2}'.format(self.quantity, self.ticket.title, self.ticket.upvote_price)
