@@ -32,7 +32,7 @@
                                         <form action="{% url 'amend-basket' item.id %}" method="POST">
                                             {% csrf_token %}
 
-                                            <input type="number" min="1" name="quantity" value="{{ item.quantity }}" class="form-control">
+                                            <input type="number" min="0" name="quantity" value="{{ item.quantity }}" class="form-control">
                                             <button class="btn btn-link d-none" type="submit">Amend</button>
                                         </form>
                                     </td>
