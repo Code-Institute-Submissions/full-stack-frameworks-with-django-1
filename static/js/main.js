@@ -49,22 +49,6 @@
            verticalFit: false,
        }
     });
-    
-    $('.popup-with-form').magnificPopup({
-        type: 'inline',
-        preloader: false,
-        focus: '#author',
-        
-        callbacks: {
-            beforeOpen: function() {
-                if($(window).width() < 700) {
-                    this.st.focus = false;
-                } else {
-                    this.st.focus = '#author';
-                }
-            }
-        }
-    });
 
     // Ticket Form
     $('.bug-submit__form #id_status option[value="FR"]').remove();

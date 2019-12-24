@@ -4,6 +4,9 @@
             .bug__sidebar {
                 border-left: 1px solid rgba(0, 0, 0, 0.125);
                 background-color: $card-header;
+                @media( min-width: 992px ) {
+                    min-height: calc(100vh - (90px + 72px + 176px))
+                }
             }
         }
     }

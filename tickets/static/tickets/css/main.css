@@ -50,3 +50,9 @@
   border-left: 1px solid rgba(0, 0, 0, 0.125);
   background-color: #e8e8e8;
 }
+
+@media (min-width: 992px) {
+  #bug-detail-view .container-fluid.has-sidebar .bug__sidebar {
+    min-height: calc(100vh - (90px + 72px + 176px));
+  }
+}

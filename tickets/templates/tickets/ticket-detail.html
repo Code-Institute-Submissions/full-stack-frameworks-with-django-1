@@ -30,7 +30,9 @@
 
                             <p class="bug__description mb-3">{{ ticket.description }}</p>
                             {% if ticket.screenshot %}
-                                <img src="{{ MEDIA_URL }}{{ ticket.screenshot }}" alt="Screenshot of {{ ticket.title }}" class="img-fluid d-block mb-3">
+                                <a href="{{ MEDIA_URL }}{{ ticket.screenshot }}" class="image-popup-fit-width">
+                                    <img src="{{ MEDIA_URL }}{{ ticket.screenshot }}" alt="Screenshot of {{ ticket.title }}" class="img-fluid d-block mb-3">
+                                </a>
                             {% endif %}
                             <a href="{% url 'add-new-comment' ticket.id %}" class="btn btn-primary bug__leave-comment mb-4"><i class="fa fa-comment mr-2"></i>Leave a Comment</a>
                             <div class="bug__comments">
