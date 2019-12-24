@@ -164,6 +164,8 @@ class Ticket(models.Model):
 
 #### Existing Features
 
+Write up required.
+
 #### Features for the Future
 
 * I think it would be really helpful to send admins of the app an email once a feature has either a) been submitted or b) had it's first upvote (i.e. first payment) so that the admins don't have to check the app every day to realise any new paid feature requests have been submitted/upvoted.
@@ -215,11 +217,90 @@ Here's a list of the main technologies used:
 
 ### Testing
 
-Details of the project testing process is available inside the 'project-supplements/testing' directory.
+**Automated Testing**
+
+Write up required.
+
+**Manual Testing**
+
+Manual testing was also undertaken alongside the automated testing to ensure that the application looked good no matter what device the user was viewing the application on, as well as to check that all links across the site are in good working order.
+
+Below are some of the manual tests undertaken:
+
+* Tested the navigation hyperlinks e.g. Header, Footer and Sidebar menus to ensure they were all working.
+* Tested all of the views to ensure that the appropriate meta data is being pulled through.
+* Tested front-end CRUD functionality by creating, reading, editing and deleting tickets (both bugs and features).
+* Tested validation on the forms is working as intended.
+* Tested GET/POST requests to ensure appropriate error/success message shows.
+* Tested the responsiveness of the application using a tool called Browserstack. Using this tool, I tested my website on multiple browsers, devices and operating systems such as:
+  * iPhone (5 through to X)
+  * iPad
+  * iPad Pro
+  * Huawei P20
+  * Samsung Galaxy S10
+  * Samsung Galaxy Tab
+  * Google Chrome, Safari, Firefox, Microsoft Edge and IE11
+
+**User Testing**
+
+I asked multiple friends of mine to test the project for me after I had done my checks to ensure that I could test the application as thoroughly as possible, I received positive feedback, and as such would be happy to push it out to the general population. 
 
 ### Deployment
 
 **Deploying to Heroku**
+
+Requirements:
+
+* A Heroku account (Free or Paid)
+* ClearDB MySQL (Free or Paid)
+* ALLOWED_HOSTS - Must contain the Heroku URL
+* Procfile - Tells Heroku what kind of app it is `web: gunicorn issue_tracker.wsgi`
+* requirements.txt file - Containing all of the required dependencies `guinicorn must be in requirements.txt for Heroku`
+
+To deploy my project, I decided to go with [Heroku](https://www.heroku.com/). It was relatively straight forward and only took a matter of minutes before I had the project pushed from my local machine to a live production ready server. Although, if the project got more than a few users I would have to pay for ClearDB using Heroku as the free tier is very limited.
+
+I have broken my deployment process up into several simple steps:
+
+**$ notes a terminal command**
+
+* Login to access the Heroku Dashboard
+* On the dashboard, create a new app, choosing a name and region.
+* Set up my Django project for hosting with Heroku:
+  * Added my Heroku app URL to ALLOWED_HOSTS in settings.py
+  * Created a Procfile `web: gunicorn issue_tracker.wsgi`
+  * Installed guinicorn `$ pip install guinicorn` 
+  * Updated dependencies `$ pip freeze --local > requirements.txt`
+* Click on the newly created app to bring up more information- select `Resources`.
+* I then added ClearDB MySQL as a resource and made note of the SQL database details it provided:
+  * Database Name
+  * Username
+  * Password
+  * Host
+* I then added in all of my Config Vars by going to `Settings` in the Heroku top navigation bar.
+  * SECRET_KEY - random Django secret key
+  * DB_NAME - Provided by ClearDB MySQL
+  * DB_USER - Provided by ClearDB MySQL
+  * DB_PASSWORD - Provided by ClearDB MySQL
+  * DB_HOST - Provided by ClearDB MySQL
+  * DB_PORT - Usual 3306
+  * AWS_ACCESS_KEY_ID - Provided by AWS
+  * AWS_SECRET_ACCESS_KEY - Provided by AWS
+  * STRIPE_PUBLISHABLE - Provided by Stripe
+  * STRIPE_SECRET - Provided by Stripe
+* I also added `DISABLE_COLLECTSTATIC` with a value of `1` to my config vars as I collected my static files manually later.
+* I then moved on to the `Deploy` tab in the Heroku top navigation bar.
+* I opted to install the Heroku CLI as I'd need to run commands later such as migrate, collectstatic etc.
+* I then ran the following commands in my terminal ensuring I was in the correct directory (my project directory):
+  * `$ heroku login`
+  * `$ git add .`
+  * `$ git commit -m 'added Heroku Procfile and requirements`
+  * `$ git push heroku master`
+  * `$ heroku run python manage.py makemigrations`
+  * `$ heroku run python manage.py migrate`
+  * `$ heroku run python manage.py collectstatic`
+  * `$ heroku run python manage.py createsuperuser`
+* I then restarted all dynos to restart the app.
+* The application was then live, and I began to populate it.
 
 **Deploying on a local machine for testing**
 
@@ -232,7 +313,7 @@ Requirements:
 
 I would highly recommend installing some kind of virtual environment to ensure that each project has it's own dependencies. I recommend [virtualenv](https://virtualenv.pypa.io/en/stable/).
 
-Please also note that these commands may differ from OS to OS, as I use an Ubuntu based operating system (Pop!_OS) the commands I put below will refer to most Linux distributions.
+Please also note that these commands may differ from OS to OS, as I use an Ubuntu based operating system the commands I put below will refer to most Linux distributions.
 
 **$ notes a terminal command**
 
@@ -257,6 +338,29 @@ Please also note that these commands may differ from OS to OS, as I use an Ubunt
   * `$ pip install -r requirements.txt` to install all the project requirements.
 * Once everything is installed, open up the project inside your code editor of choice.
 * Head over to `issue_tracker/settings.py` in here be sure to do two things:
+  * Change `DEBUG = False` to `DEBUG = True` to ensure static/media files are served correctly.
+  * Either change the database none environment vars to match your own database or move to the next step.
+* Adding in environment variables:
+  * Open up your file manager, go to your root directory `~/` and show hidden files, however you do it on your OS. For me, there is a hamburger menu with the option to show hidden files.
+  * From there, open up .bashrc in your editor of choice.
+  * Here is a list of all the environment variables
+    * SECRET_KEY - Optional, as you can enter a local string after the os.environ.get if you prefer.
+    * DB_NAME - Optional, as you can enter a local string after the os.environ.get if you prefer.
+    * DB_USER - Optional, as you can enter a local string after the os.environ.get if you prefer.
+    * DB_PASSWORD - Optional, as you can enter a local string after the os.environ.get if you prefer.
+    * DB_HOST - Optional, as you can enter a local string after the os.environ.get if you prefer.
+    * DB_PORT - Optional, as you can enter a local string after the os.environ.get if you prefer.
+    * AWS_ACCESS_KEY_ID - As long as you set `DEBUG = True` you should not need this.
+    * AWS_SECRET_ACCESS_KEY - As long as you set `DEBUG = True` you should not need this.
+    * STRIPE_PUBLISHABLE - Get it from your Stripe account.
+    * STRIPE_SECRET - Get it from  your Stripe account.
+* Now everything is set up, go back to the terminal window with the virtualenv running.
+* Then run the following:
+  * `$ python manage.py makemigrations`
+  * `$ python manage.py migrate`
+  * `$ python manage.py createsuperuser`
+  * `$python manage.py runserver`
+* And then you're ready to go!
 
 ### Demo
 
