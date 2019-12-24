@@ -71,4 +71,9 @@
         $(this).closest('form').submit();
     });
 
+    // Card Spacing
+    $('#id_credit_card_number').on('input', function (e) {
+        e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim();
+    });
+
 })( jQuery );
