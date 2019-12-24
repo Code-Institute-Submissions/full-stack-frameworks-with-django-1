@@ -1,24 +1,24 @@
-.basket-table thead th:nth-child(1), .basket-table thead th:nth-child(2) {
+#basket-view .basket-table thead th:nth-child(1), #basket-view .basket-table thead th:nth-child(2) {
   width: 10%;
 }
 
-.basket-table thead th:nth-child(3) {
+#basket-view .basket-table thead th:nth-child(3) {
   width: 50%;
 }
 
-.basket-table thead th:nth-child(4), .basket-table thead th:nth-child(5) {
+#basket-view .basket-table thead th:nth-child(4), #basket-view .basket-table thead th:nth-child(5) {
   width: 15%;
 }
 
-.basket-table tbody tr > td {
+#basket-view .basket-table tbody tr > td {
   vertical-align: middle;
 }
 
-.basket-table tfoot {
+#basket-view .basket-table tfoot {
   background-color: #3e68e1;
   color: #fff;
 }
 
-.basket-table tfoot .dark-blue-border {
+#basket-view .basket-table tfoot .dark-blue-border {
   border-color: #375dca;
 }

@@ -1,39 +1,58 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+{% load mathfilters %}
 
 {% block content %}
-<section id="bug-form-view">
+<section id="checkout-view">
     <div class="container-fluid">
         <div class="row">
             <div class="col p-0">
                 <div id="title" class="card">
                     <div id="title-heading" class="card-header d-flex justify-content-between">
-                        <h5 class="mb-0">Basket</h5>
+                        <h5 class="mb-0">Checkout</h5>
                     </div>
                 </div>
                 <div class="p-4">
-                    {% for item in basket_items %}
-                        <tr>
-                            <td>{{ item.id }}</td>
-                            <td>{{ item.ticket.title }}</td>
-                            <td>{{ item.quantity }}</td>
-                        </tr>
-                    {% empty %}
-                        <tr>
-                            <td>Empty</td>
-                        </tr>
-                    {% endfor %}
+                    <h2 class="mb-3">Order Breakdown</h2>
+                    <table class="table table-striped mb-3 basket-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Feature</th>
+                                <th scope="col">Upvotes</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in basket_items %}
+                                <tr>
+                                    <td>#{{ item.id }}</td>
+                                    <td>{{ item.ticket.title }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>£{{ item.ticket.upvote_price|mul:item.quantity }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="4">Your basket is empty.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
 
-                    <p>{{ total }}</p>
+                    <p class="mb-4 text-uppercase font-weight-bold">Total amount to pay: £{{ total }}</p>
 
+                    <h2 class="mb-3">Payment</h2>
                     <form action="{% url 'get-checkout' %}" method="post" id="payment-form">
                         {% csrf_token %}
 
-                        o {{ order_form }}
+                        {{ order_form|crispy }}
+                        {{ payment_form|crispy }}
 
-                        p {{ payment_form }}
-
-                        <input id="submit_payment_btn" name="commit" type="submit" value="Submit" />
+                        <div class="form-group mb-0">
+                            <!-- <input id="submit_payment_btn" name="commit" type="submit" value="Submit" /> -->
+                            <button id="submit_payment_btn" class="btn btn-primary" type="submit" name="commit"><i class="fa fa-send-o mr-1"></i> Pay</button>
+                        </div>
                     </form>
                 </div>
             </div>
