@@ -20,6 +20,10 @@
                         </thead>
                         <tbody>
                             <tr>
+                                <td>Staff Member:</td>
+                                <td>{% if user.is_staff %}Yes{% else %}No{% endif %}</td>
+                            </tr>
+                            <tr>
                                 <td>Username:</td>
                                 <td>{{ user.username }}</td>
                             </tr>
