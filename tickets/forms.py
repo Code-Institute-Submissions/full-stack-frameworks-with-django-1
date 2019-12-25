@@ -46,7 +46,8 @@ class CommentForm(forms.ModelForm):
 
 class UpvoteForm(forms.ModelForm):
     """
-        Form used to upvote tickets.
+        Form used to upvote tickets
+        (bugs only) on the front-end.
     """
     class Meta:
         model = Upvote
@@ -61,3 +62,33 @@ class SavedTicketForm(forms.ModelForm):
     class Meta:
         model = SavedTicket
         fields = ()
+
+
+class FilterForm(forms.Form):
+    """
+        Form used to filter tickets
+        on the front-end.
+    """
+    TAGS = (
+        ('', '---------'),
+        ('bug', 'Bug'),
+        ('feature', 'Feature'),
+    )
+    PRIORITIES = (
+        ('', '---------'),
+        ('critical', 'Critical'),
+        ('high', 'High'),
+        ('medium', 'Medium'),
+        ('low', 'Low'),
+    )
+    STATUSES = (
+        ('', '---------'),
+        ('fr', 'Funding Required'),
+        ('ip', 'In Progress'),
+        ('c', 'Completed'),
+    )
+    tag = forms.ChoiceField(label='Type', choices=TAGS, required=False)
+    title_or_author = forms.CharField(label='Title or Author', required=False)
+    priority = forms.ChoiceField(label='Priority', choices=PRIORITIES, required=False)
+    # author = forms.CharField(label='Author', required=False)
+    status = forms.ChoiceField(label='Status', choices=STATUSES, required=False)

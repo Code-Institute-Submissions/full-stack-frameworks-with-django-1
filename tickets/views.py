@@ -5,8 +5,9 @@ from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.db.models import Q
 from .models import Ticket, Comment, Upvote, SavedTicket
-from .forms import BugForm, FeatureForm, CommentForm, UpvoteForm, SavedTicketForm
+from .forms import BugForm, FeatureForm, CommentForm, UpvoteForm, SavedTicketForm, FilterForm
 
 
 def get_tickets_view(request):
@@ -426,3 +427,48 @@ def user_delete_saved_ticket_view(request, pk):
             else:
                 messages.error(request, 'Error! You have already removed this ticket.')
     return redirect('get-ticket-detail', ticket.pk)
+
+
+def is_valid_param(param):
+    """
+        Helper function to check
+        if param is valid for the
+        filter_tickets_view.
+    """
+    return param is not '' and param is not None
+
+
+def filter_tickets_view(request):
+    """
+        View that allows the user
+        to filter tickets however
+        they choose.
+    """
+    form = FilterForm(request.GET)
+    queryset = Ticket.objects.all()
+    title_or_author_query = request.GET.get('title_or_author')
+    tag_query = request.GET.get('tag')
+    priority_query = request.GET.get('priority')
+    status_query = request.GET.get('status')
+
+    if is_valid_param(title_or_author_query):
+        queryset = queryset.filter(Q(title__icontains=title_or_author_query) | Q(author__username__icontains=title_or_author_query)).distinct()
+
+    if is_valid_param(tag_query):
+        queryset = queryset.filter(tag=tag_query)
+
+    if is_valid_param(priority_query):
+        queryset = queryset.filter(priority=priority_query)
+
+    if is_valid_param(status_query):
+        queryset = queryset.filter(status=status_query)
+
+    meta = {
+        'title': 'Filter Tickets',
+    }
+    context = {
+        'meta': meta,
+        'form': form,
+        'queryset': queryset,
+    }
+    return render(request, 'tickets/filter-tickets.html', context)

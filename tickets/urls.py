@@ -31,4 +31,6 @@ urlpatterns = [
 
     path('<int:pk>/save/', views.user_save_ticket_view, name='save-ticket'),
     path('<int:pk>/saved/delete/', views.user_delete_saved_ticket_view, name='delete-saved-ticket'),
+
+    path('filter/', views.filter_tickets_view, name='filter-tickets'),
 ]

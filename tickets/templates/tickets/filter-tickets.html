@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<section id="filter-ticket-view">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col p-0">
+                <div id="title" class="card">
+                    <div id="title-heading" class="card-header d-flex justify-content-between">
+                        <h5 class="mb-0">Filter Tickets</h5>
+                    </div>
+                </div>
+                <div class="p-0">
+                    <form action="." method="GET" class="p-4">
+                        <div class="form-group mb-0">
+                            {{ form.title_or_author|as_crispy_field }}
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4 mb-0">
+                                {{ form.tag|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-4 mb-0">
+                                {{ form.priority|as_crispy_field }}
+                            </div>
+                            <div class="form-group col-md-4 mb-0">
+                                {{ form.status|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-0">
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-filter mr-1"></i> Filter</button>
+                        </div>
+                    </form>
+
+                    <div id="accordion" class="accordion__all">
+                        <div id="all-collapse" class="collapse show" aria-labelledby="all-heading" data-parent="#accordion">
+                            <div class="list-group">
+                                <p class="px-4 mb-4"><strong>{{ queryset|length }}</strong> Results Found. {% if queryset|length is 0 %} Try another search? {% endif %}</p>
+                                {% for ticket in queryset %}
+                                    {% include 'tickets/template-parts/ticket.html' %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
