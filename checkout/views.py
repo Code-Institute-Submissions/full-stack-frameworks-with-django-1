@@ -45,7 +45,7 @@ def get_checkout_view(request):
                     card = payment_form.cleaned_data['stripe_id'],
                 )
             except stripe.error.CardError:
-                messages.error(request, 'your card was declined')
+                messages.error(request, 'Error! Your card was declined.')
 
             if customer.paid:
                 for id, quantity in basket.items():
@@ -55,15 +55,21 @@ def get_checkout_view(request):
                     if ticket.status == 'FR' and ticket.status is not 'C':
                         ticket.status = 'IP'
                     ticket.save()
-                messages.success(request, 'you have successfully paid')
+                messages.success(request, 'Success! You have paid.')
                 request.session['basket'] = {}
                 return redirect('main-homepage')
             else:
-                messages.error(request, 'unable to take payment')
+                messages.error(request, 'Error! We were unable to take payment.')
         else:
             print(payment_form.errors)
-            messages.error(request, 'we were unable to take payment with that card')
+            messages.error(request, 'Error! We were unable to take payment.')
+        return render(request, 'checkout/checkout.html', {'order_form': order_form, 'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE})
     else:
-        payment_form = PaymentForm()
-        order_form = OrderForm()
-    return render(request, 'checkout/checkout.html', {'order_form': order_form, 'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE})
+        basket = request.session.get('basket', {})
+        if basket:
+            payment_form = PaymentForm()
+            order_form = OrderForm()
+            return render(request, 'checkout/checkout.html', {'order_form': order_form, 'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE})
+        else:
+            messages.error(request, 'Error! You have nothing to checkout.')
+            return redirect('main-homepage')

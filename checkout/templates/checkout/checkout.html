@@ -43,7 +43,7 @@
                     <p class="mb-4 text-uppercase font-weight-bold">Total amount to pay: £{{ total }}</p>
 
                     <h2 class="mb-3">Payment</h2>
-                    <form action="{% url 'get-checkout' %}" method="post" id="payment-form">
+                    <form action="{% url 'get-checkout' %}" method="POST" id="payment-form">
                         {% csrf_token %}
 
                         <div id="credit-card-errors" style="display: none;">
@@ -73,7 +73,6 @@
                         </div>
 
                         <div class="form-group mb-0">
-                            <!-- <input id="submit_payment_btn" name="commit" type="submit" value="Submit" /> -->
                             <button id="submit_payment_btn" class="btn btn-primary" type="submit" name="commit"><i class="fa fa-send-o mr-1"></i> Pay</button>
                         </div>
                     </form>

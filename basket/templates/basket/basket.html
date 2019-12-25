@@ -26,7 +26,6 @@
                             {% for item in basket_items %}
                                 <tr>
                                     <td>
-                                        <!-- <a href="{% url 'delete-basket-item' item.id %}"><i class="fa fa-trash-o"></i></a> -->
                                         <form action="{% url 'delete-basket-item' item.id %}" method="POST">
                                             {% csrf_token %}
 
