@@ -25,7 +25,16 @@
                         <tbody>
                             {% for item in basket_items %}
                                 <tr>
-                                    <td><a href="{% url 'delete-basket-item' item.id %}"><i class="fa fa-trash-o"></i></a></td>
+                                    <td>
+                                        <!-- <a href="{% url 'delete-basket-item' item.id %}"><i class="fa fa-trash-o"></i></a> -->
+                                        <form action="{% url 'delete-basket-item' item.id %}" method="POST">
+                                            {% csrf_token %}
+
+                                            <div class="form-group mb-0">
+                                                <button class="btn btn-link p-0" type="submit"><i class="fa fa-trash-o"></i></button>
+                                            </div>
+                                        </form>
+                                    </td>
                                     <td>#{{ item.id }}</td>
                                     <td>{{ item.ticket.title }}</td>
                                     <td>

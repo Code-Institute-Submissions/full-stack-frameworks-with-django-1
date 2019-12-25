@@ -9,7 +9,8 @@ I was tasked with creating one of three things, I decided to go with the issue t
 ### User Stories
 
 * As an anonymous user (a user who does not have an account) I can:
-  * View tickets as a whole (mix of bugs/features) by visiting `/tickets/`
+  * View tickets as a whole (mix of bugs/features) by visiting `/tickets/` or by clicking on the sidebar menu item titled `All Tickets`.
+  * Filter tickets by clicking on the sidebar menu item titled `Filter Tickets` and filling out the form selecting the options you wish to filter by.
   * View tickets through a bug only filter (i.e. only show bugs) by clicking on the sidebar menu item titled `All Bugs` from here, you can also click `All Tickets` to view all tickets, same as above.
   * View tickets through a feature only filter (i.e. only show features) by clicking on the sidebar menu item titled `All  Features` from here you can also click `All Tickets` to view all tickets, same as above.
   * View bugs based on a specific priority. There are two ways to do this:
@@ -378,4 +379,4 @@ __Stuart Green__ - This project was created and built as a part of the Code Inst
 
 Most of the content on the app is lorem ipsum, for example the T&Cs and policies are lorem ipsum but with real headings just to show that on an app of this calibre (ecommerce) these would be required for the go live.
 
-Media is mostly just placeholder content e.g. bug screenshots and as such have come from [placeholder.com]([https://placeholder.com](https://placeholder.com/)).
+Media is mostly just placeholder content e.g. bug screenshots and as such have come from [placeholder.com](https://placeholder.com/).

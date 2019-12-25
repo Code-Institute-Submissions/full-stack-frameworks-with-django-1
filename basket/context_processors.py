@@ -4,7 +4,9 @@ from tickets.models import Ticket
 
 def basket_contents(request):
     """
-        Basket
+        Set up the basket and ensure
+        basket content is available
+        on every page.
     """
     basket = request.session.get('basket', {})
 

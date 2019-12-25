@@ -36,7 +36,7 @@ def add_to_basket_view(request, id):
         messages.success(request, 'Success! Feature has been added to your basket.')
         return redirect('get-basket')
     else:
-        messages.error(request, 'Error!')
+        messages.error(request, 'Error! You can\'t go to this URL directly.')
         return redirect('get-ticket-detail', id)
 
 
@@ -46,15 +46,19 @@ def amend_basket_view(request, id):
         View that allows the user
         to amend their basket.
     """
-    quantity = int(request.POST.get('quantity'))
-    basket = request.session.get('basket', {})
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity'))
+        basket = request.session.get('basket', {})
 
-    if quantity > 0:
-        basket[id] = quantity
+        if quantity > 0:
+            basket[id] = quantity
+        else:
+            basket.pop(str(id))
+
+        request.session['basket'] = basket
+        messages.success(request, 'Success! Feature has been updated in your basket.')
     else:
-        basket.pop(str(id))
-
-    request.session['basket'] = basket
+        messages.error(request, 'Error! You can\'t go to this URL directly.')
     return redirect('get-basket')
 
 
@@ -65,7 +69,11 @@ def delete_basket_item_view(request, id):
         to remove an item from their
         basket.
     """
-    basket = request.session.get('basket', {})
-    basket.pop(str(id))
-    request.session['basket'] = basket
+    if request.method == 'POST':
+        basket = request.session.get('basket', {})
+        basket.pop(str(id))
+        request.session['basket'] = basket
+        messages.success(request, 'Success! Feature has been removed from your basket.')
+    else:
+        messages.error(request, 'Error! You can\'t go to this URL directly.')
     return redirect('get-basket')
