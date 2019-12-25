@@ -161,9 +161,7 @@ class Ticket(models.Model):
         return '{0} by {1}'.format(self.title, self.author)
 ```
 
-### Features
-
-#### Existing Features
+### Existing Features
 
 **Accounts**
 
@@ -216,7 +214,7 @@ Ensuring that my operations could only be usable via the POST method means that 
   * Upon successful payment you'll be notified via a Toast and the upvotes will be added, as well as adding an 'earned' price to the matching feature to.
   * Upon failing the form, you'll also be notified and have a chance to try again.
 
-#### Features for the Future
+### Features for the Future
 
 * I think it would be really helpful to send admins of the app an email once a feature has either a) been submitted or b) had it's first upvote (i.e. first payment) so that the admins don't have to check the app every day to realise any new paid feature requests have been submitted/upvoted.
   * I could do this by using Djangos built in django.core.mail module in conjunction with a email service such as SendGrid.
