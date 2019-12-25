@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@1.10.0/css/OverlayScrollbars.min.css" integrity="sha256-ffgrju1S/iqmmxrfD+uQTRdyhs6YVov8SWxAHPLTdhQ=" crossorigin="anonymous"> <!-- Overlay Scrollbars | -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}"> <!-- Main CSS -->
     <link rel="stylesheet" href="{% static 'tickets/css/main.css' %}"> <!-- Tickets CSS -->
-    <link rel="stylesheet" href="{% static 'basket/css/main.css' %}"> <!-- Tickets CSS -->
+    <link rel="stylesheet" href="{% static 'basket/css/main.css' %}"> <!-- Basket CSS -->
 </head>
 <body>
 
@@ -180,20 +180,11 @@
                         </div>
 
                         <div class="col-lg-3">
-                            <h5 class="footer__title font-weight-bold">Bugs</h5>
+                            <h5 class="footer__title font-weight-bold">Services</h5>
                             <ul class="footer__ul">
-                                <li><a href="#!">Link</a></li>
-                                <li><a href="#!">Link</a></li>
-                                <li><a href="#!">Link</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="col-lg-3">
-                            <h5 class="footer__title font-weight-bold">Features</h5>
-                            <ul class="footer__ul">
-                                <li><a href="#!">Link</a></li>
-                                <li><a href="#!">Link</a></li>
-                                <li><a href="#!">Link</a></li>
+                                <li><a href="{% url 'get-tickets-tag' tag='bug' %}">Bug Reporting</a></li>
+                                <li><a href="{% url 'get-tickets-tag' tag='feature' %}">Feature Requesting</a></li>
+                                <li><a href="#!">What Are We Working On?</a></li>
                             </ul>
                         </div>
 
@@ -203,6 +194,15 @@
                                 <li><a href="{% url 'main-t-and-c' %}">Terms &amp; Conditions</a></li>
                                 <li><a href="{% url 'main-refund' %}">Refund Policy</a></li>
                                 <li><a href="{% url 'main-privacy' %}">Privacy Policy</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <h5 class="footer__title font-weight-bold">Contact Us</h5>
+                            <ul class="footer__ul">
+                                <li><a href="mailto:hello@stuartgreen.me.uk"><i class="fa fa-envelope-o mr-2"></i> Email</a></li>
+                                <li><a href="https://github.com/STEPLADD3R" target="_blank" rel="nofollow noopener"><i class="fa fa-github mr-2"></i> Github</a></li>
+                                <li><a href="https://www.linkedin.com/in/stuart-green-458790194/" target="_blank" rel="nofollow noopener"><i class="fa fa-linkedin mr-2"></i> Linkedin</a></li>
                             </ul>
                         </div>
                     </div>

@@ -9769,10 +9769,6 @@ body {
   color: #fff;
 }
 
-.site-footer .container-fluid .row .col-lg-3:first-of-type .footer__ul li, .site-footer .container-sm .row .col-lg-3:first-of-type .footer__ul li, .site-footer .container-md .row .col-lg-3:first-of-type .footer__ul li, .site-footer .container-lg .row .col-lg-3:first-of-type .footer__ul li, .site-footer .container-xl .row .col-lg-3:first-of-type .footer__ul li {
-  display: inline-block;
-}
-
 .site-footer .container-fluid .row .col-lg-3:first-of-type .footer__ul li a, .site-footer .container-sm .row .col-lg-3:first-of-type .footer__ul li a, .site-footer .container-md .row .col-lg-3:first-of-type .footer__ul li a, .site-footer .container-lg .row .col-lg-3:first-of-type .footer__ul li a, .site-footer .container-xl .row .col-lg-3:first-of-type .footer__ul li a {
   color: #fff;
 }

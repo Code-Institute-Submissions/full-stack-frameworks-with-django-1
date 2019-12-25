@@ -14,7 +14,9 @@ stripe.api_key = settings.STRIPE_SECRET
 @login_required
 def get_checkout_view(request):
     """
-
+        View that returns the checkout
+        page and allows the user to
+        pay for feature upvotes.
     """
     if request.method == 'POST':
         order_form = OrderForm(request.POST)
@@ -46,6 +48,13 @@ def get_checkout_view(request):
                 messages.error(request, 'your card was declined')
 
             if customer.paid:
+                for id, quantity in basket.items():
+                    ticket = Ticket.objects.get(pk=id)
+                    ticket.upvotes += quantity
+                    ticket.earned += quantity * ticket.upvote_price
+                    if ticket.status == 'FR' and ticket.status is not 'C':
+                        ticket.status = 'IP'
+                    ticket.save()
                 messages.success(request, 'you have successfully paid')
                 request.session['basket'] = {}
                 return redirect('main-homepage')

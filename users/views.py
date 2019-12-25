@@ -36,13 +36,19 @@ def profile_view(request):
         View for a specific user profile
         on the front-end
     """
-    return render(request, 'users/profile.html')
+    meta = {
+        'title': 'User Profile',
+    }
+    context = {
+        'meta': meta,
+    }
+    return render(request, 'users/profile.html', context)
 
 
 @login_required
 def change_email_view(request):
     """
-        Edit a specific user profile
+        Edit a specific user email
         on the front-end
     """
     if request.method == 'POST':
@@ -53,7 +59,11 @@ def change_email_view(request):
             return redirect('user-profile')
     else:
         update_form = UserEmailUpdateForm(instance=request.user)
+    meta = {
+        'title': 'Change Email Address',
+    }
     context = {
+        'meta': meta,
         'update_form': update_form,
     }
     return render(request, 'users/change-email.html', context)
@@ -62,7 +72,7 @@ def change_email_view(request):
 @login_required
 def change_password_view(request):
     """
-        Edit a specific user profile
+        Edit a specific user password
         on the front-end
     """
     if request.method == 'POST':
@@ -77,7 +87,11 @@ def change_password_view(request):
             return redirect('user-change-password')
     else:
         update_form = PasswordChangeForm(user=request.user)
+    meta = {
+        'title': 'Change Password',
+    }
     context = {
+        'meta': meta,
         'update_form': update_form,
     }
     return render(request, 'users/change-password.html', context)
