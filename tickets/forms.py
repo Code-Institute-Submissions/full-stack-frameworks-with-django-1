@@ -30,6 +30,7 @@ class FeatureForm(forms.ModelForm):
         fields = (
                     'title',
                     'description',
+                    'status'
                  )
 
 
