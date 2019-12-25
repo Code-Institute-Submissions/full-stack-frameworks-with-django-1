@@ -53,6 +53,6 @@
 
 @media (min-width: 992px) {
   #bug-detail-view .container-fluid.has-sidebar .bug__sidebar {
-    min-height: calc(100vh - (90px + 72px + 176px));
+    min-height: calc(100vh - (90px + 72px + 208px));
   }
 }

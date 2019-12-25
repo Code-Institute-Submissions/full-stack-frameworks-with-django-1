@@ -9810,13 +9810,13 @@ body {
 
 @media (min-width: 1200px) {
   #page-content-wrapper {
-    min-height: calc( 100vh - (90px + 176px));
+    min-height: calc( 100vh - (90px + 208px));
   }
 }
 
 @media (min-width: 1200px) {
   #page-content-wrapper-container {
-    min-height: calc( 100vh - (90px + 176px));
+    min-height: calc( 100vh - (90px + 208px));
   }
 }
 
