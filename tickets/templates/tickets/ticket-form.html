@@ -21,9 +21,11 @@
                         {{ form|crispy }}
 
                         <div class="form-group mb-0">
-                            <button class="btn btn-primary" type="submit"><i class="fa fa-plus mr-1"></i> Submit</button>
                             {% if 'edit' in request.path %}
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-pencil mr-1"></i> Update</button>
                             <a href="../" class="btn btn-link">Cancel</a>
+                            {% else %}
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-plus mr-1"></i> Submit</button>
                             {% endif %}
                         </div>
                     </form>
