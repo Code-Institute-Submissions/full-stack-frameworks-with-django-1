@@ -165,13 +165,63 @@ class Ticket(models.Model):
 
 #### Existing Features
 
-Write up required.
+**Accounts**
+
+* I used mostly the prebuilt Django user authentication for user accounts, I just modified some of the forms slightly from their defaults.
+* User can register, login, logout, view their profile and, update their email or password.
+* Thanks to Django's built in `from django.contrib.auth import update_session_auth_hash` updating the password also keeps the user logged in.
+
+**Tickets**
+
+* Tickets are free to create and voting will push it higher up the chain as tickets are ordered based on most upvotes.
+  * Upvotes for bugs are completely free, but users may only upvote once.
+  * Upvotes for features are paid for and users may buy as many as they like.
+* Tickets can be viewed in three different ways:
+  * View tickets as a whole (i.e. bugs and features)
+  * View only bug tickets
+  * View only feature tickets
+* Tickets can also be filtered through, users have the option to use a filter form to search by either Title or Author (using Django's built in `from django.db.models import Q`), as well as by Tag (Bug or Feature), Priority or Status (i.e. in progress, or completed).
+  * The form will then submit the parameters via a GET request and the values then filter the queryset.
+  * The filter returns the count of tickets returned, if 0 it will ask you to search again.
+* You can view all the tickets that you have submitted, separated into bugs/features so that you can keep an eye on their status. You get a visual indication of how many you have saved from the sidebar menu at all times.
+* You can save/unsave tickets, and once saved they will appear in your `Saved Bugs` or `Saved Features`. You get a visual indication of how many you have saved from the sidebar menu at all times.
+
+When I was creating the tickets, I tried to make use of Django Forms as much as possible, as well as ensuring that my CRUD operations were done using the Django Forms with the POST method, especially important on the delete operation and especially if the site were to be indexable by Google.
+
+Ensuring that my operations could only be usable via the POST method means that you can't go to `tickets/1/save/` to save a ticket, you would have to submit the form by clicking the save button.
+
+* Ticket Detail pages
+  * If you are either a) the owner of the ticket or b) a member of staff you will have options to either edit or delete the ticket. This would allow the user to mark as complete, or simply amend a typo, or remove if the ticket is no longer valid.
+
+**Comments**
+
+* Users may post comments on tickets, these will be displayed under the ticket details.
+* If you are either a) the owner of the comment or b) a member of staff you will have options to either edit or delete the comment.
+* If no comment is shown, it will display that there are no comments.
+
+**Basket**
+
+* You can upvote features by adding the upvotes to your basket and buying them.
+* When you click the upvote button on a feature ticket, it will take you to the basket.
+  * Inside the basket you can straight up remove an item from the basket, from the remove column.
+  * Add more upvotes inside the upvote column, the form will automatically update the value upon receiving a new value.
+  * As well as these operations, you will notice the basket displays an itemised list, and again you can add/remove upvotes from here.
+  * You'll also see a breakdown of the number of items, upvotes and total cost at  the bottom before heading off to the checkout page.
+
+**Checkout / Stripe**
+
+* Providing you have a basket that isn't empty, you'll be able to get to the checkout page.
+* Once here, you'll see the basket one last time as well as the grand total of the order.
+* Then, using Stripe API v2 the form performs validation and lookup to ensure details are correct before taking payment.
+  * Upon successful payment you'll be notified via a Toast and the upvotes will be added, as well as adding an 'earned' price to the matching feature to.
+  * Upon failing the form, you'll also be notified and have a chance to try again.
 
 #### Features for the Future
 
 * I think it would be really helpful to send admins of the app an email once a feature has either a) been submitted or b) had it's first upvote (i.e. first payment) so that the admins don't have to check the app every day to realise any new paid feature requests have been submitted/upvoted.
   * I could do this by using Djangos built in django.core.mail module in conjunction with a email service such as SendGrid.
 * Going forward, I think it would be good to use user friendly slugs instead of the id as using the id isn't a perfect solution for the user, and is far from perfect for making good use of SEO practices.
+* It may be worth in the future updating the Stripe API to version 3 to make use of their prebuilt payment forms.
 
 ### Technologies
 

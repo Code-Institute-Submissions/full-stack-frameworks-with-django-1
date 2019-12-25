@@ -34,8 +34,9 @@
                                     <img src="{{ MEDIA_URL }}{{ ticket.screenshot }}" alt="Screenshot of {{ ticket.title }}" class="img-fluid d-block mb-3">
                                 </a>
                             {% endif %}
-                            <a href="{% url 'add-new-comment' ticket.id %}" class="btn btn-primary bug__leave-comment mb-4"><i class="fa fa-comment mr-2"></i>Leave a Comment</a>
+                            <a href="{% url 'add-new-comment' ticket.id %}" class="btn btn-primary bug__leave-comment mb-3"><i class="fa fa-comment mr-2"></i>Leave a Comment</a>
                             <div class="bug__comments">
+                                <p class="mb-4">There are currently <strong>{{ comments|length }}</strong> comments.</p>
                                 {% for comment in comments %}
                                 <div class="card mb-3 bug__comments-comment">
                                     <div class="card-header d-flex justify-content-between comment-heading">
