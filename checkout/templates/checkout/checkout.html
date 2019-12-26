@@ -15,30 +15,32 @@
                 </div>
                 <div class="p-4">
                     <h2 class="mb-3">Order Breakdown</h2>
-                    <table class="table table-striped mb-3 basket-table">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Feature</th>
-                                <th scope="col">Upvotes</th>
-                                <th scope="col">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for item in basket_items %}
+                    <div class="table-responsive">
+                        <table class="table table-striped basket-table mb-4">
+                            <thead>
                                 <tr>
-                                    <td>#{{ item.id }}</td>
+                                    <th scope="col" class="d-xs-none d-md-table-cell">ID</th>
+                                    <th scope="col" class="text-left">Feature</th>
+                                    <th scope="col" class="text-left">Upvotes</th>
+                                    <th scope="col" class="d-xs-none d-md-table-cell">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in basket_items %}
+                                <tr>
+                                    <td class="d-xs-none d-md-table-cell">#{{ item.id }}</td>
                                     <td>{{ item.ticket.title }}</td>
                                     <td>{{ item.quantity }}</td>
-                                    <td>£{{ item.ticket.upvote_price|mul:item.quantity }}</td>
+                                    <td class="d-xs-none d-md-table-cell">£{{ item.ticket.upvote_price|mul:item.quantity }}</td>
                                 </tr>
-                            {% empty %}
+                                {% empty %}
                                 <tr>
                                     <td colspan="4">Your basket is empty.</td>
                                 </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
 
                     <p class="mb-4 text-uppercase font-weight-bold">Total amount to pay: £{{ total }}</p>
 
