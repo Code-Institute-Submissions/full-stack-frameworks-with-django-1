@@ -27,6 +27,7 @@ class TestViews(TestCase):
         self.bug = Ticket.objects.create(
             tag='BUG',
             title='Test Bug',
+            description='Description of bug',
             author=author,
             upvote_price=0
         )
@@ -34,6 +35,7 @@ class TestViews(TestCase):
         self.feature = Ticket.objects.create(
             tag='FEATURE',
             title='Test Feature',
+            description='Description of feature',
             author=author
         )
 
