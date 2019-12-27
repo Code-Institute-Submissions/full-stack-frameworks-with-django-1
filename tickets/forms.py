@@ -90,5 +90,4 @@ class FilterForm(forms.Form):
     tag = forms.ChoiceField(label='Type', choices=TAGS, required=False)
     title_or_author = forms.CharField(label='Title or Author', required=False)
     priority = forms.ChoiceField(label='Priority', choices=PRIORITIES, required=False)
-    # author = forms.CharField(label='Author', required=False)
     status = forms.ChoiceField(label='Status', choices=STATUSES, required=False)
