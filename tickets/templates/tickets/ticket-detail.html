@@ -39,8 +39,22 @@
                                 <p class="mb-4">There are currently <strong>{{ comments|length }}</strong> comments.</p>
                                 {% for comment in comments %}
                                 <div class="card mb-3 bug__comments-comment">
-                                    <div class="card-header d-flex justify-content-between comment-heading">
+                                    <div class="card-header d-flex comment-heading">
                                         <h5 class="mb-0"><i class="fa fa-comment mr-3"></i>{{ comment.author|title }} says...</h5>
+
+                                        {% if request.user == comment.author or request.user.is_staff %}
+                                        <p class="d-inline-block mb-0 ml-2 mr-1"><a href="{% url 'edit-comment' ticket.id comment.pk %}" class="btn btn-link p-0"><i class="fa fa-pencil"></i></a></p>
+
+                                        <form action="{% url 'delete-comment' ticket.id comment.pk %}" method="POST" class="d-inline-block">
+                                            {% csrf_token %}
+
+                                            <input type="hidden" name="comment-pk" value="{{ comment.pk }}" />
+
+                                            <div class="form-group mb-0">
+                                                <button class="btn btn-link p-0" type="submit"><i class="fa fa-trash-o"></i></button>
+                                            </div>
+                                        </form>
+                                        {% endif %}
                                     </div>
                                     <div class="card-body">
                                         <p>{{ comment.comment }}</p>

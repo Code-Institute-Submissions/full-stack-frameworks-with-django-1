@@ -16,8 +16,13 @@
                         {% csrf_token %}
                         {{ form|crispy }}
 
-                        <div class="form-group">
-                            <button class="btn btn-primary" type="submit">Submit</button>
+                        <div class="form-group mb-0">
+                            {% if 'edit' in request.path %}
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-pencil mr-1"></i> Update</button>
+                            <a id="back" href="#!" class="btn btn-link">Cancel</a>
+                            {% else %}
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-plus mr-1"></i> Submit</button>
+                            {% endif %}
                         </div>
                     </form>
                 </div>

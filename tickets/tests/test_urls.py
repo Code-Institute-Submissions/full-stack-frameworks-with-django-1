@@ -4,9 +4,9 @@ from tickets.views import get_tickets_view, get_tickets_tag_view, \
     get_user_tickets_view, get_user_saved_tickets_view, \
     get_bugs_priority_view, get_ticket_detail_view, \
     add_new_ticket_view, edit_ticket_view, delete_ticket_view, \
-    add_new_comment_view, upvote_bug_view, upvote_feature_view, \
-    user_save_ticket_view, user_delete_saved_ticket_view, \
-    filter_tickets_view
+    add_new_comment_view, edit_comment_view, delete_comment_view, \
+    upvote_bug_view, user_save_ticket_view, \
+    user_delete_saved_ticket_view, filter_tickets_view
 
 
 class TestUrls(SimpleTestCase):
@@ -111,6 +111,28 @@ class TestUrls(SimpleTestCase):
         url = reverse('add-new-comment', args=[1])
         self.assertEquals(resolve(url).func, add_new_comment_view)
 
+    def test_edit_comment_resolves(self):
+        """
+            Test that URL is set up correctly
+            for edit_comment_view passing
+            the ticket_pk of 1 and
+            comment_pk of 1
+        """
+
+        url = reverse('edit-comment', args=[1, 1])
+        self.assertEquals(resolve(url).func, edit_comment_view)
+
+    def test_edit_comment_resolves(self):
+        """
+            Test that URL is set up correctly
+            for delete_comment_view passing
+            the ticket_pk of 1 and
+            comment_pk of 1
+        """
+
+        url = reverse('delete-comment', args=[1, 1])
+        self.assertEquals(resolve(url).func, delete_comment_view)
+
     def test_upvote_bug_resolves(self):
         """
             Test that URL is set up correctly
@@ -120,16 +142,6 @@ class TestUrls(SimpleTestCase):
 
         url = reverse('upvote-bug', args=[1])
         self.assertEquals(resolve(url).func, upvote_bug_view)
-
-    def test_upvote_feature_resolves(self):
-        """
-            Test that URL is set up correctly
-            for upvote_feature_view passing
-            the pk of 1.
-        """
-
-        url = reverse('upvote-feature', args=[1])
-        self.assertEquals(resolve(url).func, upvote_feature_view)
 
     def test_save_ticket_resolves(self):
         """

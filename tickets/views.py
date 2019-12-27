@@ -18,7 +18,6 @@ def get_tickets_view(request):
     """
     per_page = 4
     a_tickets = (Paginator(Ticket.objects
-                 # .exclude(status='C')
                  .order_by('-upvotes'), per_page))
     page = request.GET.get('page')
     all_tickets_paged = a_tickets.get_page(page)
@@ -45,7 +44,6 @@ def get_tickets_tag_view(request, tag):
         per_page = 4
         filtered_tickets = (Paginator(Ticket.objects
                             .filter(tag=tag)
-                            # .exclude(status='C')
                             .order_by('-upvotes'), per_page))
         page = request.GET.get('page')
         tickets = filtered_tickets.get_page(page)
@@ -323,22 +321,45 @@ def add_new_comment_view(request, ticket_pk, pk=None):
     return render(request, 'tickets/comment-form.html', context)
 
 
-def edit_comment_view(request):
+def edit_comment_view(request, ticket_pk, comment_pk):
     """
         View that allows the user
         to edit their comment on
         a ticket.
     """
-    pass
+    ticket = get_object_or_404(Ticket, pk=ticket_pk)
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    if request.user == comment.author:
+        if request.method == 'POST':
+            form = CommentForm(request.POST, instance=comment)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Success! You have updated your comment.')
+                return redirect('get-ticket-detail', ticket.pk)
+        else:
+            form = CommentForm(instance=comment)
+    context = {
+        'form': form,
+    }
+    return render(request, 'tickets/comment-form.html', context)
 
 
-def delete_comment_view(request):
+def delete_comment_view(request, ticket_pk, comment_pk):
     """
         View that allows the user
         to delete their comment on
         a ticket.
     """
-    pass
+    comment_pk = request.POST['comment-pk']
+    ticket = Ticket.objects.get(pk=ticket_pk)
+    comment = Comment.objects.get(pk=comment_pk, ticket=ticket)
+    if request.user == comment.author and request.method == 'POST':
+        comment.delete()
+        messages.success(request, 'Success! Comment has been successfully deleted.')
+        return redirect('get-ticket-detail', comment.ticket.pk)
+    else:
+        messages.error(request, 'Error! You are not permitted to delete this comment.')
+        return redirect('get-ticket-detail', comment.ticket.pk)
 
 
 @login_required
@@ -368,16 +389,6 @@ def upvote_bug_view(request, pk):
     else:
         messages.error(request, 'Error! This ticket is not a bug.')
     return redirect('get-ticket-detail', ticket.id)
-
-
-@login_required
-def upvote_feature_view(request, pk):
-    """
-        View that allows the user
-        to upvote a ticket with
-        the 'feature' tag.
-    """
-    pass
 
 
 @login_required

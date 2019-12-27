@@ -23,11 +23,10 @@ urlpatterns = [
     path('<int:pk>/delete/', views.delete_ticket_view, name='delete-ticket'),
 
     path('<int:ticket_pk>/new-comment/', views.add_new_comment_view, name='add-new-comment'),
-    # edit comment (?maybe?)
-    # delete comment (?maybe?)
+    path('<int:ticket_pk>/<int:comment_pk>/edit-comment/', views.edit_comment_view, name='edit-comment'),
+    path('<int:ticket_pk>/<int:comment_pk>/delete-comment/', views.delete_comment_view, name='delete-comment'),
 
     path('<int:pk>/upvote-bug/', views.upvote_bug_view, name='upvote-bug'),
-    path('<int:pk>/upvote-feature/', views.upvote_feature_view, name='upvote-feature'),
 
     path('<int:pk>/save/', views.user_save_ticket_view, name='save-ticket'),
     path('<int:pk>/saved/delete/', views.user_delete_saved_ticket_view, name='delete-saved-ticket'),
