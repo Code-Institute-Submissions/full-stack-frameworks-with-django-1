@@ -268,7 +268,29 @@ Here's a list of the main technologies used:
 
 **Automated Testing**
 
-Write up required.
+I have tested my tickets quite extensively, as evidenced [here](#!) I have tested the following:
+
+* test_urls.py
+  * I tested all of my ticket URLs to ensure that all the URLs resolve correctly, using Django SimpleTestCase.
+
+* test_views.py
+  * I first created a setup function that creates a user, logs the user in and creates two test tickets, a bug and a feature.
+  * I then tested my functions being sure to test both the GET and POST request variants where necessary, as well as testing 404s where necessary as well.
+  * For GET requests, I tested that the correct status code was returned, as well as the correct template was being used.
+  * For POST requests, I tested that objects can indeed be created, updated and deleted as well as testing that the correct status code was returned.
+  * For some POST requests I also checked to make sure that the value was there, and then again after it had been deleted to ensure it was indeed there, before being deleted.
+  * For 404s I checked to make sure that the 404 status code was returned.
+
+* test_models.py
+  * I tested my models by first creating a test ticket, and then ensuring that the defaults were indeed being passed in.
+  * I then tested that it was possible to override the defaults.
+  * And finally I tested to make sure the required fields were not blank.
+
+* test_forms.py
+  * I also tested my forms to make test what would happen if a form is valid and what would happen if it was invalid.
+
+
+I chose to only test the tickets, I think this was adequete according to the Pareto principle (known as the 80/20 rule). Most of the core functionality of the web app is within the tickets app, and I made sure to test everything thoroughly myself where necessary.
 
 **Manual Testing**
 
@@ -423,8 +445,14 @@ __Stuart Green__ - This project was created and built as a part of the Code Inst
 
 [Django Crispy Forms](https://django-crispy-forms.readthedocs.io/en/latest/) - Improved Bootstrap Forms in Django.
 
+[Django Testing](https://www.youtube.com/watch?v=qwypH3YvMKc&list=PLbpAWbHbi5rMF2j5n6imm0enrSD9eQUaM) - I found this extremely helpful when learning how to do testing in Django. Alongside the Django Documentation on Testing.
+
 #### Content & Media
 
 Most of the content on the app is lorem ipsum, for example the T&Cs and policies are lorem ipsum but with real headings just to show that on an app of this calibre (ecommerce) these would be required for the go live.
 
 Media is mostly just placeholder content e.g. bug screenshots and as such have come from [placeholder.com](https://placeholder.com/).
+
+### Notes
+
+I would just like to state that the reason as to why in my tickets.views I have `mandatory_tags` and `mandatory_priorities` is because there are links to these in both the sidebar and footer menus, and if there was no tickets with a priority, yet it was still linked up, it would 404, and this is not good. I chose instead to display a message to the user, so for example instead of 404ing, if you went to `/tickets/bugs/` or `/tickets/features` when they're empty (i.e. none submitted) it would display a nice message stating such, and the same if you went to `/tickets/bugs/priority/critical` and there were no critical bugs, it would 404 when instead, not taking the user away from the app and stating that there are no critical bugs at this time, is a much better UX in my opinion.
