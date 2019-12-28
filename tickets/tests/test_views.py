@@ -18,26 +18,38 @@ class TestViews(TestCase):
         username = 'testAppUser'
         password = 'testAppPass'
 
-        user = User.objects.create_user(username=username, password=password)
+        user = User.objects.create_user(username=username, password=password, is_staff=True)
         author = User.objects.get(username=username)
         login = self.client.login(username=username, password=password)
 
         self.assertTrue(login)
 
-        self.bug = Ticket.objects.create(
+        self.bug_args = dict(
             tag='BUG',
             title='Test Bug',
-            description='Description of bug',
+            description='Description of a bug...',
+            priority='LOW',
             author=author,
-            upvote_price=0
+            status='IP',
+            upvotes=0,
+            upvote_price=0,
+            earned=0
         )
 
-        self.feature = Ticket.objects.create(
+        self.feature_args = dict(
             tag='FEATURE',
             title='Test Feature',
-            description='Description of feature',
-            author=author
+            description='Description of a feature...',
+            priority='',
+            author=author,
+            status='FR',
+            upvotes=0,
+            upvote_price=19.99,
+            earned=0
         )
+
+        self.bug = Ticket.objects.create(**self.bug_args)
+        self.feature = Ticket.objects.create(**self.feature_args)
 
     def test_get_tickets_GET(self):
         """
@@ -173,3 +185,42 @@ class TestViews(TestCase):
         response = self.client.get(reverse('edit-ticket', args=[self.bug.pk]))
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'tickets/ticket-form.html')
+
+    def test_edit_ticket_POST(self):
+        """
+            Test that a ticket can be updated
+            via a POST request.
+        """
+        
+        self.bug_args.update({'title': 'Test Bug UPDATED'})
+
+        response = self.client.post(reverse('edit-ticket', args=[self.bug.pk]), self.bug_args)
+
+        ticket = Ticket.objects.get(pk=self.bug.pk)
+
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(ticket.title, 'Test Bug UPDATED')
+
+    def test_delete_ticket_POST(self):
+        """
+            Test that a ticket can be deleted
+            via a POST request.
+        """
+
+        delete_me = Ticket.objects.create(
+            title='Delete me',
+            description='I want to be deleted.',
+            author=self.bug_args.get('author'),
+            status='IP',
+        )
+
+
+        query = Ticket.objects.filter(title='Delete me')
+        self.assertEquals(query.count(), 1)
+
+        ticket = Ticket.objects.get(title='Delete me')
+        response = self.client.post(reverse('delete-ticket', args=[ticket.pk]))
+
+        self.assertEquals(response.status_code, 302)
+        query = Ticket.objects.filter(title='Delete me')
+        self.assertEquals(query.count(), 0)

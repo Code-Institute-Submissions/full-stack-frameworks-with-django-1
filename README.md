@@ -178,7 +178,7 @@ class Ticket(models.Model):
   * View tickets as a whole (i.e. bugs and features)
   * View only bug tickets
   * View only feature tickets
-* Tickets can also be filtered through, users have the option to use a filter form to search by either Title or Author (using Django's built in `from django.db.models import Q`), as well as by Tag (Bug or Feature), Priority or Status (i.e. in progress, or completed).
+* Tickets can also be filtered through, users have the option to use a filter form to search by either the title of the ticket or the name of the author (using Django's built in `from django.db.models import Q`), as well as by Tag (Bug or Feature), Priority or Status (i.e. in progress, or completed).
   * The form will then submit the parameters via a GET request and the values then filter the queryset.
   * The filter returns the count of tickets returned, if 0 it will ask you to search again.
 * You can view all the tickets that you have submitted, separated into bugs/features so that you can keep an eye on their status. You get a visual indication of how many you have saved from the sidebar menu at all times.

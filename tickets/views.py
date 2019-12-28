@@ -321,6 +321,7 @@ def add_new_comment_view(request, ticket_pk, pk=None):
     return render(request, 'tickets/comment-form.html', context)
 
 
+@login_required
 def edit_comment_view(request, ticket_pk, comment_pk):
     """
         View that allows the user
@@ -344,6 +345,7 @@ def edit_comment_view(request, ticket_pk, comment_pk):
     return render(request, 'tickets/comment-form.html', context)
 
 
+@login_required
 def delete_comment_view(request, ticket_pk, comment_pk):
     """
         View that allows the user
