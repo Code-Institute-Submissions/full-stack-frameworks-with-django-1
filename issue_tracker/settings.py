@@ -92,9 +92,9 @@ WSGI_APPLICATION = 'issue_tracker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME', 'testDbName'),
-        'USER': os.environ.get('DB_USER', 'testDbUser'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'testDbPassword'),
+        'NAME': os.environ.get('DB_NAME', 'travis'),
+        'USER': os.environ.get('DB_USER', 'travis'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': os.environ.get('DB_PORT', '3306'),
     }
