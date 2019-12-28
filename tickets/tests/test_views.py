@@ -3,7 +3,6 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from tickets.models import Ticket, Comment, Upvote, SavedTicket
 from decimal import Decimal
-import json
 
 
 class TestViews(TestCase):
@@ -214,7 +213,6 @@ class TestViews(TestCase):
             status='IP',
         )
 
-
         query = Ticket.objects.filter(title='Delete me')
         self.assertEquals(query.count(), 1)
 
@@ -223,4 +221,97 @@ class TestViews(TestCase):
 
         self.assertEquals(response.status_code, 302)
         query = Ticket.objects.filter(title='Delete me')
+        self.assertEquals(query.count(), 0)
+
+    def test_add_new_comment_GET(self):
+        """
+            Test that the status code and
+            template used are correct.
+        """
+
+        response = self.client.get(reverse('add-new-comment', args=[self.bug.pk]))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'tickets/comment-form.html')
+
+    def test_add_new_comment_POST(self):
+        """
+            Test that a comment can be
+            added via a POST request.
+        """
+
+        response = self.client.post(reverse('add-new-comment', args=[self.bug.pk]), {
+            'comment': 'Test Comment',
+            'author': self.bug_args.get('author'),
+            'ticket': self.bug,
+        })
+
+        comment = Comment.objects.get(comment='Test Comment')
+
+        self.assertEquals(response.status_code, 302)
+
+    def test_edit_comment_GET(self):
+        """
+            Test that the status code and
+            template used are correct.
+        """
+
+        c = Comment.objects.create(
+            comment='Test Comment',
+            author=self.bug_args.get('author'),
+            ticket=self.bug
+        )
+
+        comment = Comment.objects.get(comment='Test Comment')
+
+        response = self.client.get(reverse('edit-comment', args=[self.bug.pk, comment.pk]))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'tickets/comment-form.html')
+
+    def test_edit_comment_POST(self):
+        """
+            Test that a comment can be
+            edited via a POST request.
+        """
+
+        c = Comment.objects.create(
+            comment='Test Comment',
+            author=self.bug_args.get('author'),
+            ticket=self.bug
+        )
+
+        comment = Comment.objects.get(comment='Test Comment')
+
+        response = self.client.post(reverse('edit-comment', args=[self.bug.pk, comment.pk]), {
+            'comment':'Test Comment UPDATED',
+            'author': self.bug_args.get('author'),
+            'ticket': self.bug
+        })
+
+        comment = Comment.objects.get(comment='Test Comment UPDATED')
+
+        self.assertEquals(response.status_code, 302)
+        self.assertEquals(comment.comment, 'Test Comment UPDATED')
+
+    def test_delete_comment_POST(self):
+        """
+            Test that a comment can be deleted
+            via a POST request.
+        """
+
+        delete_me = Comment.objects.create(
+            comment='Test Comment',
+            author=self.bug_args.get('author'),
+            ticket=self.bug
+        )
+
+        query = Comment.objects.filter(comment='Test Comment')
+        self.assertEquals(query.count(), 1)
+
+        comment = Comment.objects.get(comment='Test Comment')
+        response = self.client.post(reverse('delete-comment', args=[self.bug.pk, comment.pk]), {
+            'comment-pk': comment.pk,
+        })
+
+        self.assertEquals(response.status_code, 302)
+        query = Comment.objects.filter(comment='Test Comment')
         self.assertEquals(query.count(), 0)
