@@ -7,7 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import Ticket, Comment, Upvote, SavedTicket
-from .forms import BugForm, FeatureForm, CommentForm, UpvoteForm, SavedTicketForm, FilterForm
+from .forms import BugForm, FeatureForm, CommentForm, UpvoteForm, \
+     SavedTicketForm, FilterForm
 
 
 def get_tickets_view(request):
@@ -40,7 +41,7 @@ def get_tickets_tag_view(request, tag):
     """
     mandatory_tags = ['bug', 'feature']
     if Ticket.objects.filter(tag=tag).exists() or \
-    tag in mandatory_tags:
+       tag in mandatory_tags:
         per_page = 4
         filtered_tickets = (Paginator(Ticket.objects
                             .filter(tag=tag)
@@ -68,7 +69,7 @@ def get_bugs_priority_view(request, priority):
     """
     mandatory_priorities = ['critical', 'high', 'medium', 'low']
     if Ticket.objects.filter(priority=priority).exists() or \
-    priority in mandatory_priorities:
+       priority in mandatory_priorities:
         per_page = 4
         filtered_tickets = (Paginator(Ticket.objects
                             .filter(tag='bug', priority=priority)
@@ -100,7 +101,7 @@ def get_user_tickets_view(request, tag):
     """
     mandatory_tags = ['bug', 'feature']
     if Ticket.objects.filter(tag=tag).exists() or \
-    tag in mandatory_tags:
+       tag in mandatory_tags:
         per_page = 4
         filtered_tickets = (Paginator(Ticket.objects
                             .filter(author=request.user, tag=tag)
@@ -131,7 +132,7 @@ def get_user_saved_tickets_view(request, tag):
     """
     mandatory_tags = ['bug', 'feature']
     if SavedTicket.objects.filter(ticket__tag=tag).exists() or \
-    tag in mandatory_tags:
+       tag in mandatory_tags:
         per_page = 4
         filtered_tickets = (Paginator(SavedTicket.objects
                             .filter(user=request.user, ticket__tag=tag)
@@ -160,7 +161,8 @@ def get_ticket_detail_view(request, pk):
     comments = Comment.objects.filter(ticket=pk)
     if request.user.is_authenticated:
         try:
-            is_saved = SavedTicket.objects.get(user=request.user, ticket=ticket)
+            is_saved = SavedTicket.objects.get(user=request.user,
+                                               ticket=ticket)
         except SavedTicket.DoesNotExist:
             is_saved = None
     else:
@@ -194,7 +196,8 @@ def add_new_ticket_view(request, tag, pk=None):
                 form.instance.author = request.user
                 form.instance.upvote_price = None
                 ticket = form.save()
-                messages.success(request, 'Success! Bug created.')
+                messages.success(request,
+                                 'Success! Bug created.')
                 return redirect('get-ticket-detail', ticket.pk)
         elif tag == 'feature':
             form = FeatureForm(request.POST, instance=ticket)
@@ -204,7 +207,8 @@ def add_new_ticket_view(request, tag, pk=None):
                 form.instance.priority = None
                 form.instance.status = 'FR'
                 ticket = form.save()
-                messages.success(request, 'Success! Feature created.')
+                messages.success(request,
+                                 'Success! Feature created.')
                 return redirect('get-ticket-detail', ticket.pk)
         else:
             raise Http404('This type of ticket does not exist.')
@@ -252,7 +256,8 @@ def edit_ticket_view(request, pk=None):
                 else:
                     ticket.date_completed = None
                 ticket = form.save()
-                messages.success(request, 'Success! Edit has been successfully saved.')
+                messages.success(request,
+                                 'Success! Edit has been successfully saved.')
                 return redirect('get-ticket-detail', ticket.pk)
         else:
             if ticket.tag == 'BUG':
@@ -268,7 +273,7 @@ def edit_ticket_view(request, pk=None):
                 'meta': meta,
                 'form': form,
             }
-            return render(request, 'tickets/ticket-form.html', context) 
+            return render(request, 'tickets/ticket-form.html', context)
     else:
         messages.error(request,
                        'Error! You are not permitted to edit this bug.')
@@ -285,10 +290,12 @@ def delete_ticket_view(request, pk=None):
     ticket = get_object_or_404(Ticket, pk=pk) if pk else None
     if request.user == ticket.author and request.method == 'POST':
         ticket.delete()
-        messages.success(request, 'Success! Ticket has been successfully deleted.')
+        messages.success(request,
+                         'Success! Ticket has been successfully deleted.')
         return redirect('get-tickets-tag', ticket.tag.lower())
     else:
-        messages.error(request, 'Error! You are not permitted to delete this ticket.')
+        messages.error(request,
+                       'Error! You are not permitted to delete this ticket.')
         return redirect('get-ticket-detail', ticket.pk)
 
 
@@ -307,7 +314,8 @@ def add_new_comment_view(request, ticket_pk, pk=None):
             form.instance.author = request.user
             form.instance.ticket = ticket
             form.save()
-            messages.success(request, 'Success! You have posted a comment.')
+            messages.success(request,
+                             'Success! You have posted a comment.')
             return redirect('get-ticket-detail', ticket.pk)
     else:
         form = CommentForm(instance=comment)
@@ -335,7 +343,8 @@ def edit_comment_view(request, ticket_pk, comment_pk):
             form = CommentForm(request.POST, instance=comment)
             if form.is_valid():
                 form.save()
-                messages.success(request, 'Success! You have updated your comment.')
+                messages.success(request,
+                                 'Success! You have updated your comment.')
                 return redirect('get-ticket-detail', ticket.pk)
         else:
             form = CommentForm(instance=comment)
@@ -357,10 +366,12 @@ def delete_comment_view(request, ticket_pk, comment_pk):
     comment = Comment.objects.get(pk=comment_pk, ticket=ticket)
     if request.user == comment.author and request.method == 'POST':
         comment.delete()
-        messages.success(request, 'Success! Comment has been successfully deleted.')
+        messages.success(request,
+                         'Success! Comment has been successfully deleted.')
         return redirect('get-ticket-detail', comment.ticket.pk)
     else:
-        messages.error(request, 'Error! You are not permitted to delete this comment.')
+        messages.error(request,
+                       'Error! You are not permitted to delete this comment.')
         return redirect('get-ticket-detail', comment.ticket.pk)
 
 
@@ -385,11 +396,14 @@ def upvote_bug_view(request, pk):
                 has_voted.save()
                 ticket.upvotes += 1
                 ticket.save()
-                messages.success(request, 'Success! You have upvoted this bug.')
+                messages.success(request,
+                                 'Success! You have upvoted this bug.')
             else:
-                messages.error(request, 'Error! You have already voted.')
+                messages.error(request,
+                               'Error! You have already voted.')
     else:
-        messages.error(request, 'Error! This ticket is not a bug.')
+        messages.error(request,
+                       'Error! This ticket is not a bug.')
     return redirect('get-ticket-detail', ticket.id)
 
 
@@ -405,15 +419,18 @@ def user_save_ticket_view(request, pk):
         if form.is_valid():
             user = request.user
             try:
-                saved_ticket = SavedTicket.objects.get(user=user, ticket=ticket)
+                saved_ticket = SavedTicket.objects.get(user=user,
+                                                       ticket=ticket)
             except SavedTicket.DoesNotExist:
                 saved_ticket = None
             if saved_ticket is None:
                 saved_ticket = SavedTicket(user=user, ticket=ticket)
                 saved_ticket.save()
-                messages.success(request, 'Success! You have saved this ticket.')
+                messages.success(request,
+                                 'Success! You have saved this ticket.')
             else:
-                messages.error(request, 'Error! You have already saved this ticket.')
+                messages.error(request,
+                               'Error! You have already saved this ticket.')
     return redirect('get-ticket-detail', ticket.pk)
 
 
@@ -430,15 +447,18 @@ def user_delete_saved_ticket_view(request, pk):
         if form.is_valid():
             user = request.user
             try:
-                saved_ticket = SavedTicket.objects.get(user=user, ticket=ticket)
+                saved_ticket = SavedTicket.objects.get(user=user,
+                                                       ticket=ticket)
             except SavedTicket.DoesNotExist:
                 saved_ticket = None
             if saved_ticket is not None:
                 saved_ticket.delete()
-                messages.success(request, 'Success! You have removed this ticket.')
+                messages.success(request,
+                                 'Success! You have removed this ticket.')
                 return redirect('get-ticket-detail', ticket.pk)
             else:
-                messages.error(request, 'Error! You have already removed this ticket.')
+                messages.error(request,
+                               'Error! You have already removed this ticket.')
     return redirect('get-ticket-detail', ticket.pk)
 
 
@@ -465,7 +485,10 @@ def filter_tickets_view(request):
     status_query = request.GET.get('status')
 
     if is_valid_param(title_or_author_query):
-        queryset = queryset.filter(Q(title__icontains=title_or_author_query) | Q(author__username__icontains=title_or_author_query)).distinct()
+        queryset = queryset.filter(
+            Q(title__icontains=title_or_author_query) |
+            Q(author__username__icontains=title_or_author_query)
+        ).distinct()
 
     if is_valid_param(tag_query):
         queryset = queryset.filter(tag=tag_query)

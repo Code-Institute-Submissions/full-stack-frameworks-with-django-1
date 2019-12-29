@@ -29,9 +29,9 @@ class TestModels(TestCase):
             are not empty.
         """
 
-        self.assertTrue(self.bug.title != '' )
-        self.assertTrue(self.bug.description != '' )
-        self.assertTrue(self.bug.author != '' )
+        self.assertTrue(self.bug.title != '')
+        self.assertTrue(self.bug.description != '')
+        self.assertTrue(self.bug.author != '')
 
     def test_ticket_defaults_work(self):
         """

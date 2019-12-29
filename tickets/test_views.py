@@ -17,7 +17,9 @@ class TestViews(TestCase):
         username = 'testAppUser'
         password = 'testAppPass'
 
-        user = User.objects.create_user(username=username, password=password, is_staff=True)
+        user = User.objects.create_user(username=username,
+                                        password=password,
+                                        is_staff=True)
         author = User.objects.get(username=username)
         login = self.client.login(username=username, password=password)
 
@@ -190,7 +192,7 @@ class TestViews(TestCase):
             Test that a ticket can be updated
             via a POST request.
         """
-        
+
         self.bug_args.update({'title': 'Test Bug UPDATED'})
 
         response = self.client.post(reverse('edit-ticket', args=[self.bug.pk]), self.bug_args)
@@ -282,7 +284,7 @@ class TestViews(TestCase):
         comment = Comment.objects.get(comment='Test Comment')
 
         response = self.client.post(reverse('edit-comment', args=[self.bug.pk, comment.pk]), {
-            'comment':'Test Comment UPDATED',
+            'comment': 'Test Comment UPDATED',
             'author': self.bug_args.get('author'),
             'ticket': self.bug
         })
@@ -322,7 +324,7 @@ class TestViews(TestCase):
         """
 
         self.assertTrue(self.bug.upvotes == 0)
-        
+
         response = self.client.post(reverse('upvote-bug', args=[self.bug.pk]))
 
         self.bug.upvotes += 1

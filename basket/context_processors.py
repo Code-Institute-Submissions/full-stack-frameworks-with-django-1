@@ -18,4 +18,5 @@ def basket_contents(request):
         total += quantity * ticket.upvote_price
         upvote_count += quantity
         basket_items.append({'id': id, 'quantity': quantity, 'ticket': ticket})
-    return {'basket_items': basket_items, 'total': total, 'upvote_count': upvote_count}
+    return {'basket_items': basket_items, 'total': total,
+            'upvote_count': upvote_count}

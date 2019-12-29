@@ -12,7 +12,8 @@ def home_view(request):
         'title': 'Issue Tracker',
     }
     tickets = {
-        'critical': Ticket.objects.filter(priority='CRITICAL', status='IP')[:2],
+        'critical': Ticket.objects.filter(priority='CRITICAL',
+                                          status='IP')[:2],
         'high': Ticket.objects.filter(priority='HIGH', status='IP')[:2],
         'medium': Ticket.objects.filter(priority='MEDIUM', status='IP')[:2],
         'low': Ticket.objects.filter(priority='LOW', status='IP')[:2],

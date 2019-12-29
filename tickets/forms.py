@@ -88,6 +88,9 @@ class FilterForm(forms.Form):
         ('c', 'Completed'),
     )
     tag = forms.ChoiceField(label='Type', choices=TAGS, required=False)
-    title_or_author = forms.CharField(label='Title of the ticket or the authors name', required=False)
-    priority = forms.ChoiceField(label='Priority', choices=PRIORITIES, required=False)
-    status = forms.ChoiceField(label='Status', choices=STATUSES, required=False)
+    title_or_author = forms.CharField(
+        label='Title of the ticket or the authors name', required=False)
+    priority = forms.ChoiceField(label='Priority', choices=PRIORITIES,
+                                 required=False)
+    status = forms.ChoiceField(label='Status', choices=STATUSES,
+                               required=False)

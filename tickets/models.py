@@ -38,8 +38,10 @@ class Ticket(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=2, choices=STATUSES, default='IP')
     upvotes = models.IntegerField(default=0)
-    upvote_price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, default=19.99)
-    earned = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, default=0)
+    upvote_price = models.DecimalField(max_digits=6, decimal_places=2,
+                                       blank=True, null=True, default=19.99)
+    earned = models.DecimalField(max_digits=6, decimal_places=2, blank=True,
+                                 null=True, default=0)
     date_created = models.DateTimeField(auto_now_add=True)
     date_completed = models.DateTimeField(blank=True, null=True)
     last_modified = models.DateTimeField(auto_now=True)

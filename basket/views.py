@@ -33,10 +33,12 @@ def add_to_basket_view(request, id):
         else:
             basket[id] = basket.get(id, quantity)
         request.session['basket'] = basket
-        messages.success(request, 'Success! Feature has been added to your basket.')
+        messages.success(request,
+                         'Success! Feature has been added to your basket.')
         return redirect('get-basket')
     else:
-        messages.error(request, 'Error! You can\'t go to this URL directly.')
+        messages.error(request,
+                       'Error! You can\'t go to this URL directly.')
         return redirect('get-ticket-detail', id)
 
 
@@ -56,9 +58,11 @@ def amend_basket_view(request, id):
             basket.pop(str(id))
 
         request.session['basket'] = basket
-        messages.success(request, 'Success! Feature has been updated in your basket.')
+        messages.success(request,
+                         'Success! Feature has been updated in your basket.')
     else:
-        messages.error(request, 'Error! You can\'t go to this URL directly.')
+        messages.error(request,
+                       'Error! You can\'t go to this URL directly.')
     return redirect('get-basket')
 
 
@@ -73,7 +77,9 @@ def delete_basket_item_view(request, id):
         basket = request.session.get('basket', {})
         basket.pop(str(id))
         request.session['basket'] = basket
-        messages.success(request, 'Success! Feature has been removed from your basket.')
+        messages.success(request,
+                         'Success! Feature has been removed from your basket.')
     else:
-        messages.error(request, 'Error! You can\'t go to this URL directly.')
+        messages.error(request,
+                       'Error! You can\'t go to this URL directly.')
     return redirect('get-basket')

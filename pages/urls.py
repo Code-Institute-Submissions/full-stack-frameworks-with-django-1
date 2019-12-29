@@ -10,7 +10,8 @@ from . import views
 
 urlpatterns = [
     path('', views.home_view, name='main-homepage'),
-    path('terms-and-conditions/', views.terms_and_conditions_view, name='main-t-and-c'),
+    path('terms-and-conditions/', views.terms_and_conditions_view,
+         name='main-t-and-c'),
     path('refund-policy/', views.refund_policy_view, name='main-refund'),
     path('privacy-policy/', views.privacy_policy_view, name='main-privacy'),
 ]
