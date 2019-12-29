@@ -289,7 +289,8 @@ def delete_ticket_view(request, pk=None):
         if it belongs to them.
     """
     ticket = get_object_or_404(Ticket, pk=pk) if pk else None
-    if request.user == ticket.author and request.method == 'POST':
+    if request.user == ticket.author and request.method == 'POST' or \
+       request.user.is_staff:
         ticket.delete()
         messages.success(request,
                          'Success! Ticket has been successfully deleted.')
@@ -339,7 +340,7 @@ def edit_comment_view(request, ticket_pk, comment_pk):
     """
     ticket = get_object_or_404(Ticket, pk=ticket_pk)
     comment = get_object_or_404(Comment, pk=comment_pk)
-    if request.user == comment.author:
+    if request.user == comment.author or request.user.is_staff:
         if request.method == 'POST':
             form = CommentForm(request.POST, instance=comment)
             if form.is_valid():
@@ -365,7 +366,8 @@ def delete_comment_view(request, ticket_pk, comment_pk):
     comment_pk = request.POST['comment-pk']
     ticket = Ticket.objects.get(pk=ticket_pk)
     comment = Comment.objects.get(pk=comment_pk, ticket=ticket)
-    if request.user == comment.author and request.method == 'POST':
+    if request.user == comment.author and request.method == 'POST' or \
+       request.user.is_staff:
         comment.delete()
         messages.success(request,
                          'Success! Comment has been successfully deleted.')
