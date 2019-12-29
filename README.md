@@ -268,12 +268,14 @@ Here's a list of the main technologies used:
 
 **Automated Testing**
 
-I have tested my tickets quite extensively, as evidenced [here](#!) I have tested the following:
+You can run the tests by entering into the terminal: `python manage.py test` or `python manage.py test tickets`. To speed it up slightly, you can test in parallel by adding the `--parallel` flag e.g. `python manage.py test --parallel`.
 
-* test_urls.py
+I have tested my tickets quite extensively, as evidenced [here](https://github.com/STEPLADD3R/full-stack-frameworks-with-django/tree/master/tickets) I have tested the following:
+
+* [test_urls.py](https://github.com/STEPLADD3R/full-stack-frameworks-with-django/blob/master/tickets/test_urls.py)
   * I tested all of my ticket URLs to ensure that all the URLs resolve correctly, using Django SimpleTestCase.
 
-* test_views.py
+* [test_views.py](https://github.com/STEPLADD3R/full-stack-frameworks-with-django/blob/master/tickets/test_views.py)
   * I first created a setup function that creates a user, logs the user in and creates two test tickets, a bug and a feature.
   * I then tested my functions being sure to test both the GET and POST request variants where necessary, as well as testing 404s where necessary as well.
   * For GET requests, I tested that the correct status code was returned, as well as the correct template was being used.
@@ -281,16 +283,15 @@ I have tested my tickets quite extensively, as evidenced [here](#!) I have teste
   * For some POST requests I also checked to make sure that the value was there, and then again after it had been deleted to ensure it was indeed there, before being deleted.
   * For 404s I checked to make sure that the 404 status code was returned.
 
-* test_models.py
+* [test_models.py](https://github.com/STEPLADD3R/full-stack-frameworks-with-django/blob/master/tickets/test_models.py)
   * I tested my models by first creating a test ticket, and then ensuring that the defaults were indeed being passed in.
   * I then tested that it was possible to override the defaults.
   * And finally I tested to make sure the required fields were not blank.
 
-* test_forms.py
+* [test_forms.py](https://github.com/STEPLADD3R/full-stack-frameworks-with-django/blob/master/tickets/test_forms.py)
   * I also tested my forms to make test what would happen if a form is valid and what would happen if it was invalid.
 
-
-I chose to only test the tickets, I think this was adequete according to the Pareto principle (known as the 80/20 rule). Most of the core functionality of the web app is within the tickets app, and I made sure to test everything thoroughly myself where necessary.
+I chose to only automate the tickets testing, I think this was adequete according to the Pareto principle (known as the 80/20 rule). Most of the core functionality of the web app is within the tickets app, and I made sure to test everything thoroughly myself where necessary.
 
 **Manual Testing**
 

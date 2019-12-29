@@ -315,3 +315,15 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 302)
         query = Comment.objects.filter(comment='Test Comment')
         self.assertEquals(query.count(), 0)
+
+    def test_upvote_bug_POST(self):
+        """
+            Test that a bug can be upvoted.
+        """
+
+        self.assertTrue(self.bug.upvotes == 0)
+        
+        response = self.client.post(reverse('upvote-bug', args=[self.bug.pk]))
+
+        self.bug.upvotes += 1
+        self.assertTrue(self.bug.upvotes == 1)
