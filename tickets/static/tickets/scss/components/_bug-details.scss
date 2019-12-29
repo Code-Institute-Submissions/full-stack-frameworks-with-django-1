@@ -3,3 +3,8 @@
     position: relative;
     top: -5px;
 }
+
+.bug__description,
+.comment__comment {
+    white-space: pre-line;
+}

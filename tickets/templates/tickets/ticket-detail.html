@@ -17,6 +17,7 @@
                             <h2 class="bug__title mb-3 d-inline-block">{{ ticket.title }}</h2>
 
                             {% if request.user == ticket.author or request.user.is_staff %}
+                            <!-- Add in edit/delete links to ticket -->
                             <p class="user-control__edit d-inline-block mb-0 ml-2 mr-1"><a href="{% url 'edit-ticket' ticket.id %}" class="btn btn-link p-0"><i class="fa fa-pencil"></i></a></p>
 
                             <form action="{% url 'delete-ticket' ticket.id %}" method="POST" class="delete-bug__form d-inline-block">
@@ -26,6 +27,7 @@
                                     <button class="btn btn-link p-0" type="submit"><i class="fa fa-trash-o"></i></button>
                                 </div>
                             </form>
+                            <!-- End edit/delete links for ticket -->
                             {% endif %}
 
                             <p class="bug__description mb-3">{{ ticket.description }}</p>
@@ -43,6 +45,7 @@
                                         <h5 class="mb-0"><i class="fa fa-comment mr-3"></i>{{ comment.author|title }} says...</h5>
 
                                         {% if request.user == comment.author or request.user.is_staff %}
+                                        <!-- Add in edit/delete links to comment -->
                                         <p class="d-inline-block mb-0 ml-2 mr-1"><a href="{% url 'edit-comment' ticket.id comment.pk %}" class="btn btn-link p-0"><i class="fa fa-pencil"></i></a></p>
 
                                         <form action="{% url 'delete-comment' ticket.id comment.pk %}" method="POST" class="d-inline-block">
@@ -54,10 +57,11 @@
                                                 <button class="btn btn-link p-0" type="submit"><i class="fa fa-trash-o"></i></button>
                                             </div>
                                         </form>
+                                        <!-- End edit/delete links for comment -->
                                         {% endif %}
                                     </div>
                                     <div class="card-body">
-                                        <p>{{ comment.comment }}</p>
+                                        <p class="comment__comment">{{ comment.comment }}</p>
                                         <p class="mb-0"><small>Posted on <strong>{{ comment.date_created|date:"F d, Y" }}</strong> at <strong>{{ comment.date_created|date:"H:i" }}</strong></small></p>
                                     </div>
                                 </div>
@@ -106,6 +110,7 @@
                                 </tbody>
                             </table>
                             {% if ticket.tag == 'BUG' %}
+                            <!-- Form for upvoting a bug -->
                             <form action="{% url 'upvote-bug' ticket.id %}" method="POST" class="d-inline-block">
                                 {% csrf_token %}
                                 {{ form|crispy }}
@@ -115,6 +120,7 @@
                                 </div>
                             </form>
                             {% elif ticket.tag == 'FEATURE' %}
+                            <!-- Form for upvoting a feature -->
                             <form action="{% url 'add-to-basket' ticket.id %}" method="POST" class="d-inline-block">
                                 {% csrf_token %}
 
@@ -127,6 +133,7 @@
                             {% endif %}
 
                             {% if is_saved is None %}
+                            <!-- Form for Saving a Ticket (i.e. if not yet saved) -->
                             <form action="{% url 'save-ticket' ticket.id %}" method="POST" class="d-inline-block">
                                 {% csrf_token %}
                                 {{ form|crispy }}
@@ -136,6 +143,7 @@
                                 </div>
                             </form>
                             {% else %}
+                            <!-- Form for Deleting Saved Ticket (i.e. if already saved) -->
                             <form action="{% url 'delete-saved-ticket' ticket.id %}" method="POST" class="d-inline-block">
                                 {% csrf_token %}
                                 {{ form|crispy }}
