@@ -9984,8 +9984,8 @@ a:hover {
 }
 
 @media (min-width: 992px) {
-  #handler404,
-  #handler500 {
+  #handler404 .handler__inner,
+  #handler500 .handler__inner {
     min-height: calc(100vh - (90px + 72px + 208px));
   }
 }
