@@ -18,6 +18,8 @@ def register_view(request):
             username = form.cleaned_data.get('username')
             messages.success(request, f'{username} has been created!')
             return redirect('user-login')
+    elif request.user.is_authenticated:
+        return redirect('main-homepage')
     else:
         form = UserRegistrationForm()
     meta = {
