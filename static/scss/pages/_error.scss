@@ -1,0 +1,6 @@
+#handler404,
+#handler500 {
+    @media( min-width: 992px ) {
+        min-height: calc(100vh - (90px + 72px + 208px))
+    }
+}

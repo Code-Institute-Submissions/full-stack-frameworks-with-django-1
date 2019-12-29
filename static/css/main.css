@@ -9983,6 +9983,13 @@ a:hover {
   list-style-type: none;
 }
 
+@media (min-width: 992px) {
+  #handler404,
+  #handler500 {
+    min-height: calc(100vh - (90px + 72px + 208px));
+  }
+}
+
 #title.card {
   border: 0;
   border-radius: 0;
