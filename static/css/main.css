@@ -9824,64 +9824,80 @@ a:hover {
   text-decoration: none;
 }
 
-#accordion .card {
+.accordion .card {
   border: 0;
   border-radius: 0;
   background-color: #e0b83f;
   cursor: pointer;
 }
 
-#accordion .card-header {
+.accordion .card-header {
   border: 0;
   padding: 1.5rem;
 }
 
-#accordion .card-header:first-child {
+.accordion .card-header:first-child {
   border-radius: 0;
 }
 
-#accordion .card-header h5 {
+.accordion .card-header h5 {
   color: #fff;
   letter-spacing: 0.5px;
   font-weight: 700;
   text-transform: uppercase;
 }
 
-#accordion .card-header .card__meta {
+.accordion .card-header .card__meta {
   color: #fff;
 }
 
-#accordion .list-group-item {
+.accordion .list-group-item {
   padding: 1.5rem;
   border: 0;
   background-color: #f5f5f5;
 }
 
-#accordion .list-group-item:hover, #accordion .list-group-item:focus {
+@media (max-width: 561px) {
+  .accordion .list-group-item div.d-flex.w-100 {
+    flex-wrap: wrap;
+  }
+  .accordion .list-group-item .accordion__title {
+    width: 100%;
+    flex: 1 0 100%;
+    order: 2;
+  }
+  .accordion .list-group-item .accordion__posted {
+    width: 100%;
+    flex: 1 0 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.accordion .list-group-item:hover, .accordion .list-group-item:focus {
   background-color: #f5f5f5;
 }
 
-#accordion .list-group-item:nth-child(even) {
+.accordion .list-group-item:nth-child(even) {
   background-color: #fff;
 }
 
-#accordion .list-group-item:nth-child(even):hover, #accordion .list-group-item:nth-child(even):focus {
+.accordion .list-group-item:nth-child(even):hover, .accordion .list-group-item:nth-child(even):focus {
   background-color: #fff;
 }
 
-#accordion.accordion__critical .card {
+.accordion.accordion__critical .card {
   background-color: #e33c1e;
 }
 
-#accordion.accordion__high .card {
+.accordion.accordion__high .card {
   background-color: #f68428;
 }
 
-#accordion.accordion__medium .card {
+.accordion.accordion__medium .card {
   background-color: #354056;
 }
 
-#accordion.accordion__low .card {
+.accordion.accordion__low .card {
   background-color: #6e6e71;
 }
 

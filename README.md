@@ -313,6 +313,10 @@ Below are some of the manual tests undertaken:
   * Samsung Galaxy Tab
   * Google Chrome, Safari, Firefox, Microsoft Edge and IE11
 
+I have ran my web app through the W3C Validator and it passed with no errors.
+
+I have ran my JS through a linter (JS Hint) and it came back with no errors.
+
 **User Testing**
 
 I asked multiple friends of mine to test the project for me after I had done my checks to ensure that I could test the application as thoroughly as possible, I received positive feedback, and as such would be happy to push it out to the general population. 

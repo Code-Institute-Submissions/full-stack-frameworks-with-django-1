@@ -1,4 +1,4 @@
-#accordion {
+.accordion {
     .card {
         border: 0;
         border-radius: 0;
@@ -31,6 +31,24 @@
             padding: 1.5rem;
             border: 0;
             background-color: $secondary;
+
+            @media( max-width: 561px ) {
+                div.d-flex.w-100 {
+                    flex-wrap: wrap;
+                }
+
+                .accordion__title {
+                    width: 100%;
+                    flex: 1 0 100%;
+                    order: 2;
+                }
+
+                .accordion__posted {
+                    width: 100%;
+                    flex: 1 0 100%;
+                    margin-bottom: 0.5rem;
+                }
+            }
 
             &:hover,
             &:focus {

@@ -1,4 +1,5 @@
 $(function() {
+    /* global Stripe */
     $('#payment-form').submit(function() {
         var form = this;
         var card = {

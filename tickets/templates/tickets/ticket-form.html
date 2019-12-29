@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="p-4">
-                    <form method="POST" enctype="multipart/form-data" class="{{ tag|lower }}-submit__form">
+                    <form method="POST" enctype="multipart/form-data" class="{{ tag|lower }}-submit__form {% if 'new' in request.path %}{{ tag|lower }}-submit__form-new{% endif %}">
                         {% csrf_token %}
                         {{ form|crispy }}
 

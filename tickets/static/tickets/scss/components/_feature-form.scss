@@ -1,0 +1,9 @@
+.feature-submit__form {
+    &-new {
+        #div_id_status {
+            display: none;
+            visibility: hidden;
+            opacity: 0;
+        }
+    }
+}
