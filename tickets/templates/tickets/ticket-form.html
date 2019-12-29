@@ -16,7 +16,15 @@
                     </div>
                 </div>
                 <div class="p-4">
-                    <form method="POST" enctype="multipart/form-data" class="{{ tag|lower }}-submit__form {% if 'new' in request.path %}{{ tag|lower }}-submit__form-new{% endif %}">
+                    <!--
+                        Add tag-submit__form and if new in request.path also add tag-submit__form-new
+                        Add tag-submit__form (for removing options) if has ticket.tag and 'edit' in URL
+                    -->
+                    <form method="POST" enctype="multipart/form-data" class="
+                    {% if tag %}{{ tag|lower }}-submit__form{% endif %}
+                    {% if tag and 'new' in request.path %}{{ tag|lower }}-submit__form-new{% endif %}
+                    {% if ticket.tag and 'edit' in request.path %}{{ ticket.tag|lower }}-submit__form{% endif %}
+                    ">
                         {% csrf_token %}
                         {{ form|crispy }}
 

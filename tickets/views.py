@@ -272,6 +272,7 @@ def edit_ticket_view(request, pk=None):
             context = {
                 'meta': meta,
                 'form': form,
+                'ticket': ticket,
             }
             return render(request, 'tickets/ticket-form.html', context)
     else:
